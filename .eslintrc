@@ -1,0 +1,27 @@
+{
+    "root": true,
+    "extends": "airbnb",
+    "rules": {
+        "indent": [
+            2,
+            4
+        ],
+        "comma-dangle": 0,
+        "react/jsx-indent-props": [
+            0,
+            4
+        ],
+        "react/jsx-closing-bracket-location": 0
+    },
+    "env": {
+        "es6": true,
+        "browser": true
+    },
+    "ecmaFeatures": {
+        "jsx": true,
+        "experimentalObjectRestSpread": true
+    },
+    "plugins": [
+        "react"
+    ]
+}
