@@ -7,7 +7,7 @@ function labeled(Comp) {
         return (<div>
                   <label className={ `${props.schema.type}Field ${requiredClassName}` }>
                     <span className="title">{ props.schema.title }</span>
-                    <Comp {...props}/>
+                    <Comp {...props} />
                     <span>{ props.schema.description }</span>
                     <span>{ props.errorMessage }</span>
                   </label>

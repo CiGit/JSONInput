@@ -16,7 +16,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'src/play/index.html')));
 
 app.listen(PORT, 'localhost', (err) => {
     if (err) {

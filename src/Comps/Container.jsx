@@ -7,7 +7,7 @@ import { validate } from './../Utils/customValidator';
 
 const BranchedSchemaType = branch(SchemaType, {
     cursors: {
-        schema: 'schema',
+        //   schema: 'schema',
         status: 'status',
         value: 'value'
     } /* ,
@@ -26,7 +26,6 @@ class Container extends React.Component {
     constructor(props) {
         super(props);
         this.tree = createTree();
-        this.tree.select('schema').set(props.schema);
         this.tree.select('value').set(props.value);
         this.tree.select('value')
             .on('update', event => this.props.onChange(event.data.currentData));
@@ -34,11 +33,16 @@ class Container extends React.Component {
         // baobab-react optim as actions are bound on each render -> pure
         this.ACTIONS = {};
         Object.keys(actions)
-            .forEach(action => this.ACTIONS[action] = actions[action].bind(this.tree, this.tree));
+            .forEach(action => {
+                this.ACTIONS[action] = actions[action].bind(this.tree, this.tree);
+                return;
+            });
     }
     componentWillReceiveProps(nextProps) {
-        this.tree.select('schema').set(nextProps.schema);
         this.tree.select('value').set(nextProps.value);
+    }
+    shouldComponentUpdate(nextProps) {
+        return nextProps.value !== this.tree.get('value') || nextProps.schema !== this.props.schema;
     }
     componentWillUnmount() {
         this.tree.release();
@@ -60,7 +64,8 @@ class Container extends React.Component {
     }
     render() {
         const Rooted = root(BranchedSchemaType, this.tree);
-        return (<Rooted path={ [] }
+        return (<Rooted {...this.props}
+                        path={ [] }
                         actions={ this.ACTIONS } />);
     }
 }

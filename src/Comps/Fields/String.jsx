@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { defaultWidget } from '../Views';
 import fromDefaultValue from '../Decorators/fromDefaultValue.jsx';
-import validate from '../Decorators/validator.jsx';
+import validator from '../Decorators/validator.jsx';
 
 function StringField(props) {
     const Widget = defaultWidget(props.schema.type);
@@ -19,4 +19,4 @@ StringField.propTypes = {
         type: PropTypes.oneOf(['number', 'string'])
     })
 };
-export default validate(fromDefaultValue(StringField));
+export default validator(fromDefaultValue(StringField));

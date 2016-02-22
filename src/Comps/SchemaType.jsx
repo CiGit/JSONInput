@@ -36,8 +36,8 @@ function updatePath(currentPath, editKey) {
  * @param {Object} props
  */
 class SchemaType extends React.Component {
-    shouldComponentUpdate() {
-        return shouldPureComponentUpdate.apply(this, arguments);
+    shouldComponentUpdate(...args) {
+        return shouldPureComponentUpdate.apply(this, args);
     }
     render() {
         const { actions, schema: { type } } = this.props;

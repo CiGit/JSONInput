@@ -8,6 +8,7 @@ customValidator.attributes.errored = function validateErrored(instance, schema) 
     if (msg) {
         return msg;
     }
+    return undefined;
 };
 const validate = customValidator.validate.bind(customValidator);
 export { validate };

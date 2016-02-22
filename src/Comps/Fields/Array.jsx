@@ -7,7 +7,12 @@ function onChildChange(index, props) {
     return function onChange(val) {
         const { value } = props;
         if (value) {
-            props.onChange(value.map((e, i) => +i !== +index ? e : val));
+            props.onChange(value.map((e, i) => {
+                if (+i !== +index) {
+                    return e;
+                }
+                return val;
+            }));
         } else {
             props.onChange([val]);
         }

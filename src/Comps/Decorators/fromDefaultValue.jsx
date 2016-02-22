@@ -8,8 +8,8 @@ function updateDefault({ value, path, actions, schema: { defaultValue } }) {
 }
 
 function fromDefaultValue(Comp) {
-    class setValue extends React.Component {
-        componentWillMount() {
+    class DefaultValue extends React.Component {
+        componentDidMount() {
             updateDefault(this.props);
         }
         componentWillReceiveProps(nextProps) {
@@ -19,18 +19,18 @@ function fromDefaultValue(Comp) {
             updateDefault(nextProps);
         }
         render() {
-            return (<Comp {...this.props}/>);
+            return (<Comp {...this.props} />);
         }
     }
 
-    setValue.propTypes = {
+    DefaultValue.propTypes = {
         value: PropTypes.any,
         schema: PropTypes.shape({
             defaultValue: PropTypes.any
         }),
         onChange: PropTypes.func.isRequired
     };
-    return setValue;
+    return DefaultValue;
 }
 
 export default fromDefaultValue;

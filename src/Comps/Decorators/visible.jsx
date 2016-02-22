@@ -4,7 +4,7 @@ function visibility(Comp) {
     function Visible(props) {
         const { schema: { visible, ...restSchema }, value, ...rest } = props;
         if (visible && !visible(value, props.actions.getFormValue())) {
-            return <noscript/>;
+            return <noscript />;
         }
         return (<Comp schema={ restSchema }
                       {...rest}

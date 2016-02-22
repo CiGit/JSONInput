@@ -7,7 +7,7 @@ function purePropsRenderer(Comp) {
             return shouldPureComponentUpdate.apply(this, ...args);
         }
         render() {
-            return <Comp {...this.props}/>;
+            return <Comp {...this.props} />;
         }
     };
 }

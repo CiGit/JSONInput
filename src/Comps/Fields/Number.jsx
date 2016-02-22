@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import validate from '../Decorators/validator.jsx';
+import validator from '../Decorators/validator.jsx';
 import StringField from './String.jsx';
 
 class NumberField extends React.Component {
@@ -11,7 +11,9 @@ class NumberField extends React.Component {
         this.boundChange = this.onChange.bind(this);
     }
     componentWillReceiveProps(nextProps) {
-        if (this.state.value - nextProps.value) { // if values differ: update
+        // if values differ: update
+        if (typeof this.state.value !== typeof nextProps.value ||
+            this.state.value - nextProps.value) {
             this.setState({
                 value: nextProps.value
             });
@@ -34,4 +36,4 @@ NumberField.propTypes = {
     onChange: PropTypes.func.isRequired
 };
 
-export default validate(NumberField);
+export default validator(NumberField);

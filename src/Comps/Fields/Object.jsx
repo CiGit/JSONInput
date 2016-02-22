@@ -12,7 +12,12 @@ function renderChildren(props) {
     const value = props.value || {};
     // Holds schema properties and value properties missing from schema.
     const mergedProperties = Object.keys(properties);
-    Object.keys(value).forEach(v => properties.hasOwnProperty(v) ? '' : mergedProperties.push(v));
+    Object.keys(value).forEach(v => {
+        if (properties.hasOwnProperty(v)) {
+            return '';
+        }
+        return mergedProperties.push(v);
+    });
     for (let i = 0; i < mergedProperties.length; i += 1) {
         const prop = mergedProperties[i];
         if (properties.hasOwnProperty(prop)) {

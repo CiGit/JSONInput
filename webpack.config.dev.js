@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 module.exports = {
     devtool: 'cheap-module-eval-source-map',
-    entry: ['eventsource-polyfill', 'webpack-hot-middleware/client', './src/index.jsx'],
+    entry: ['eventsource-polyfill', 'webpack-hot-middleware/client', './src/play/index.jsx'],
     output: {
         path: path.join(__dirname, 'build'),
         filename: 'bundle.js',
