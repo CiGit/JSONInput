@@ -1,6 +1,6 @@
 import React from 'react';
 import SchemaType from '../SchemaType.jsx';
-import { defaultWidget } from '../Views';
+import Widget from '../Views/Widget.jsx';
 import fromDefaultValue from '../Decorators/fromDefaultValue.jsx';
 
 function onChildChange(index, props) {
@@ -65,7 +65,6 @@ function renderChildren(props) {
 }
 
 function ArrayField(props) {
-    const Widget = defaultWidget('array');
     return (<Widget {...props}
                     onChildAdd={ onChildAdd(props) }
                     onChildRemove={ onChildRemove(props) }>

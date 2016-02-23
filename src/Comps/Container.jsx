@@ -47,6 +47,9 @@ class Container extends React.Component {
     componentWillUnmount() {
         this.tree.release();
     }
+    getValue() {
+        return this.tree.get('value');
+    }
     validate() {
         const validationResult = validate(this.tree.get('value'), this.props.schema);
         const { setErrors } = this.ACTIONS;

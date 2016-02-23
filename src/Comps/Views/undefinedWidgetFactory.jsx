@@ -2,9 +2,9 @@ import React from 'react';
 
 function undefinedWidgetFactory(type) {
     return function UndefinedWidget() {
-        return (<div>
+        return (<span>
                   { `Widget for '${type}' was not defined` }
-                </div>);
+                </span>);
     };
 }
 

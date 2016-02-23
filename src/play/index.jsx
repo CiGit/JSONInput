@@ -1,6 +1,6 @@
 import { render } from 'react-dom';
 import React from 'react';
-import Container from '../index.js';
+import Container, { setDefaultWidgets } from '../index.js';
 /* eslint-disable */
 const formSchema = {
     title: 'Form Base',
@@ -17,7 +17,15 @@ const formSchema = {
             type: 'boolean',
             title: 'Number',
             defaultValue: false,
-            description: 'will toggle number input'
+            description: 'will toggle number input',
+            view: {
+                type: function(props) {
+                    return (<select onChange={(ev)=>props.onChange(eval(ev.target.value))}>
+                              <option>true</option>
+                              <option>false</option>                              
+                            </select>);
+                }
+            }
         },
         num: {
             type: 'number',
@@ -86,6 +94,9 @@ class App extends React.Component {
             data: formData,
             editData: formData
         };
+        // setDefaultWidgets({
+        //     string: ""
+        // });
     }
     schemaChange(event) {
         this.setState(Object.assign({}, this.state, {

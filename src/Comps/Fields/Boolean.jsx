@@ -1,9 +1,8 @@
 import React, { PropTypes } from 'react';
-import { defaultWidget } from '../Views';
+import Widget from '../Views/Widget.jsx';
 import fromDefaultValue from '../Decorators/fromDefaultValue.jsx';
 
 function BooleanField(props) {
-    const Widget = defaultWidget('boolean');
     return (<Widget {...props} />);
 }
 

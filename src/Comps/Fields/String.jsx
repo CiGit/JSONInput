@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
-import { defaultWidget } from '../Views';
+import Widget from '../Views/Widget.jsx';
 import fromDefaultValue from '../Decorators/fromDefaultValue.jsx';
 import validator from '../Decorators/validator.jsx';
 
 function StringField(props) {
-    const Widget = defaultWidget(props.schema.type);
     const onChange = function onChange(val) {
         props.onChange(val === '' ? undefined : val);
     };
