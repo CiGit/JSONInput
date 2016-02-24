@@ -61,7 +61,9 @@ ObjectField.propTypes = {
     schema: PropTypes.shape({
         properties: PropTypes.object
     }),
-    path: PropTypes.arrayOf(PropTypes.string)
+    value: PropTypes.any,
+    path: PropTypes.arrayOf(PropTypes.string),
+    onChange: PropTypes.func.isRequired
 };
 
 export default validator(fromDefaultValue(ObjectField));

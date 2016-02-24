@@ -16,6 +16,7 @@ StringField.propTypes = {
     schema: PropTypes.shape({
         defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         type: PropTypes.oneOf(['number', 'string'])
-    })
+    }),
+    onChange: PropTypes.func.isRequired
 };
 export default validator(fromDefaultValue(StringField));
