@@ -2,11 +2,12 @@
   "name": "jsoninput",
   "version": "0.0.1",
   "description": "Form creation from JSONSchema input",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "rimraf dist lib",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
-    "build": "npm run clean && npm run lint && npm run build:webpack",
+    "build:lib": "cross-env NODE_ENV=production babel src -d lib",
+    "build": "npm run clean && npm run lint && npm run build:webpack && npm run build:lib",
     "start": "node dev-server.js",
     "lint": "eslint src/**/*.js src/**/*.jsx"
   },
@@ -19,6 +20,7 @@
     "react-pure-render": "^1.0.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.5.1",
     "babel-core": "^6.5.2",
     "babel-eslint": "^5.0.0",
     "babel-loader": "^6.2.3",
