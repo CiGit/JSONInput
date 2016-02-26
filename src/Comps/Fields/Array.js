@@ -1,7 +1,7 @@
 import React from 'react';
-import SchemaType from '../SchemaType.jsx';
-import Widget from '../Views/Widget.jsx';
-import fromDefaultValue from '../Decorators/fromDefaultValue.jsx';
+import SchemaType from '../SchemaType';
+import Widget from '../Views/Widget';
+import fromDefaultValue from '../Decorators/fromDefaultValue';
 
 function onChildChange(index, props) {
     return function onChange(val) {

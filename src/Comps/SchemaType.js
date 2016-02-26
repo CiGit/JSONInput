@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import Fields from './Fields';
-import visible from './Decorators/visible.jsx';
+import visible from './Decorators/visible';
 import shouldPureComponentUpdate from 'react-pure-render/function';
-import UndefinedField from './Fields/Undefined.jsx';
-import inference from './Decorators/inference.jsx';
+import UndefinedField from './Fields/Undefined';
+import inference from './Decorators/inference';
 
 
 /**

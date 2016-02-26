@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import validator from '../Decorators/validator.jsx';
-import StringField from './String.jsx';
+import validator from '../Decorators/validator';
+import StringField from './String';
 
 class NumberField extends React.Component {
     constructor(props) {

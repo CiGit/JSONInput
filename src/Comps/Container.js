@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import createTree from '../Store';
 import { root, branch } from 'baobab-react/higher-order';
-import SchemaType from './SchemaType.jsx';
+import SchemaType from './SchemaType';
 import * as actions from '../Store/actions';
 import { validate } from './../Utils/customValidator';
 

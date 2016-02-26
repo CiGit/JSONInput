@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import labeled from '../Decorators/labeled.jsx';
+import labeled from '../Decorators/labeled';
 
 function ArrayWidget(props) {
     function renderChild(child, index) {

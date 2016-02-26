@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import undefinedWidgetFactory from './undefinedWidgetFactory.jsx';
+import undefinedWidgetFactory from './undefinedWidgetFactory';
 import { defaultWidget } from '.';
 
 function Widget(props) {

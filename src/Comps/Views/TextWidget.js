@@ -1,6 +1,6 @@
 import React from 'react';
-import labeled from '../Decorators/labeled.jsx';
-import Input from './Input.jsx';
+import labeled from '../Decorators/labeled';
+import Input from './Input';
 
 function TextWidget(props) {
     return (

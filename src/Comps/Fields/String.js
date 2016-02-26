@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import Widget from '../Views/Widget.jsx';
-import fromDefaultValue from '../Decorators/fromDefaultValue.jsx';
-import validator from '../Decorators/validator.jsx';
+import Widget from '../Views/Widget';
+import fromDefaultValue from '../Decorators/fromDefaultValue';
+import validator from '../Decorators/validator';
 
 function StringField(props) {
     const onChange = function onChange(val) {

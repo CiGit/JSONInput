@@ -1,8 +1,8 @@
-import ObjectField from './Object.jsx';
-import StringField from './String.jsx';
-import NumberField from './Number.jsx';
-import BooleanField from './Boolean.jsx';
-import ArrayField from './Array.jsx';
+import ObjectField from './Object';
+import StringField from './String';
+import NumberField from './Number';
+import BooleanField from './Boolean';
+import ArrayField from './Array';
 
 export default {
     object: ObjectField,

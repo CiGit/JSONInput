@@ -1,9 +1,9 @@
-import undefinedWidgetFactory from './undefinedWidgetFactory.jsx';
-import TextWidget from './TextWidget.jsx';
-import ArrowNumberWidget from './ArrowNumberWidget.jsx';
-import CheckboxWidget from './CheckboxWidget.jsx';
-import ArrayWidget from './ArrayWidget.jsx';
-import ObjectWidget from './ObjectWidget.jsx';
+import undefinedWidgetFactory from './undefinedWidgetFactory';
+import TextWidget from './TextWidget';
+import ArrowNumberWidget from './ArrowNumberWidget';
+import CheckboxWidget from './CheckboxWidget';
+import ArrayWidget from './ArrayWidget';
+import ObjectWidget from './ObjectWidget';
 
 let DefaultWidget = {
     string: TextWidget,

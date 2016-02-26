@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-import SchemaType from '../SchemaType.jsx';
-import fromDefaultValue from '../Decorators/fromDefaultValue.jsx';
-import Widget from '../Views/Widget.jsx';
-import validator from '../Decorators/validator.jsx';
+import SchemaType from '../SchemaType';
+import fromDefaultValue from '../Decorators/fromDefaultValue';
+import Widget from '../Views/Widget';
+import validator from '../Decorators/validator';
 
 function renderChildren(props) {
     const children = [];
