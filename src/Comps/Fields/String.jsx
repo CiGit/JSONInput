@@ -5,7 +5,7 @@ import validator from '../Decorators/validator.jsx';
 
 function StringField(props) {
     const onChange = function onChange(val) {
-        props.onChange(val === '' ? undefined : val);
+        props.onChange(val === '' ? undefined : String(val));
     };
     return (<Widget {...props}
                     onChange={ onChange } />);
