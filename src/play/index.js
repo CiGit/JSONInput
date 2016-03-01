@@ -8,37 +8,43 @@ const formSchema = {
     properties: {
         titleString: {
             type: 'string',
-            title: 'This is a string',
             defaultValue: 'www',
             required: true,
-            errored: val => val === 'www' ? 'world wide web' : ''
+            errored: val => val === 'www' ? 'world wide web' : '',
+            view: {
+                title: 'This is a string'
+            }
         },
         showNum: {
             type: 'boolean',
-            title: 'Number',
             defaultValue: false,
             description: 'will toggle number input',
             view: {
+                title: 'Number',
                 type: function(props) {
-                    return (<select onChange={(ev)=>props.onChange(eval(ev.target.value))}>
-                              <option>true</option>
-                              <option>false</option>                              
+                    return (<select onChange={ (ev) => props.onChange(eval(ev.target.value)) }>
+                              <option>
+                                true
+                              </option>
+                              <option>
+                                false
+                              </option>
                             </select>);
                 }
             }
         },
         num: {
             type: 'number',
-            title: 'A number',
             defaultValue: 4,
-            visible: (value, formValue) => formValue.showNum
+            visible: (value, formValue) => formValue.showNum,
+            view: {
+                title: 'A number'
+            }
         },
         myArray: {
             type: 'array',
-            title: 'this is an array',
             items: {
                 type: 'object',
-                title: 'object array field title',
                 defaultValue: {
                     key1: 100
                 },
@@ -49,7 +55,13 @@ const formSchema = {
                         placeholder: 'number in obj',
                         errored: val => val > 100 ? 'too big' : ''
                     }
+                },
+                view: {
+                    title: 'object array field title'
                 }
+            },
+            view: {
+                title: 'this is an array'
             }
         }
     }
