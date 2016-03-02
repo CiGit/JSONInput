@@ -6,7 +6,12 @@ function Undefined(props) {
 
 Undefined.propTypes = {
     schema: PropTypes.shape({
-        type: PropTypes.string.isRequired
+        type: PropTypes.oneOfType([
+            PropTypes.oneOf(['object', 'string', 'number', 'array', 'boolean']),
+            PropTypes.arrayOf(
+                PropTypes.oneOf(['object', 'string', 'number', 'array', 'boolean', 'null'])
+            )
+        ]).isRequired
     }),
     path: PropTypes.array
 };

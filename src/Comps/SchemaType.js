@@ -41,7 +41,8 @@ class SchemaType extends React.Component {
     }
     render() {
         const { actions, schema: { type } } = this.props;
-        const Type = Fields[type] || UndefinedField;
+        const renderType = Array.isArray(type) ? type.find(t => t !== 'null') : type;
+        const Type = Fields[renderType] || UndefinedField;
         const valuePath = updatePath(this.props.path, this.props.editKey);
         return (<Type {...this.props}
                       path={ valuePath }
@@ -51,7 +52,12 @@ class SchemaType extends React.Component {
 
 SchemaType.propTypes = {
     schema: PropTypes.shape({
-        type: PropTypes.oneOf(['object', 'string', 'number', 'array', 'boolean'])
+        type: PropTypes.oneOfType([
+            PropTypes.oneOf(['object', 'string', 'number', 'array', 'boolean']),
+            PropTypes.arrayOf(
+                PropTypes.oneOf(['object', 'string', 'number', 'array', 'boolean', 'null'])
+            )
+        ]).isRequired
     }).isRequired,
     path: PropTypes.arrayOf(PropTypes.string),
     editKey: PropTypes.string,

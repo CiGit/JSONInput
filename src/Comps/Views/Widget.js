@@ -15,11 +15,14 @@ function Widget(props) {
         if (typeof type === 'function') {
             const Type = type;
             return (<Type {...props}
-                         schema={ restSchema }
-                         view={ view } />);
+                          schema={ restSchema }
+                          view={ view } />);
         }
     }
-    const Wdgt = defaultWidget(props.schema.type);
+    const renderType = Array.isArray(schema.type) ?
+        schema.type.find(t => t !== 'null') :
+        schema.type;
+    const Wdgt = defaultWidget(renderType);
     return (<Wdgt {...props}
                   schema={ restSchema }
                   view={ Object.assign({}, view) } />);

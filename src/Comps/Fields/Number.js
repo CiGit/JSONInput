@@ -20,10 +20,11 @@ class NumberField extends React.Component {
         }
     }
     onChange(val) {
-        const numVal = Number(val);
+        const value = val === '' ? undefined : val;
+        const numVal = Number(value);
         this.setState({
             value: val
-        }, () => this.props.onChange(isNaN(numVal) ? val : numVal));
+        }, () => this.props.onChange(isNaN(numVal) ? value : numVal));
     }
     render() {
         return (<StringField {...this.props}

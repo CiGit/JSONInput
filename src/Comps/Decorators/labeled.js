@@ -16,7 +16,12 @@ function labeled(Comp) {
 
     label.propTypes = {
         schema: PropTypes.shape({
-            type: PropTypes.string.isRequired,
+            type: PropTypes.oneOfType([
+                PropTypes.oneOf(['object', 'string', 'number', 'array', 'boolean']),
+                PropTypes.arrayOf(
+                    PropTypes.oneOf(['object', 'string', 'number', 'array', 'boolean', 'null'])
+                )
+            ]).isRequired,
             required: PropTypes.bool,
             description: PropTypes.string
         }),
