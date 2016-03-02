@@ -8,7 +8,7 @@ const formSchema = {
     properties: {
         titleString: {
             type: 'string',
-            defaultValue: 'www',
+            value: 'www',
             required: true,
             errored: val => val === 'www' ? 'world wide web' : '',
             view: {
@@ -17,7 +17,7 @@ const formSchema = {
         },
         showNum: {
             type: 'boolean',
-            defaultValue: false,
+            value: false,
             description: 'will toggle number input',
             view: {
                 title: 'Number',
@@ -35,7 +35,7 @@ const formSchema = {
         },
         num: {
             type: 'number',
-            defaultValue: 4,
+            value: 4,
             visible: (value, formValue) => formValue.showNum,
             view: {
                 title: 'A number'
@@ -45,7 +45,7 @@ const formSchema = {
             type: 'array',
             items: {
                 type: 'object',
-                defaultValue: {
+                value: {
                     key1: 100
                 },
                 properties: {

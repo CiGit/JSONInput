@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-function updateDefault({ value, path, actions, schema: { defaultValue } }) {
+function updateDefault({ value, path, actions, schema: { value: defaultValue } }) {
     const val = value !== undefined ? value : defaultValue;
     if (value !== val) {
         actions.setDefaultValue(path, val);
@@ -26,7 +26,7 @@ function fromDefaultValue(Comp) {
     DefaultValue.propTypes = {
         value: PropTypes.any,
         schema: PropTypes.shape({
-            defaultValue: PropTypes.any
+            value: PropTypes.any
         }),
         onChange: PropTypes.func.isRequired
     };
