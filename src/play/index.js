@@ -18,6 +18,7 @@ const formSchema = {
         showNum: {
             type: 'boolean',
             value: false,
+            index: -1,
             description: 'will toggle number input',
             view: {
                 title: 'Number',
@@ -36,6 +37,7 @@ const formSchema = {
         num: {
             type: 'number',
             value: 4,
+            index: -1,
             visible: (value, formValue) => formValue.showNum,
             view: {
                 title: 'A number'

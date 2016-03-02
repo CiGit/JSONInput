@@ -4,18 +4,29 @@ import fromDefaultValue from '../Decorators/fromDefaultValue';
 import Widget from '../Views/Widget';
 import validator from '../Decorators/validator';
 
+
 function renderChildren(props) {
     const children = [];
     const properties = props.schema.properties || {};
     const value = props.value || {};
     // Holds schema properties and value properties missing from schema.
     const mergedProperties = Object.keys(properties);
+
     Object.keys(value).forEach(v => {
         if (properties.hasOwnProperty(v)) {
-            return '';
+            return;
         }
-        return mergedProperties.push(v);
+        mergedProperties.push(v);
     });
+
+    // Index based sorting
+    function sortProperties(a, b) {
+        const aIndex = properties[a] ? properties[a].index || 0 : 0;
+        const bIndex = properties[b] ? properties[b].index || 0 : 0;
+        return aIndex - bIndex;
+    }
+
+    mergedProperties.sort(sortProperties);
     for (let i = 0; i < mergedProperties.length; i += 1) {
         const prop = mergedProperties[i];
         if (properties.hasOwnProperty(prop)) {
