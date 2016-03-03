@@ -61,7 +61,7 @@ class Container extends React.Component {
             errorMap.set(error.property, errors);
         });
         errorMap.forEach((value, key) => {
-            setErrors(key.split('.').slice(1), value);
+            setErrors(key.split(/\]?\.|\[/).slice(1), value);
         });
         return validationResult.errors;
     }

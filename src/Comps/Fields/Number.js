@@ -12,8 +12,7 @@ class NumberField extends React.Component {
     }
     componentWillReceiveProps(nextProps) {
         // if values differ: update
-        if (typeof this.state.value !== typeof nextProps.value ||
-            this.state.value - nextProps.value) {
+        if (this.state.value - nextProps.value) {
             this.setState({
                 value: nextProps.value
             });
@@ -23,7 +22,7 @@ class NumberField extends React.Component {
         const value = val === '' ? undefined : val;
         const numVal = Number(value);
         this.setState({
-            value: val
+            value
         }, () => this.props.onChange(isNaN(numVal) ? value : numVal));
     }
     render() {
