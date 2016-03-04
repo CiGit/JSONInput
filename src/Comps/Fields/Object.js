@@ -60,10 +60,25 @@ function ObjectField(props) {
         props.onChange(value);
     }
 
+    function alterKey(key, newKey) {
+        const value = {};
+        for (const p in props.value) {
+            if (props.value.hasOwnProperty(p)) {
+                if (p !== key) {
+                    value[p] = props.value[p];
+                } else {
+                    value[newKey] = props.value[p];
+                }
+            }
+        }
+        props.onChange(value);
+    }
+
     return (
         <Widget {...props}
                 addKey={ addKey }
-                removeKey={ removeKey }>
+                removeKey={ removeKey }
+                alterKey={ alterKey }>
           { renderChildren(props) }
         </Widget>);
 }
@@ -72,6 +87,7 @@ ObjectField.propTypes = {
     schema: PropTypes.shape({
         properties: PropTypes.object
     }),
+    children: PropTypes.node,
     value: PropTypes.any,
     path: PropTypes.arrayOf(PropTypes.string),
     onChange: PropTypes.func.isRequired

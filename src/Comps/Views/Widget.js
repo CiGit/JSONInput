@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { defaultWidget } from '.';
 
+const EMPTYOBJECT = {};
 function Widget(props) {
     const { schema } = props;
     const { view, ...restSchema } = schema;
@@ -25,7 +26,7 @@ function Widget(props) {
     const Wdgt = defaultWidget(renderType);
     return (<Wdgt {...props}
                   schema={ restSchema }
-                  view={ Object.assign({}, view) } />);
+                  view={ view || EMPTYOBJECT } />);
 }
 
 Widget.propTypes = {

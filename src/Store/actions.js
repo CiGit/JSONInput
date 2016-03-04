@@ -4,6 +4,19 @@ const STATE = 'state';
 const ERRORS = 'errors';
 const NOERRORS = [];
 
+export function setErrors(tree, path, errors) {
+    const errorPath = [STATUS].concat(path).concat([ERRORS]);
+    const errorsCursor = tree.select(errorPath);
+    if (errors && errors.length) {
+        if (Array.isArray(errorsCursor.get())) {
+            errorsCursor.splice([0, errorsCursor.get().length]);
+            errorsCursor.concat(errors || []);
+        } else {
+            errorsCursor.set(errors || NOERRORS);
+        }
+    }
+}
+
 /**
  * Update a value in the tree
  *
@@ -16,9 +29,7 @@ export function update(tree, path, value, errors) {
     const statusPath = [STATUS].concat(path);
     tree.set([VALUE].concat(path), value);
     tree.set(statusPath.concat([STATE]), 'dirty');
-    if (errors) {
-        tree.set(statusPath.concat([ERRORS]), errors);
-    }
+    setErrors(tree, path, errors);
 }
 
 export function setDefaultValue(tree, path, value) {
@@ -36,9 +47,4 @@ export function getErrors(tree, path) {
 
 export function getFormValue(tree) {
     return tree.get(VALUE);
-}
-
-export function setErrors(tree, path, errors) {
-    const statusPath = [STATUS].concat(path);
-    tree.set(statusPath.concat([ERRORS]), errors);
 }

@@ -2,13 +2,11 @@ import React, { PropTypes } from 'react';
 
 function visibility(Comp) {
     function Visible(props) {
-        const { schema: { visible, ...restSchema }, value, ...rest } = props;
+        const { schema: { visible }, value } = props;
         if (visible && !visible(value, props.actions.getFormValue())) {
             return <noscript />;
         }
-        return (<Comp schema={ restSchema }
-                      {...rest}
-                      value={ value } />);
+        return (<Comp {...props} />);
     }
 
     Visible.propTypes = {
