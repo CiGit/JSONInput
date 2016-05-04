@@ -1,9 +1,9 @@
 import Baobab from 'baobab';
 
-const tree = () => new Baobab({
+const createTree = () => new Baobab({
     schema: {},
     value: {},
     status: {}
 });
 
-export default tree;
+export default createTree;

@@ -18,35 +18,24 @@ function doAction(func, path) {
 }
 
 /**
- * Update store's value path.
- * @param {Array<string>} currentValuePath the valuePath the parent
- * @param {string} editKey the key currently edited
- * @returns {Array<string>}the updated valuePath
- */
-function updatePath(currentPath, editKey) {
-    if (editKey) {
-        return currentPath.concat([editKey]);
-    }
-    return currentPath;
-}
-
-/**
  * Component generating the correct field based on schema.type
  * @constructor
  * @param {Object} props
  */
 class SchemaType extends React.Component {
+    constructor(props) {
+        super(props);
+        this.onChange = doAction(props.actions.update, props.path);
+    }
     shouldComponentUpdate(...args) {
         return shouldPureComponentUpdate.apply(this, args);
     }
     render() {
-        const { actions, schema: { type } } = this.props;
+        const { schema: { type } } = this.props;
         const renderType = Array.isArray(type) ? type.find(t => t !== 'null') : type;
         const Type = Fields[renderType] || UndefinedField;
-        const valuePath = updatePath(this.props.path, this.props.editKey);
         return (<Type {...this.props}
-                      path={ valuePath }
-                      onChange={ doAction(actions.update, valuePath) } />);
+                      onChange={ this.onChange } />);
     }
 }
 

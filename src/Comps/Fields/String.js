@@ -21,4 +21,5 @@ StringField.propTypes = {
     }),
     onChange: PropTypes.func.isRequired
 };
+export { StringField as SimpleStringField };
 export default validator(fromDefaultValue(StringField));

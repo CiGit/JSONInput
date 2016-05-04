@@ -7,13 +7,11 @@ const NOERRORS = [];
 export function setErrors(tree, path, errors) {
     const errorPath = [STATUS].concat(path).concat([ERRORS]);
     const errorsCursor = tree.select(errorPath);
-    if (errors && errors.length) {
-        if (Array.isArray(errorsCursor.get())) {
-            errorsCursor.splice([0, errorsCursor.get().length]);
-            errorsCursor.concat(errors || []);
-        } else {
-            errorsCursor.set(errors || NOERRORS);
-        }
+    if (errors && errors.length && Array.isArray(errorsCursor.get())) {
+        errorsCursor.splice([0, errorsCursor.get().length]);
+        errorsCursor.concat(errors || []);
+    } else {
+        errorsCursor.set(errors || NOERRORS);
     }
 }
 
@@ -47,4 +45,16 @@ export function getErrors(tree, path) {
 
 export function getFormValue(tree) {
     return tree.get(VALUE);
+}
+
+export function updateSchema(tree, path, value) {
+    const updatedPath = path.reduce((prev, val) => {
+        if (tree.get(prev).type === 'object') {
+            return prev.concat(['properties', val]);
+        } else if (tree.get(prev).type === 'array') {
+            return prev.concat(['items']);
+        }
+        return prev.concat([val]);
+    }, ['schema']);
+    tree.set(updatedPath, value);
 }

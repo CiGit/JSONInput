@@ -69,9 +69,6 @@ const formSchema = {
     }
 };
 /* eslint-enable */
-const log = function logger(e) {
-    console.log(e); // eslint-disable-line no-console
-};
 const formData = {
     showNum: true,
     unknownKey: false,
@@ -113,26 +110,25 @@ class App extends React.Component {
         // });
     }
     schemaChange(event) {
-        this.setState(Object.assign({}, this.state, {
+        this.setState({
             schema: parse(event.target.value)
-        }));
+        });
     }
     dataChange(event) {
-        this.setState(Object.assign({}, this.state, {
+        this.setState({
             data: parse(event.target.value)
-        }));
+        });
     }
     editDataChange(event) {
-        this.setState(Object.assign({}, this.state, {
-            editData: parse(event.target.value)
-        }));
+        this.setState({
+            editData: event.target.value
+        });
     }
     formChange(val) {
-        log(val);
-        this.setState(Object.assign({}, this.state, {
+        this.setState({
             data: val,
-            editData: val
-        }));
+            editData: stringify(val)
+        });
     }
     render() {
         const styleLeft = {
@@ -158,7 +154,7 @@ class App extends React.Component {
                             onBlur={ schemaChange }
                             style={ styleLeft } />
                   <h2>value</h2>
-                  <textarea value={ stringify(this.state.editData) }
+                  <textarea value={ this.state.editData }
                             onChange={ editDataChange }
                             onBlur={ dataChange }
                             style={ styleLeft } />

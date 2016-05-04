@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import validator from '../Decorators/validator';
-import StringField from './String';
+import { SimpleStringField } from './String';
 
 class NumberField extends React.Component {
     constructor(props) {
@@ -26,7 +26,7 @@ class NumberField extends React.Component {
         }, () => this.props.onChange(isNaN(numVal) ? value : numVal));
     }
     render() {
-        return (<StringField {...this.props}
+        return (<SimpleStringField {...this.props}
                              value={ this.state.value }
                              onChange={ this.boundChange } />);
     }

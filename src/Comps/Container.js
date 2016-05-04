@@ -7,16 +7,10 @@ import { validate } from './../Utils/customValidator';
 
 const BranchedSchemaType = branch(SchemaType, {
     cursors: {
-        //   schema: 'schema',
+        schema: 'schema',
         status: 'status',
         value: 'value'
-    } /* ,
-    actions: {
-        update,
-        defaultValue,
-        getStatus,
-        getErrors
-    }*/
+    }
 });
 
 /**
@@ -27,6 +21,7 @@ class Container extends React.Component {
         super(props);
         this.tree = createTree();
         this.tree.select('value').set(props.value);
+        this.tree.select('schema').set(props.schema);
         this.tree.select('value')
             .on('update', event => this.props.onChange(event.data.currentData));
 
@@ -40,6 +35,9 @@ class Container extends React.Component {
     }
     componentWillReceiveProps(nextProps) {
         this.tree.select('value').set(nextProps.value);
+        if (this.props.schema !== nextProps.schema) {
+            this.tree.select('schema').set(nextProps.schema);
+        }
     }
     shouldComponentUpdate(nextProps) {
         return nextProps.value !== this.tree.get('value') || nextProps.schema !== this.props.schema;
@@ -51,7 +49,8 @@ class Container extends React.Component {
         return this.tree.get('value');
     }
     validate() {
-        const validationResult = validate(this.tree.get('value'), this.props.schema);
+        const validationResult = validate(this.tree.get('value'),
+            this.tree.get('schema'), this.ACTIONS.getFormValue());
         const { setErrors } = this.ACTIONS;
         const errorMap = new Map();
         // Collect each error associated with a given path
