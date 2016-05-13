@@ -49,27 +49,29 @@ function renderChildren(props) {
         valueItems = [];
     }
     const children = [];
-    for (const i in valueItems) {
-        if (valueItems.hasOwnProperty(i)) {
-            children.push(
-                <SchemaType {...props}
-                            schema={ childSchema }
-                            value={ valueItems[i] }
-                            editKey={ i }
-                            key={ i }
-                            onChange={ onChildChange(i, props) } />
-            );
-        }
-    }
+    valueItems.forEach((val, i) => children.push(
+        <SchemaType
+            {...props}
+            schema={childSchema}
+            value={val}
+            editKey={String(i)}
+            key={i}
+            onChange={onChildChange(i, props)}
+        />
+    ));
     return children;
 }
 
 function ArrayField(props) {
-    return (<Widget {...props}
-                    onChildAdd={ onChildAdd(props) }
-                    onChildRemove={ onChildRemove(props) }>
-              { renderChildren(props) }
-            </Widget>);
+    return (
+        <Widget
+            {...props}
+            onChildAdd={onChildAdd(props)}
+            onChildRemove={onChildRemove(props)}
+        >
+            {renderChildren(props)}
+        </Widget>
+    );
 }
 
 export default fromDefaultValue(ArrayField);

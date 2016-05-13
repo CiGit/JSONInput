@@ -4,8 +4,11 @@ import Input from './Input';
 
 function ArrowNumberWidget(props) {
     return (
-        <Input {...props}
-               type="number" />);
+        <Input
+            {...props}
+            type="number"
+        />
+    );
 }
 
 export default labeled(ArrowNumberWidget);

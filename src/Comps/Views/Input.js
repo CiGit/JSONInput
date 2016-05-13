@@ -11,12 +11,16 @@ function onInputChange(func) {
 }
 
 function Input(props) {
-    return (<input type={ props.type }
-                   placeholder={ props.schema.placeholder }
-                   value={ props.value }
-                   className={ props.className }
-                   onChange={ onInputChange(props.onChange) }
-                   checked={ props.checked } />);
+    return (
+        <input
+            type={props.type}
+            placeholder={props.schema.placeholder}
+            value={props.value}
+            className={props.className}
+            onChange={onInputChange(props.onChange)}
+            checked={props.checked}
+        />
+    );
 }
 
 Input.propTypes = {

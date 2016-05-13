@@ -4,8 +4,12 @@ import fromDefaultValue from '../Decorators/fromDefaultValue';
 import validator from '../Decorators/validator';
 
 function StringField(props) {
-    return (<Widget {...props}
-                    onChange={ props.onChange } />);
+    return (
+        <Widget
+            {...props}
+            onChange={props.onChange}
+        />
+    );
 }
 
 StringField.propTypes = {

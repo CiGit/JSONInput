@@ -11,7 +11,7 @@ function renderChildren(props) {
     const value = props.value || {};
     // Holds schema properties and value properties missing from schema.
     const mergedProperties = Object.keys(properties);
-
+    // mergedProperties.concat(Object.values(value));
     Object.keys(value).forEach(v => {
         if (properties.hasOwnProperty(v)) {
             return;
@@ -30,18 +30,26 @@ function renderChildren(props) {
     for (let i = 0; i < mergedProperties.length; i += 1) {
         const prop = mergedProperties[i];
         if (properties.hasOwnProperty(prop)) {
-            children.push(<SchemaType {...props}
-                                      schema={ properties[prop] }
-                                      value={ value[prop] }
-                                      editKey={ prop }
-                                      key={ prop } />);
+            children.push(
+                <SchemaType
+                    {...props}
+                    schema={properties[prop]}
+                    value={value[prop]}
+                    editKey={prop}
+                    key={prop}
+                />
+            );
         } else {
             const schema = props.schema.defaultProperties;
-            children.push(<SchemaType {...props}
-                                      schema={ schema }
-                                      value={ value[prop] }
-                                      editKey={ prop }
-                                      key={ prop } />);
+            children.push(
+                <SchemaType
+                    {...props}
+                    schema={schema}
+                    value={value[prop]}
+                    editKey={prop}
+                    key={prop}
+                />
+            );
         }
     }
     return children;
@@ -62,25 +70,26 @@ function ObjectField(props) {
 
     function alterKey(key, newKey) {
         const value = {};
-        for (const p in props.value) {
-            if (props.value.hasOwnProperty(p)) {
-                if (p !== key) {
-                    value[p] = props.value[p];
-                } else {
-                    value[newKey] = props.value[p];
-                }
+        props.value.forEach((val, p) => {
+            if (p !== key) {
+                value[p] = props.value[p];
+            } else {
+                value[newKey] = props.value[p];
             }
-        }
+        });
         props.onChange(value);
     }
 
     return (
-        <Widget {...props}
-                addKey={ addKey }
-                removeKey={ removeKey }
-                alterKey={ alterKey }>
-          { renderChildren(props) }
-        </Widget>);
+        <Widget
+            {...props}
+            addKey={addKey}
+            removeKey={removeKey}
+            alterKey={alterKey}
+        >
+            {renderChildren(props)}
+        </Widget>
+    );
 }
 
 ObjectField.propTypes = {

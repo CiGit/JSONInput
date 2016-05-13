@@ -4,8 +4,11 @@ import Input from './Input';
 
 function TextWidget(props) {
     return (
-        <Input {...props}
-               type="string" />);
+        <Input
+            {...props}
+            type="string"
+        />
+    );
 }
 
 export default labeled(TextWidget);

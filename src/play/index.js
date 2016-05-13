@@ -10,7 +10,7 @@ const formSchema = {
             type: 'string',
             value: 'www',
             required: true,
-            errored: val => val === 'www' ? 'world wide web' : '',
+            errored: val => (val === 'www' ? 'world wide web' : ''),
             view: {
                 title: 'This is a string'
             }
@@ -22,15 +22,15 @@ const formSchema = {
             description: 'will toggle number input',
             view: {
                 title: 'Number',
-                type: function(props) {
-                    return (<select onChange={ (ev) => props.onChange(eval(ev.target.value)) }>
-                              <option>
-                                true
-                              </option>
-                              <option>
-                                false
-                              </option>
-                            </select>);
+                type: function (props) {
+                    return (<select onChange={(ev) => props.onChange(eval(ev.target.value)) }>
+                        <option>
+                            true
+                        </option>
+                        <option>
+                            false
+                        </option>
+                    </select>);
                 }
             }
         },
@@ -143,29 +143,35 @@ class App extends React.Component {
         const dataChange = this.dataChange.bind(this);
         const editDataChange = this.editDataChange.bind(this);
         const formChange = this.formChange.bind(this);
-        return (<div>
-                  <div style={ styleForm }>
-                    <Container schema={ this.state.schema }
-                               value={ this.state.data }
-                               onChange={ formChange } />
-                  </div>
-                  <h2>schema</h2>
-                  <textarea defaultValue={ stringify(this.state.schema) }
-                            onBlur={ schemaChange }
-                            style={ styleLeft } />
-                  <h2>value</h2>
-                  <textarea value={ this.state.editData }
-                            onChange={ editDataChange }
-                            onBlur={ dataChange }
-                            style={ styleLeft } />
-                </div>);
+        return (
+            <div>
+                <div style={styleForm}>
+                    <Container
+                        schema={this.state.schema}
+                        value={this.state.data}
+                        onChange={formChange}
+                    />
+                </div>
+                <h2>schema</h2>
+                <textarea
+                    defaultValue={stringify(this.state.schema)}
+                    onBlur={schemaChange}
+                    style={styleLeft}
+                />
+                <h2>value</h2>
+                <textarea
+                    value={this.state.editData}
+                    onChange={editDataChange}
+                    onBlur={dataChange}
+                    style={styleLeft}
+                />
+            </div>
+        );
     }
 }
 
 function mount() {
-    render((
-        <App />),
-        document.getElementById('container')
+    render(<App />, document.getElementById('container')
     );
 }
 

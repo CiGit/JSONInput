@@ -9,7 +9,7 @@
     "build:lib": "cross-env NODE_ENV=production babel src -d lib",
     "build": "npm run clean && npm run lint && npm run build:webpack && npm run build:lib",
     "start": "node dev-server.js",
-    "lint": "eslint src/**/*.js src/**/*.jsx"
+    "lint": "eslint src/**/*.js"
   },
   "author": "CiGit",
   "license": "MIT",
@@ -22,7 +22,7 @@
   "devDependencies": {
     "babel-cli": "^6.6.5",
     "babel-core": "^6.7.2",
-    "babel-eslint": "^5.0.0",
+    "babel-eslint": "^6.0.4",
     "babel-loader": "^6.2.4",
     "babel-plugin-transform-object-rest-spread": "^6.5.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.2.3",
@@ -31,20 +31,22 @@
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-2": "^6.5.0",
     "cross-env": "^1.0.6",
-    "eslint": "^2.4.0",
-    "eslint-config-airbnb": "^6.1.0",
+    "eslint": "^2.9.0",
+    "eslint-config-airbnb": "^9.0.1",
     "eslint-plugin-babel": "^3.1.0",
-    "eslint-plugin-react": "^4.2.2",
+    "eslint-plugin-import": "^1.8.0",
+    "eslint-plugin-jsx-a11y": "^1.2.0",
+    "eslint-plugin-react": "^5.1.1",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.13.4",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7",
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2",
     "rimraf": "^2.5.2",
     "webpack": "^2.1.0-beta.4",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-hot-middleware": "^2.10.0"
   },
   "peerDependencies": {
-    "react": "^0.14.7"
+    "react": "^15.0.2"
   }
 }

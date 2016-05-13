@@ -4,14 +4,16 @@ function labeled(Comp) {
     function label(props) {
         const required = props.schema.required;
         const requiredClassName = required ? 'required' : '';
-        return (<div>
-                  <label className={ `${props.schema.type}Field ${requiredClassName}` }>
-                    <span className="title">{ props.view.title || props.editKey }</span>
+        return (
+            <div>
+                <label className={`${props.schema.type}Field ${requiredClassName}`}>
+                    <span className="title">{props.view.title || props.editKey}</span>
                     <Comp {...props} />
-                    <span>{ props.view.description }</span>
-                    <span>{ props.errorMessage }</span>
-                  </label>
-                </div>);
+                    <span>{props.view.description}</span>
+                    <span>{props.errorMessage}</span>
+                </label>
+            </div>
+        );
     }
 
     label.propTypes = {

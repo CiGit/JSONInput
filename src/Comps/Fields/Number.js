@@ -26,9 +26,13 @@ class NumberField extends React.Component {
         }, () => this.props.onChange(isNaN(numVal) ? value : numVal));
     }
     render() {
-        return (<SimpleStringField {...this.props}
-                             value={ this.state.value }
-                             onChange={ this.boundChange } />);
+        return (
+            <SimpleStringField
+                {...this.props}
+                value={this.state.value}
+                onChange={this.boundChange}
+            />
+        );
     }
 }
 NumberField.propTypes = {

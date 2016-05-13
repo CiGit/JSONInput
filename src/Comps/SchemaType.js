@@ -34,8 +34,12 @@ class SchemaType extends React.Component {
         const { schema: { type } } = this.props;
         const renderType = Array.isArray(type) ? type.find(t => t !== 'null') : type;
         const Type = Fields[renderType] || UndefinedField;
-        return (<Type {...this.props}
-                      onChange={ this.onChange } />);
+        return (
+            <Type
+                {...this.props}
+                onChange={this.onChange}
+            />
+        );
     }
 }
 

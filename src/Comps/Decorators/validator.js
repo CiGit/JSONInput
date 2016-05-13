@@ -9,9 +9,13 @@ function validated(Comp) {
             props.onChange(val, err);
         }
 
-        return (<Comp {...props}
-                      errorMessage={ props.actions.getErrors(props.path) }
-                      onChange={ onChange } />);
+        return (
+            <Comp
+                {...props}
+                errorMessage={props.actions.getErrors(props.path)}
+                onChange={onChange}
+            />
+        );
     }
 
     Validator.propTypes = {

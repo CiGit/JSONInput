@@ -4,9 +4,12 @@ import Input from './Input';
 
 function CheckboxWidget(props) {
     return (
-        <Input {...props}
-               type="checkbox"
-               checked={ props.value } />);
+        <Input
+            {...props}
+            type="checkbox"
+            checked={props.value}
+        />
+    );
 }
 
 CheckboxWidget.propTypes = {

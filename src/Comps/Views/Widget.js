@@ -9,24 +9,36 @@ function Widget(props) {
         const { type } = view;
         if (typeof type === 'string') {
             const Wdgt = defaultWidget(type);
-            return (<Wdgt {...props}
-                          schema={ restSchema }
-                          view={ view } />);
+            return (
+                <Wdgt
+                    {...props}
+                    schema={restSchema}
+                    view={view}
+                />
+            );
         }
         if (typeof type === 'function') {
             const Type = type;
-            return (<Type {...props}
-                          schema={ restSchema }
-                          view={ view } />);
+            return (
+                <Type
+                    {...props}
+                    schema={restSchema}
+                    view={view}
+                />
+            );
         }
     }
     const renderType = Array.isArray(schema.type) ?
         schema.type.find(t => t !== 'null') :
         schema.type;
     const Wdgt = defaultWidget(renderType);
-    return (<Wdgt {...props}
-                  schema={ restSchema }
-                  view={ view || EMPTYOBJECT } />);
+    return (
+        <Wdgt
+            {...props}
+            schema={restSchema}
+            view={view || EMPTYOBJECT}
+        />
+    );
 }
 
 Widget.propTypes = {

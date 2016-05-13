@@ -66,9 +66,12 @@ class Container extends React.Component {
     }
     render() {
         const Rooted = root(BranchedSchemaType, this.tree);
-        return (<Rooted {...this.props}
-                        path={ [] }
-                        actions={ this.ACTIONS } />);
+        return (
+            <Rooted
+                {...this.props}
+                path={[]}
+                actions={this.ACTIONS}
+            />);
     }
 }
 Container.propTypes = {

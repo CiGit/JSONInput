@@ -38,9 +38,13 @@ function inference(Comp) {
             };
         }
         render() {
-            return (<Comp {...this.props}
-                          path={ this.state.path }
-                          schema={ this.state.schema } />);
+            return (
+                <Comp
+                    {...this.props}
+                    path={this.state.path}
+                    schema={this.state.schema}
+                />
+            );
         }
     }
 
