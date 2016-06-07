@@ -42,7 +42,7 @@ function inference(Comp) {
                 <Comp
                     {...this.props}
                     path={this.state.path}
-                    schema={this.state.schema}
+                    schema={this.props.schema || this.state.schema}
                 />
             );
         }
