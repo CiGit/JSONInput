@@ -23,7 +23,7 @@ function onChildRemove(props) {
     return function onRemove(index) {
         return function doRemove() {
             const oldValue = props.value || [];
-            props.onChange(oldValue.filter((e, i) => +i !== +index));
+            props.onChange(oldValue.filter((e, i) => Number(i) !== Number(index)));
         };
     };
 }

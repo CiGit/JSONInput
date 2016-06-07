@@ -23,11 +23,11 @@ const formSchema = {
             view: {
                 title: 'Number',
                 type: function (props) {
-                    return (<select onChange={(ev) => props.onChange(eval(ev.target.value)) }>
-                        <option>
+                    return (<select value={props.value} onChange={(ev) => props.onChange(eval(ev.target.value)) }>
+                        <option value={true} >
                             true
                         </option>
-                        <option>
+                        <option value={false}>
                             false
                         </option>
                     </select>);

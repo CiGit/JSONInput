@@ -71,7 +71,8 @@ class Container extends React.Component {
                 {...this.props}
                 path={[]}
                 actions={this.ACTIONS}
-            />);
+            />
+        );
     }
 }
 Container.propTypes = {

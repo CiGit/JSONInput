@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import validator from '../Decorators/validator';
+import fromDefaultValue from '../Decorators/fromDefaultValue';
 import { SimpleStringField } from './String';
 
 class NumberField extends React.Component {
@@ -11,8 +12,8 @@ class NumberField extends React.Component {
         this.boundChange = this.onChange.bind(this);
     }
     componentWillReceiveProps(nextProps) {
-        // if values differ: update
-        if (this.state.value - nextProps.value) {
+        // if numerical values differ: update
+        if (Number(this.state.value) !== Number(nextProps.value)) {
             this.setState({
                 value: nextProps.value
             });
@@ -40,4 +41,4 @@ NumberField.propTypes = {
     onChange: PropTypes.func.isRequired
 };
 
-export default validator(NumberField);
+export default validator(fromDefaultValue(NumberField));

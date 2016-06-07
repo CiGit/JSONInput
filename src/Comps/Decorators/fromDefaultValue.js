@@ -9,8 +9,9 @@ function updateDefault({ value, path, actions, schema: { value: defaultValue } }
 
 function fromDefaultValue(Comp) {
     class DefaultValue extends React.Component {
-        componentDidMount() {
-            updateDefault(this.props);
+        constructor(props) {
+            super(props);
+            updateDefault(props);
         }
         componentWillReceiveProps(nextProps) {
             if (nextProps.actions.getStatus(nextProps.path)) {
