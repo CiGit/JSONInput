@@ -5,13 +5,11 @@ import SchemaType from './SchemaType';
 import * as actions from '../Store/actions';
 import { validate } from './../Utils/customValidator';
 
-const BranchedSchemaType = branch(SchemaType, {
-    cursors: {
-        schema: 'schema',
-        status: 'status',
-        value: 'value'
-    }
-});
+const BranchedSchemaType = branch({
+    schema: 'schema',
+    status: 'status',
+    value: 'value'
+}, SchemaType);
 
 /**
  * Top Component
@@ -24,23 +22,21 @@ class Container extends React.Component {
         this.tree.select('schema').set(props.schema);
         this.tree.select('value')
             .on('update', event => this.props.onChange(event.data.currentData));
-
-        // baobab-react optim as actions are bound on each render -> pure
+        // should use dispatcher instead. from baobab-react v2
         this.ACTIONS = {};
         Object.keys(actions)
             .forEach(action => {
                 this.ACTIONS[action] = actions[action].bind(this.tree, this.tree);
                 return;
             });
+        this.rooted = root(this.tree, BranchedSchemaType);
     }
     componentWillReceiveProps(nextProps) {
         this.tree.select('value').set(nextProps.value);
-        if (this.props.schema !== nextProps.schema) {
-            this.tree.select('schema').set(nextProps.schema);
-        }
+        this.tree.select('schema').set(nextProps.schema);
     }
-    shouldComponentUpdate(nextProps) {
-        return nextProps.value !== this.tree.get('value') || nextProps.schema !== this.props.schema;
+    shouldComponentUpdate() {
+        return false;
     }
     componentWillUnmount() {
         this.tree.release();
@@ -65,10 +61,10 @@ class Container extends React.Component {
         return validationResult.errors;
     }
     render() {
-        const Rooted = root(BranchedSchemaType, this.tree);
+        const Rooted = this.rooted;
         return (
             <Rooted
-                {...this.props}
+                onChange={this.props.onChange}
                 path={[]}
                 actions={this.ACTIONS}
             />

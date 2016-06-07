@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "baobab": "^2.3.3",
-    "baobab-react": "^1.0.1",
+    "baobab-react": "^2.1.1",
     "jsonschema": "^1.1.0",
     "react-pure-render": "^1.0.2"
   },
