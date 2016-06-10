@@ -70,7 +70,7 @@ function ObjectField(props) {
 
     function alterKey(key, newKey) {
         const value = {};
-        props.value.forEach((val, p) => {
+        Object.keys(props.value).forEach(p => {
             if (p !== key) {
                 value[p] = props.value[p];
             } else {

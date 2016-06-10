@@ -19,33 +19,21 @@ function updatePath(currentPath, editKey) {
  * @return {React.Component} the decorated component.
  */
 function inference(Comp) {
-    /**
-     * Statefull component, compute schema value from inferred value if missing.
-     * Only on construct.
-     */
-    class Infer extends React.Component {
-        constructor(props) {
-            super(props);
-            let { schema } = props;
-            const path = updatePath(props.path, props.editKey);
-            if (!schema) {
-                schema = infer(props.value);
-                props.actions.updateSchema(path, schema);
-            }
-            this.state = {
-                schema,
-                path
-            };
+    function Infer(props) {
+        const { schema } = props;
+        const path = updatePath(props.path, props.editKey);
+        let inferedSchema = schema;
+        if (!inferedSchema) {
+            inferedSchema = infer(props.value);
+            // props.actions.updateSchema(path, schema);
         }
-        render() {
-            return (
-                <Comp
-                    {...this.props}
-                    path={this.state.path}
-                    schema={this.props.schema || this.state.schema}
-                />
-            );
-        }
+        return (
+            <Comp
+                {...props}
+                path={path}
+                schema={inferedSchema}
+            />
+        );
     }
 
     Infer.propTypes = {
