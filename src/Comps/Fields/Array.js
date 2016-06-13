@@ -37,9 +37,6 @@ function onChildAdd(props) {
 
 function renderChildren(props) {
     const { value, schema: { defaultValue, items } } = props;
-    const childSchema = items || {
-        type: 'string'
-    };
     let valueItems;
     if (value) {
         valueItems = value;
@@ -52,7 +49,7 @@ function renderChildren(props) {
     valueItems.forEach((val, i) => children.push(
         <SchemaType
             {...props}
-            schema={childSchema}
+            schema={items}
             value={val}
             editKey={String(i)}
             key={i}
