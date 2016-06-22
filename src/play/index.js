@@ -139,30 +139,26 @@ class App extends React.Component {
             float: 'right',
             width: '50%'
         };
-        const schemaChange = this.schemaChange.bind(this);
-        const dataChange = this.dataChange.bind(this);
-        const editDataChange = this.editDataChange.bind(this);
-        const formChange = this.formChange.bind(this);
         return (
             <div>
                 <div style={styleForm}>
                     <Container
                         schema={this.state.schema}
                         value={this.state.data}
-                        onChange={formChange}
+                        onChange={v => this.formChange(v)}
                     />
                 </div>
                 <h2>schema</h2>
                 <textarea
                     defaultValue={stringify(this.state.schema)}
-                    onBlur={schemaChange}
+                    onBlur={v => this.schemaChange(v)}
                     style={styleLeft}
                 />
                 <h2>value</h2>
                 <textarea
                     value={this.state.editData}
-                    onChange={editDataChange}
-                    onBlur={dataChange}
+                    onChange={(v) => this.editDataChange(v)}
+                    onBlur={v => this.dataChange(v)}
                     style={styleLeft}
                 />
             </div>

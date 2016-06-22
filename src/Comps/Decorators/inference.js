@@ -14,7 +14,7 @@ function updatePath(currentPath, editKey) {
 }
 
 /**
- * Decorator, compute schema value from inferred type if schema is missing
+ * HOC, compute schema value from inferred type if schema is missing
  * @param {React.Component} Comp component to decorate.
  * @return {React.Component} the decorated component.
  */
@@ -24,7 +24,7 @@ function inference(Comp) {
         const path = updatePath(props.path, props.editKey);
         let inferedSchema = schema;
         if (!inferedSchema) {
-            inferedSchema = infer(props.value);
+            inferedSchema = { type: infer(props.value) };
             // props.actions.updateSchema(path, schema);
         }
         return (

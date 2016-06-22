@@ -18,10 +18,7 @@ class Container extends React.Component {
     constructor(props) {
         super(props);
         this.tree = createTree();
-        this.tree.select('value').set(props.value);
-        this.tree.select('schema').set(props.schema);
-        this.tree.select('value')
-            .on('update', event => this.props.onChange(event.data.currentData));
+        this.updateTree(props.value, props.schema);
         // should use dispatcher instead. from baobab-react v2
         this.ACTIONS = {};
         Object.keys(actions)
@@ -32,8 +29,7 @@ class Container extends React.Component {
         this.rooted = root(this.tree, BranchedSchemaType);
     }
     componentWillReceiveProps(nextProps) {
-        this.tree.select('value').set(nextProps.value);
-        this.tree.select('schema').set(nextProps.schema);
+        this.updateTree(nextProps.value, nextProps.schema);
     }
     shouldComponentUpdate() {
         return false;
@@ -43,6 +39,15 @@ class Container extends React.Component {
     }
     getValue() {
         return this.tree.get('value');
+    }
+    updateTree(value, schema) {
+        this.tree.select('value').release();
+        this.tree.select('value').set(value);
+        this.tree.select('schema').set(schema);
+        this.tree.select('status').release();
+        this.tree.commit();
+        this.tree.select('value')
+            .on('update', event => this.props.onChange(event.data.currentData));
     }
     validate() {
         const validationResult = validate(this.tree.get('value'),
