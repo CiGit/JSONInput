@@ -13,7 +13,10 @@
             4
         ],
         "comma-dangle": 0,
-        "react/jsx-indent":[2,4],
+        "react/jsx-indent": [
+            2,
+            4
+        ],
         "react/jsx-indent-props": [
             2,
             4
@@ -25,5 +28,11 @@
     },
     "plugins": [
         "react"
-    ]
+    ],
+    "settings": {
+        "import/core-modules": [
+            "react",
+            "react-dom"
+        ]
+    }
 }

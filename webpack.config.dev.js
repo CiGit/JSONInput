@@ -9,9 +9,6 @@ module.exports = {
         filename: 'bundle.js',
         publicPath: '/static/'
     },
-    resolve: {
-        root: [path.resolve('./src')]
-    },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin()
