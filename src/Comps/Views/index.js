@@ -4,6 +4,7 @@ import ArrowNumberWidget from './ArrowNumberWidget';
 import CheckboxWidget from './CheckboxWidget';
 import ArrayWidget from './ArrayWidget';
 import ObjectWidget from './ObjectWidget';
+import SelectWidget from './SelectWidget';
 
 let DefaultWidget = {
     string: TextWidget,
@@ -11,7 +12,8 @@ let DefaultWidget = {
     boolean: CheckboxWidget,
     array: ArrayWidget,
     object: ObjectWidget,
-    arrowNumber: ArrowNumberWidget
+    arrowNumber: ArrowNumberWidget,
+    select: SelectWidget
 };
 
 function defaultWidget(type) {

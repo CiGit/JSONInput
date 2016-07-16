@@ -1,6 +1,6 @@
 import { render } from 'react-dom';
 import React from 'react';
-import Container from '../index.js';
+import Container from '../index';
 /* eslint-disable */
 const formSchema = {
     title: 'Form Base',
