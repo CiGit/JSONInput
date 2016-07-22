@@ -23,7 +23,7 @@ function inference(Comp) {
         const { schema } = props;
         const path = updatePath(props.path, props.editKey);
         let inferedSchema = schema;
-        if (!inferedSchema) {
+        if (!inferedSchema || !inferedSchema.hasOwnProperty('type')) {
             inferedSchema = { type: infer(props.value) };
             // props.actions.updateSchema(path, schema);
         }
