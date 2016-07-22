@@ -47,11 +47,20 @@ class Container extends React.Component {
         this.tree.select('status').release();
         this.tree.commit();
         this.tree.select('value')
-            .on('update', event => this.props.onChange(event.data.currentData));
+            .on('update', event =>
+                this.props.onChange(
+                    event.data.currentData,
+                    validate(
+                        event.data.currentData,
+                        this.tree.get('schema'),
+                        event.data.currentData
+                    ).errors
+                )
+            );
     }
     validate() {
         const validationResult = validate(this.tree.get('value'),
-            this.tree.get('schema'), this.ACTIONS.getFormValue());
+            this.tree.get('schema'), this.tree.get('value'));
         const { setErrors } = this.ACTIONS;
         const errorMap = new Map();
         // Collect each error associated with a given path
