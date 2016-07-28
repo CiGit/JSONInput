@@ -4,10 +4,13 @@ import fromDefaultValue from '../Decorators/fromDefaultValue';
 import validator from '../Decorators/validator';
 
 function StringField(props) {
+    const val = props.value !== undefined && props.value !== null ?
+        String(props.value) :
+        props.value;
     return (
         <Widget
             {...props}
-            value={String(props.value)}
+            value={val}
         />
     );
 }
