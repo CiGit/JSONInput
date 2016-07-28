@@ -14,9 +14,9 @@ function fromDefaultValue(Comp) {
             updateDefault(props);
         }
         componentWillReceiveProps(nextProps) {
-            if (nextProps.actions.getStatus(nextProps.path)) {
-                return;
-            }
+            // if (nextProps.actions.getStatus(nextProps.path)) {
+            //     return;
+            // }
             updateDefault(nextProps);
         }
         render() {
