@@ -7,7 +7,7 @@ function StringField(props) {
     return (
         <Widget
             {...props}
-            onChange={props.onChange}
+            value={String(props.value)}
         />
     );
 }
