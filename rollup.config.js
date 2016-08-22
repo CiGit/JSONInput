@@ -11,6 +11,8 @@ export default {
     entry: 'src/index.js',
     plugins: [
         nodeResolve({
+            module: true,
+            browser: true,
             jsnext: true,
             main: true,
             preferBuiltins: false
@@ -22,7 +24,7 @@ export default {
             exclude: 'node_modules/**',
             plugins: ['external-helpers']
         }),
-        rollupUglify({}, uglify)
+       rollupUglify({}, uglify)
     ],
     external,
     targets: [

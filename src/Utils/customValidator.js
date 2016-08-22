@@ -17,4 +17,4 @@ function validate(value, schema, formValue) {
     });
 }
 
-export { validate };
+export default validate ;

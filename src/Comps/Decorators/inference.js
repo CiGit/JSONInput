@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { infer } from './../../Utils/infer.js';
+import infer from './../../Utils/infer.js';
 /**
  * Update store's value path.
  * @param {Array<string>} currentValuePath the valuePath the parent
@@ -23,7 +23,7 @@ function inference(Comp) {
         const { schema } = props;
         const path = updatePath(props.path, props.editKey);
         let inferedSchema = schema;
-        if (!inferedSchema || !inferedSchema.hasOwnProperty('type')) {
+        if (!inferedSchema || !('type' in inferedSchema)) {
             inferedSchema = { type: infer(props.value) };
             // props.actions.updateSchema(path, schema);
         }

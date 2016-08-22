@@ -13,7 +13,7 @@ function renderChildren(props) {
     const mergedProperties = Object.keys(properties);
     // mergedProperties.concat(Object.values(value));
     Object.keys(value).forEach(v => {
-        if (properties.hasOwnProperty(v)) {
+        if (v in properties) {
             return;
         }
         mergedProperties.push(v);
@@ -29,7 +29,7 @@ function renderChildren(props) {
     mergedProperties.sort(sortProperties);
     for (let i = 0; i < mergedProperties.length; i += 1) {
         const prop = mergedProperties[i];
-        if (properties.hasOwnProperty(prop)) {
+        if (prop in properties) {
             children.push(
                 <SchemaType
                     {...props}

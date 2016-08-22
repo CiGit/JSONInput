@@ -6,7 +6,9 @@ function labeled(Comp) {
         const requiredClassName = required ? 'required' : '';
         return (
             <div>
-                <label className={`${props.schema.type}Field ${requiredClassName}`}>
+                <label //eslint-disable-line
+                    className={`${props.schema.type}Field ${requiredClassName}`}
+                >
                     <span className="title">{props.view.title || props.editKey}</span>
                     <Comp {...props} />
                     <span>{props.view.description}</span>

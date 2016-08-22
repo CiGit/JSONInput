@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
+import shouldPureComponentUpdate from 'react-pure-render/function';
 import Fields from './Fields';
 import visible from './Decorators/visible';
-import shouldPureComponentUpdate from 'react-pure-render/function';
 import UndefinedField from './Fields/Undefined';
 import inference from './Decorators/inference';
 

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { validate } from './../../Utils/customValidator';
+import validate from './../../Utils/customValidator';
 
 function validated(Comp) {
     function Validator(props) {

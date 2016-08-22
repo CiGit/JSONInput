@@ -1,4 +1,4 @@
-export function infer(value) {
+export default function infer(value) {
     switch (typeof value) {
     case 'number':
         return 'number';
