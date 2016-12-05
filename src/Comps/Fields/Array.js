@@ -49,7 +49,7 @@ function renderChildren(props) {
     valueItems.forEach((val, i) => children.push(
         <SchemaType
             {...props}
-            schema={items}
+            schema={Array.isArray(items) ? (items[i] || {}) : items}
             value={val}
             editKey={String(i)}
             key={i}
