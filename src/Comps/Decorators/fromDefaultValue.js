@@ -5,22 +5,23 @@ function updateDefault({ value, path, actions, schema: { value: defaultValue } }
     if (value !== val) {
         actions.setDefaultValue(path, val);
     }
+    return val;
 }
 
 function fromDefaultValue(Comp) {
     class DefaultValue extends React.Component {
         constructor(props) {
             super(props);
-            updateDefault(props);
+            this.state = { val: updateDefault(props) };
         }
         componentWillReceiveProps(nextProps) {
             // if (nextProps.actions.getStatus(nextProps.path)) {
             //     return;
             // }
-            updateDefault(nextProps);
+            this.setState({ val: updateDefault(nextProps) });
         }
         render() {
-            return (<Comp {...this.props} />);
+            return (<Comp {...this.props} value={this.state.val} />);
         }
     }
 
