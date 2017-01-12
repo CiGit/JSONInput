@@ -157,7 +157,7 @@ class App extends React.Component {
                 <h2>value</h2>
                 <textarea
                     value={this.state.editData}
-                    onChange={(v) => this.editDataChange(v)}
+                    onChange={v => this.editDataChange(v)}
                     onBlur={v => this.dataChange(v)}
                     style={styleLeft}
                 />

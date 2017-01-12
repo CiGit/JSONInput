@@ -1,41 +1,46 @@
 import babel from 'rollup-plugin-babel';
-import commonjs from 'rollup-plugin-commonjs';
-import nodeResolve from 'rollup-plugin-node-resolve';
+// import commonjs from 'rollup-plugin-commonjs';
+// import nodeResolve from 'rollup-plugin-node-resolve';
 import rollupUglify from 'rollup-plugin-uglify';
-import { uglify } from 'uglify-js';
+import { minify } from 'uglify-js';
+import filesize from 'rollup-plugin-filesize';
 
 const pkg = require('./package.json');
-const external = Object.keys(pkg.dependencies).concat(Object.keys(pkg.peerDependencies));
 
+const external = Object.keys(pkg.dependencies).concat(Object.keys(pkg.peerDependencies));
 export default {
     entry: 'src/index.js',
     plugins: [
-        nodeResolve({
-            module: true,
-            browser: true,
-            jsnext: true,
-            main: true,
-            preferBuiltins: false
-        }),
-        commonjs({
-            include: 'node_modules/**'
-        }),
         babel({
+            // nodeResolve({
+            //     module: true,
+            //     jsnext: true,
+            //     main: true,
+            //     skip: external,
+            //     browser: true,
+            //     preferBuiltins: false
+            // }),
+            // commonjs({
+            //     include: 'node_modules/**'
+            // }),
             exclude: 'node_modules/**',
             plugins: ['external-helpers']
         }),
-       rollupUglify({}, uglify)
+        rollupUglify({}, minify),
+        filesize()
     ],
-    external,
+    external: function ext(module) {
+        return external.indexOf(module.split('/')[0]) > -1;
+    },
     targets: [
         {
             dest: pkg.main,
-            format: 'umd',
+            format: 'cjs',
             moduleName: pkg.name,
             sourceMap: true
         },
         {
-            dest: pkg['jsnext:main'],
+            dest: pkg.module,
             format: 'es',
             sourceMap: true
         }

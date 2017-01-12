@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
-import Fields from './Fields';
+import Fields from './Fields/index';
 import visible from './Decorators/visible';
 import UndefinedField from './Fields/Undefined';
 import inference from './Decorators/inference';
@@ -52,8 +52,7 @@ SchemaType.propTypes = {
             )
         ]).isRequired
     }).isRequired,
-    path: PropTypes.arrayOf(PropTypes.string),
-    editKey: PropTypes.string,
+    path: PropTypes.arrayOf(PropTypes.string).isRequired,
     actions: PropTypes.objectOf(PropTypes.func).isRequired
 };
 

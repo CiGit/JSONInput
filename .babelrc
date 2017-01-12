@@ -4,14 +4,14 @@
         [
             "es2015",
             {
-                "modules": false
+                "modules": false,
+                "loose": true
             }
         ],
         "react"
-        
     ],
     "plugins": [
-        "transform-object-rest-spread",
+        "transform-object-rest-spread"
         // [
         //     "transform-runtime",
         //     {

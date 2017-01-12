@@ -9,6 +9,9 @@ module.exports = {
         filename: 'bundle.js',
         publicPath: '/static/'
     },
+    resolve: {
+        mainFields: ['module', 'jsnext:main', 'browser', 'main']
+    },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin()
@@ -17,12 +20,12 @@ module.exports = {
         loaders: [
             {
                 test: /\.jsx?$/,
-                loader: 'babel',
+                loader: 'babel-loader',
                 exclude: /node_modules/
             },
             {
                 test: /\.css$/,
-                loader: 'style!css',
+                loader: 'style-loader!css',
                 include: [
                     path.join(__dirname, 'css')
                 ],

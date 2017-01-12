@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { defaultWidget } from '.';
+import { defaultWidget } from './index';
 
 const EMPTYOBJECT = {};
 function Widget(props) {

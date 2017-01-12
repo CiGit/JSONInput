@@ -41,7 +41,7 @@ function inference(Comp) {
         value: PropTypes.any,
         path: PropTypes.arrayOf(PropTypes.string).isRequired,
         editKey: PropTypes.string,
-        actions: PropTypes.objectOf(PropTypes.func).isRequired
+       // actions: PropTypes.objectOf(PropTypes.func).isRequired
     };
     return Infer;
 }

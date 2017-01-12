@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { root, branch } from 'baobab-react/higher-order';
-import createTree from '../Store';
+import createTree from '../Store/index';
 import SchemaType from './SchemaType';
 import * as actions from '../Store/actions';
 import validate from './../Utils/customValidator';
@@ -10,7 +10,7 @@ const BranchedSchemaType = branch({
     status: 'status',
     value: 'value'
 }, SchemaType);
-
+const TYPES = ['string', 'number', 'boolean', 'object', 'array', 'null'];
 /**
  * Top Component
  */
@@ -22,10 +22,9 @@ class Container extends React.Component {
         // should use dispatcher instead. from baobab-react v2
         this.ACTIONS = {};
         Object.keys(actions)
-            .forEach(action => {
-                this.ACTIONS[action] = actions[action].bind(this.tree, this.tree);
-                return;
-            });
+            .forEach(action => (
+                this.ACTIONS[action] = actions[action].bind(this.tree, this.tree)
+            ));
         this.rooted = root(this.tree, BranchedSchemaType);
     }
     componentWillReceiveProps(nextProps) {
@@ -64,7 +63,7 @@ class Container extends React.Component {
         const { setErrors } = this.ACTIONS;
         const errorMap = new Map();
         // Collect each error associated with a given path
-        validationResult.errors.forEach(error => {
+        validationResult.errors.forEach((error) => {
             const errors = errorMap.get(error.property) || [];
             errors.push(error.message); // Add new error
             errorMap.set(error.property, errors);
@@ -86,9 +85,15 @@ class Container extends React.Component {
     }
 }
 Container.propTypes = {
-    onChange: PropTypes.func,
-    schema: PropTypes.object,
-    value: PropTypes.any
+    onChange: PropTypes.func.isRequired,
+    schema: PropTypes.shape({
+        type: PropTypes.oneOfType([PropTypes.oneOf(TYPES),
+            PropTypes.arrayOf(PropTypes.oneOf(TYPES))])
+    }),
+    value: PropTypes.any // eslint-disable-line
+};
+Container.defaultProps = {
+    schema: {}
 };
 
 export default Container;
