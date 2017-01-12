@@ -1,10 +1,7 @@
 import React, { PropTypes } from 'react';
 
-function updateDefault({ value, path, actions, schema: { value: defaultValue } }) {
+function updateDefault({ value, schema: { value: defaultValue } }) {
     const val = value !== undefined ? value : defaultValue;
-    if (value !== val) {
-        actions.setDefaultValue(path, val);
-    }
     return val;
 }
 
@@ -14,11 +11,19 @@ function fromDefaultValue(Comp) {
             super(props);
             this.state = { val: updateDefault(props) };
         }
+        componentDidMount() {
+            this.notifyDefaultChange();
+        }
         componentWillReceiveProps(nextProps) {
-            // if (nextProps.actions.getStatus(nextProps.path)) {
-            //     return;
-            // }
             this.setState({ val: updateDefault(nextProps) });
+        }
+        componentDidUpdate() {
+            this.notifyDefaultChange();
+        }
+        notifyDefaultChange() {
+            if (this.props.value !== this.state.val) {
+                this.props.actions.setDefaultValue(this.props.path, this.state.val);
+            }
         }
         render() {
             return (<Comp {...this.props} value={this.state.val} />);
@@ -26,11 +31,14 @@ function fromDefaultValue(Comp) {
     }
 
     DefaultValue.propTypes = {
-        value: PropTypes.any,
-        schema: PropTypes.shape({
+        value: PropTypes.any, // eslint-disable-line
+        schema: PropTypes.shape({ // eslint-disable-line
             value: PropTypes.any
-        }),
-        onChange: PropTypes.func.isRequired
+        }).isRequired,
+        path: PropTypes.arrayOf(PropTypes.string).isRequired,
+        actions: PropTypes.shape({
+            setDefaultValue: PropTypes.func.isRequired
+        }).isRequired
     };
     return DefaultValue;
 }
