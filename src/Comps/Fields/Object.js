@@ -11,8 +11,8 @@ function renderChildren(props) {
     const value = props.value || {};
     // Holds schema properties and value properties missing from schema.
     const mergedProperties = Object.keys(properties);
-    // mergedProperties.concat(Object.values(value));
-    Object.keys(value).forEach(v => {
+
+    Object.keys(value).forEach((v) => {
         if (v in properties) {
             return;
         }
@@ -41,6 +41,9 @@ function renderChildren(props) {
             );
         } else {
             const schema = props.schema.defaultProperties;
+            if (schema) {
+                props.actions.updateSchema(props.path.concat([prop]), schema);
+            }
             children.push(
                 <SchemaType
                     {...props}
@@ -65,12 +68,13 @@ function ObjectField(props) {
     function removeKey(key) {
         const value = Object.assign({}, props.value);
         delete value[key];
+        props.actions.deleteSchema(props.path.concat([key]), {});
         props.onChange(value);
     }
 
     function alterKey(key, newKey) {
         const value = {};
-        Object.keys(props.value).forEach(p => {
+        Object.keys(props.value).forEach((p) => {
             if (p !== key) {
                 value[p] = props.value[p];
             } else {
@@ -79,7 +83,6 @@ function ObjectField(props) {
         });
         props.onChange(value);
     }
-
     return (
         <Widget
             {...props}
@@ -93,13 +96,17 @@ function ObjectField(props) {
 }
 
 ObjectField.propTypes = {
-    schema: PropTypes.shape({
+    schema: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
         properties: PropTypes.object
-    }),
-    children: PropTypes.node,
-    value: PropTypes.any,
-    path: PropTypes.arrayOf(PropTypes.string),
+    }).isRequired,
+    value: PropTypes.any, // eslint-disable-line react/forbid-prop-types
+    path: PropTypes.arrayOf( // eslint-disable-line react/no-unused-prop-types
+        PropTypes.string
+    ).isRequired,
     onChange: PropTypes.func.isRequired
+};
+ObjectField.defaultProps = {
+    value: {}
 };
 
 export default validator(fromDefaultValue(ObjectField));

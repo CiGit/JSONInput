@@ -46,9 +46,11 @@ export function getErrors(tree, path) {
 export function getFormValue(tree) {
     return tree.get(VALUE);
 }
-
-export function updateSchema(tree, path, value) {
-    const updatedPath = path.reduce((prev, val) => {
+/**
+ * handle object's "properties" path and array's "item" path
+ */
+function schemaPath(tree, path) {
+    return path.reduce((prev, val) => {
         if (tree.get(prev).type === 'object') {
             return prev.concat(['properties', val]);
         } else if (tree.get(prev).type === 'array') {
@@ -56,5 +58,13 @@ export function updateSchema(tree, path, value) {
         }
         return prev.concat([val]);
     }, ['schema']);
+}
+export function updateSchema(tree, path, value) {
+    const updatedPath = schemaPath(tree, path);
     tree.set(updatedPath, value);
+}
+
+export function deleteSchema(tree, path) {
+    const updatedPath = schemaPath(tree, path);
+    tree.unset(updatedPath);
 }
