@@ -12,7 +12,7 @@ Undefined.propTypes = {
                 PropTypes.oneOf(['object', 'string', 'number', 'array', 'boolean', 'null'])
             )
         ]).isRequired
-    }),
-    path: PropTypes.array
+    }).isRequired,
+    path: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 export default Undefined;

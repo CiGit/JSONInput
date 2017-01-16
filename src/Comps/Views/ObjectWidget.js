@@ -10,7 +10,7 @@ function ObjectWidget(props) {
 }
 
 ObjectWidget.propTypes = {
-    children: PropTypes.arrayOf(PropTypes.element)
+    children: PropTypes.arrayOf(PropTypes.element).isRequired
 };
 
 export default labeled(ObjectWidget);

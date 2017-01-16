@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import infer from './../../Utils/infer.js';
+import infer from './../../Utils/infer';
 /**
  * Update store's value path.
  * @param {Array<string>} currentValuePath the valuePath the parent
@@ -37,11 +37,10 @@ function inference(Comp) {
     }
 
     Infer.propTypes = {
-        schema: PropTypes.object,
-        value: PropTypes.any,
+        schema: PropTypes.object, // eslint-disable-line
+        value: PropTypes.any, // eslint-disable-line
         path: PropTypes.arrayOf(PropTypes.string).isRequired,
-        editKey: PropTypes.string,
-       // actions: PropTypes.objectOf(PropTypes.func).isRequired
+        editKey: PropTypes.string // eslint-disable-line react/require-default-props
     };
     return Infer;
 }

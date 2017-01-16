@@ -15,5 +15,6 @@ function CheckboxWidget(props) {
 CheckboxWidget.propTypes = {
     value: PropTypes.bool
 };
+CheckboxWidget.defaultProps = { value: false };
 
 export default labeled(CheckboxWidget);

@@ -111,7 +111,9 @@ class App extends React.Component {
     }
     schemaChange(event) {
         this.setState({
-            schema: parse(event.target.value)
+            schema: parse(event.target.value),
+            editData: '',
+            data: ''
         });
     }
     dataChange(event) {

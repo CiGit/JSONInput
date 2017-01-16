@@ -22,9 +22,9 @@ function validated(Comp) {
         onChange: PropTypes.func.isRequired,
         schema: PropTypes.shape({
             errored: PropTypes.func
-        }),
-        value: PropTypes.any,
-        path: PropTypes.array.isRequired,
+        }).isRequired,
+        value: PropTypes.any, // eslint-disable-line
+        path: PropTypes.arrayOf(PropTypes.string).isRequired,
         actions: PropTypes.objectOf(PropTypes.func).isRequired
     };
     return Validator;

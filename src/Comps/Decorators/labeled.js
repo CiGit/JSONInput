@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 function labeled(Comp) {
-    function label(props) {
+    function Label(props) {
         const required = props.schema.required;
         const requiredClassName = required ? 'required' : '';
         return (
@@ -18,7 +18,7 @@ function labeled(Comp) {
         );
     }
 
-    label.propTypes = {
+    Label.propTypes = {
         schema: PropTypes.shape({
             type: PropTypes.oneOfType([
                 PropTypes.oneOf(['object', 'string', 'number', 'array', 'boolean']),
@@ -28,12 +28,19 @@ function labeled(Comp) {
             ]).isRequired,
             required: PropTypes.bool,
             description: PropTypes.string
-        }),
-        editKey: PropTypes.any,
-        view: PropTypes.object,
+        }).isRequired,
+        editKey: PropTypes.string,
+        view: PropTypes.shape({
+            title: PropTypes.string,
+            description: PropTypes.string
+        }).isRequired,
         errorMessage: PropTypes.arrayOf(PropTypes.string)
     };
-    return label;
+    Label.defaultProps = {
+        editKey: '',
+        errorMessage: []
+    };
+    return Label;
 }
 
 export default labeled;

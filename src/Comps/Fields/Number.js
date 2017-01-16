@@ -37,7 +37,7 @@ class NumberField extends React.Component {
     }
 }
 NumberField.propTypes = {
-    value: PropTypes.number,
+    value: PropTypes.number, // eslint-disable-line react/require-default-props
     onChange: PropTypes.func.isRequired
 };
 

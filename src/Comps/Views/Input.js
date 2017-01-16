@@ -25,13 +25,16 @@ function Input(props) {
 
 Input.propTypes = {
     type: PropTypes.string.isRequired,
-    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     className: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     checked: PropTypes.bool,
-    value: PropTypes.any,
+    value: PropTypes.any, // eslint-disable-line
     schema: PropTypes.shape({
         placeholder: PropTypes.string
-    })
+    }).isRequired
+};
+Input.defaultProps = {
+    className: undefined,
+    checked: false
 };
 export default Input;

@@ -42,8 +42,11 @@ function Widget(props) {
 }
 
 Widget.propTypes = {
-    schema: PropTypes.object,
-    path: PropTypes.array,
-    actions: PropTypes.objectOf(PropTypes.func)
+    schema: PropTypes.shape({
+        type: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.arrayOf(PropTypes.string)
+        ]).isRequired
+    }).isRequired
 };
 export default Widget;

@@ -21,8 +21,8 @@ SelectWidget.propTypes = {
             value: PropTypes.any,
             label: PropTypes.string.isRequired
         })).isRequired
-    }),
-    value: PropTypes.any,
+    }).isRequired,
+    value: PropTypes.any, // eslint-disable-line
     onChange: PropTypes.func.isRequired
 };
 export default SelectWidget;

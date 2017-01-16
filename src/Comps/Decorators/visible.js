@@ -12,9 +12,9 @@ function visibility(Comp) {
     Visible.propTypes = {
         schema: PropTypes.shape({
             visible: PropTypes.func
-        }),
-        actions: PropTypes.objectOf(PropTypes.func),
-        value: PropTypes.any
+        }).isRequired,
+        actions: PropTypes.objectOf(PropTypes.func).isRequired,
+        value: PropTypes.any // eslint-disable-line
     };
     return Visible;
 }

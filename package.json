@@ -11,7 +11,7 @@
     "build:lib": "cross-env NODE_ENV=production babel src -d lib",
     "build": "npm run clean && npm run lint && npm run build:rollup",
     "start": "node dev-server.js",
-    "lint": "eslint src/**/*.js"
+    "lint": "eslint src"
   },
   "author": "CiGit",
   "license": "MIT",
@@ -41,14 +41,14 @@
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.14.0",
     "rimraf": "^2.5.4",
-    "rollup": "^0.41.1",
+    "rollup": "^0.41.4",
     "rollup-plugin-babel": "^2.6.1",
     "rollup-plugin-commonjs": "^7.0.0",
     "rollup-plugin-filesize": "^1.0.1",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-uglify": "^1.0.1",
     "uglify-js": "github:mishoo/UglifyJS2#harmony",
-    "webpack": "^2.2.0-rc.3",
+    "webpack": "^2.2.0-rc.6",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-hot-middleware": "^2.15.0"
   },

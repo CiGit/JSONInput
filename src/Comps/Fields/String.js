@@ -16,17 +16,10 @@ function StringField(props) {
 }
 
 StringField.propTypes = {
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    schema: PropTypes.shape({
-        defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        type: PropTypes.oneOfType([
-            PropTypes.oneOf(['string', 'number']),
-            PropTypes.arrayOf(
-                PropTypes.oneOf(['string', 'number', 'null'])
-            )
-        ]).isRequired
-    }),
-    onChange: PropTypes.func.isRequired
+    value: PropTypes.oneOfType([ // eslint-disable-line react/require-default-props
+        PropTypes.number,
+        PropTypes.string
+    ])
 };
 export { StringField as SimpleStringField };
 export default validator(fromDefaultValue(StringField));
