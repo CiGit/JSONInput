@@ -18,12 +18,15 @@ function renderChildren(props) {
         }
         mergedProperties.push(v);
     });
-
+    function indexFor(property) {
+        if (properties[property] && typeof properties[property].index === 'number') {
+            return properties[property].index;
+        }
+        return 0;
+    }
     // Index based sorting
     function sortProperties(a, b) {
-        const aIndex = properties[a] ? properties[a].index || 0 : 0;
-        const bIndex = properties[b] ? properties[b].index || 0 : 0;
-        return aIndex - bIndex;
+        return indexFor(a) - indexFor(b);
     }
 
     mergedProperties.sort(sortProperties);
