@@ -1,8 +1,7 @@
 import babel from 'rollup-plugin-babel';
 // import commonjs from 'rollup-plugin-commonjs';
 // import nodeResolve from 'rollup-plugin-node-resolve';
-import rollupUglify from 'rollup-plugin-uglify';
-import { minify } from 'uglify-js';
+import babili from 'rollup-plugin-babili';
 import filesize from 'rollup-plugin-filesize';
 
 const pkg = require('./package.json');
@@ -26,7 +25,7 @@ export default {
             exclude: 'node_modules/**',
             plugins: ['external-helpers']
         }),
-        rollupUglify({}, minify),
+        babili(),
         filesize()
     ],
     external: function ext(module) {

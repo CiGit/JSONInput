@@ -28,6 +28,7 @@
             ]
         },
         "production": {
+            "presets": ["babili"],
             "plugins": [
                 "transform-react-remove-prop-types"
             ]
