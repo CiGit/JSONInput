@@ -1,7 +1,7 @@
 import React from 'react';
 import SchemaType from '../SchemaType';
 import Widget from '../Views/Widget';
-import fromDefaultValue from '../Decorators/fromDefaultValue';
+import validator from '../Decorators/validator';
 
 function onChildChange(index, props) {
     return function onChange(val) {
@@ -71,4 +71,4 @@ function ArrayField(props) {
     );
 }
 
-export default fromDefaultValue(ArrayField);
+export default validator(ArrayField);

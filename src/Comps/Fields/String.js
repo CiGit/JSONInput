@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Widget from '../Views/Widget';
-import fromDefaultValue from '../Decorators/fromDefaultValue';
 import validator from '../Decorators/validator';
 
 function StringField(props) {
@@ -23,4 +22,4 @@ StringField.propTypes = {
     ])
 };
 export { StringField as SimpleStringField };
-export default validator(fromDefaultValue(StringField));
+export default validator(StringField);

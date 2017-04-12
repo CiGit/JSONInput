@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import validator from '../Decorators/validator';
-import fromDefaultValue from '../Decorators/fromDefaultValue';
 import { SimpleStringField } from './String';
 
 class NumberField extends React.Component {
@@ -42,4 +41,4 @@ NumberField.propTypes = {
     onChange: PropTypes.func.isRequired
 };
 
-export default validator(fromDefaultValue(NumberField));
+export default validator(NumberField);

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SchemaType from '../SchemaType';
-import fromDefaultValue from '../Decorators/fromDefaultValue';
 import Widget from '../Views/Widget';
 import validator from '../Decorators/validator';
 
@@ -113,4 +112,4 @@ ObjectField.defaultProps = {
     value: {}
 };
 
-export default validator(fromDefaultValue(ObjectField));
+export default validator(ObjectField);

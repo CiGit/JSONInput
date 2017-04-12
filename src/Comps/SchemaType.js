@@ -5,6 +5,7 @@ import Fields from './Fields/index';
 import visible from './Decorators/visible';
 import UndefinedField from './Fields/Undefined';
 import inference from './Decorators/inference';
+import fromDefaultValue from './Decorators/fromDefaultValue';
 
 
 /**
@@ -57,4 +58,4 @@ SchemaType.propTypes = {
     actions: PropTypes.objectOf(PropTypes.func).isRequired
 };
 
-export default inference(visible(SchemaType));
+export default inference(fromDefaultValue(visible(SchemaType)));
