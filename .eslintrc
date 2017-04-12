@@ -17,6 +17,9 @@
             2,
             4
         ],
+        "react/no-array-index-key":[
+            0
+        ],
         "react/jsx-indent-props": [
             2,
             4

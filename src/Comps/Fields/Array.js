@@ -52,7 +52,7 @@ function renderChildren(props) {
             schema={Array.isArray(items) ? (items[i] || {}) : items}
             value={val}
             editKey={String(i)}
-            key={i} // eslint-disable-line react/no-array-index-key, should UID
+            key={i}
             onChange={onChildChange(i, props)}
         />
     ));

@@ -1,7 +1,11 @@
 import jsonschema, { Validator } from 'jsonschema';
 
 const customValidator = new Validator();
-customValidator.attributes.errored = function validateErrored(instance, schema, options) {
+customValidator.attributes.errored = function validateErrored(
+    instance,
+    schema,
+    options
+) {
     if (typeof schema.errored !== 'function') {
         throw new jsonschema.SchemaError('"errored" expects a function');
     }
@@ -17,4 +21,4 @@ function validate(value, schema, formValue) {
     });
 }
 
-export default validate ;
+export default validate;
