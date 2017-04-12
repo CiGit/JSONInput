@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function SelectWidget({ view, value, onChange }) {
     const choices = view.choices.map(c => (

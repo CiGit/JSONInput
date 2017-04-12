@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Widget from '../Views/Widget';
 import fromDefaultValue from '../Decorators/fromDefaultValue';
 import validator from '../Decorators/validator';

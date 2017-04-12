@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function Undefined(props) {
     return (<span>{`Undefined field type "${props.schema.type}", [${props.path}]`}</span>);

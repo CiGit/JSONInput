@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function updateDefault({ value, schema: { value: defaultValue } }) {
     const val = value !== undefined ? value : defaultValue;
