@@ -20,8 +20,7 @@
     "baobab-react": "^2.1.1",
     "jsonschema": "^1.1.0",
     "prop-types": "^15.5.7",
-    "react-pure-render": "^1.0.2",
-    "rollup-plugin-replace": "^1.1.1"
+    "react-pure-render": "^1.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -50,6 +49,7 @@
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-filesize": "^1.2.1",
     "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-replace": "^1.1.1",
     "webpack": "^2.3.3",
     "webpack-dev-middleware": "^1.10.1",
     "webpack-hot-middleware": "^2.18.0"
