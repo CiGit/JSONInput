@@ -1,19 +1,17 @@
+/* @flow */
 import React from 'react';
-import PropTypes from 'prop-types';
 
-function Undefined(props) {
-    return (<span>{`Undefined field type "${props.schema.type}", [${props.path}]`}</span>);
+import type { Schema } from '../../types.js.flow';
+
+type Props = {
+    schema: Schema,
+    path: string[]
+};
+
+function Undefined(props: Props) {
+    return (
+        <span>{`Undefined field type "${props.schema.type.toString()}", [${props.path.toString()}]`}</span>
+    );
 }
 
-Undefined.propTypes = {
-    schema: PropTypes.shape({
-        type: PropTypes.oneOfType([
-            PropTypes.oneOf(['object', 'string', 'number', 'array', 'boolean']),
-            PropTypes.arrayOf(
-                PropTypes.oneOf(['object', 'string', 'number', 'array', 'boolean', 'null'])
-            )
-        ]).isRequired
-    }).isRequired,
-    path: PropTypes.arrayOf(PropTypes.string).isRequired
-};
 export default Undefined;

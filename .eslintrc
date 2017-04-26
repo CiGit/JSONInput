@@ -1,6 +1,14 @@
 {
     "root": true,
-    "extends": "airbnb",
+    "parser": "babel-eslint",
+    "extends": [
+        "airbnb"
+    ],
+    "globals": {
+        "Class": true,
+        "React$Element": true,
+        "React$Component": true
+    },
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true,
@@ -10,22 +18,53 @@
     "rules": {
         "indent": [
             2,
-            4
+            4,
+            {
+                "SwitchCase": 1
+            }
         ],
         "comma-dangle": 0,
+        "arrow-parens": [
+            2,
+            "as-needed"
+        ],
         "react/jsx-indent": [
             2,
             4
         ],
-        "react/no-array-index-key":[
+        "react/no-array-index-key": [
             0
         ],
+        "react/no-unused-prop-types": 0,
         "react/jsx-indent-props": [
             2,
             4
         ],
+        "react/require-default-props": [
+            0
+        ],
+        "react/sort-comp": [
+            1,
+            {
+                "order": [
+                    "type-annotations",
+                    "static-methods",
+                    "lifecycle",
+                    "everything-else",
+                    "render"
+                ]
+            }
+        ],
         "react/jsx-filename-extension": [
             0
+        ],
+        "jsx-a11y/anchor-has-content": [
+            2,
+            {
+                "components": [
+                    "Anchor"
+                ]
+            }
         ]
     },
     "env": {

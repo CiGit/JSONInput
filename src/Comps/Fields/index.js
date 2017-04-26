@@ -1,3 +1,4 @@
+// @flow
 import ObjectField from './Object';
 import StringField from './String';
 import NumberField from './Number';
