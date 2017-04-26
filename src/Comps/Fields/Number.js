@@ -1,10 +1,25 @@
+/* @flow */
 import React from 'react';
-import PropTypes from 'prop-types';
 import validator from '../Decorators/validator';
 import { SimpleStringField } from './String';
+import type { Schema } from '../../types.js.flow';
 
-class NumberField extends React.Component {
-    constructor(props) {
+type Props = {
+    schema: Schema & { type: 'number' | 'string' },
+    value?: number,
+    editKey: string,
+    onChange: (string | void | number) => void,
+    errorMessage: string[]
+};
+
+class NumberField
+    extends React.Component<void, Props, { value?: string | void | number }> {
+    state: {
+        value?: string | void | number
+    };
+    boundChange: (value: number | string) => void;
+    props: Props;
+    constructor(props: Props) {
         super(props);
         this.state = {
             value: props.value
@@ -20,11 +35,14 @@ class NumberField extends React.Component {
         }
     }
     onChange(val) {
-        const value = val === '' ? undefined : val;
+        const value: string | void | number = val === '' ? undefined : val;
         const numVal = Number(value);
-        this.setState({
-            value
-        }, () => this.props.onChange(isNaN(numVal) ? value : numVal));
+        this.setState(
+            {
+                value
+            },
+            () => this.props.onChange(isNaN(numVal) ? value : numVal)
+        );
     }
     render() {
         return (
@@ -36,9 +54,5 @@ class NumberField extends React.Component {
         );
     }
 }
-NumberField.propTypes = {
-    value: PropTypes.number, // eslint-disable-line react/require-default-props
-    onChange: PropTypes.func.isRequired
-};
 
 export default validator(NumberField);

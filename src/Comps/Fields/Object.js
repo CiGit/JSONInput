@@ -1,41 +1,63 @@
+/* @flow */
 import React from 'react';
-import PropTypes from 'prop-types';
 import SchemaType from '../SchemaType';
 import Widget from '../Views/Widget';
 import validator from '../Decorators/validator';
 
+import type { Schema, Action } from '../../types.js.flow';
 
-function renderChildren(props) {
+type Props = {
+    schema: Schema & {
+        properties?: { [property: string]: Schema },
+        defaultProperties?: Schema
+    },
+    status: { [string | number]: {} },
+    editKey: string,
+    value: { [key: string]: mixed },
+    actions: {
+        [string]: Action,
+        deleteSchema: Action
+    },
+    path: Array<string>,
+    onChange: ({}) => void
+};
+const EMPTY_OBJECT = {};
+
+function renderChildren(props: Props): [] {
     const children = [];
-    const properties = props.schema.properties || {};
-    const value = props.value || {};
+    const properties: { [key: string]: Schema } = props.schema.properties || {};
+    const value: { [key: string]: mixed } = props.value || {};
     // Holds schema properties and value properties missing from schema.
-    const mergedProperties = Object.keys(properties);
+    const mergedProperties: Array<string> = Object.keys(properties);
 
-    Object.keys(value).forEach((v) => {
+    Object.keys(value).forEach(v => {
         if (v in properties) {
             return;
         }
         mergedProperties.push(v);
     });
-    function indexFor(property) {
-        if (properties[property] && typeof properties[property].index === 'number') {
+    function indexFor(property: string): number {
+        if (
+            properties[property] &&
+            typeof properties[property].index === 'number'
+        ) {
             return properties[property].index;
         }
         return 0;
     }
     // Index based sorting
-    function sortProperties(a, b) {
+    function sortProperties(a: string, b: string): number {
         return indexFor(a) - indexFor(b);
     }
 
     mergedProperties.sort(sortProperties);
-    for (let i = 0; i < mergedProperties.length; i += 1) {
-        const prop = mergedProperties[i];
+    for (let i: number = 0; i < mergedProperties.length; i += 1) {
+        const prop: string = mergedProperties[i];
         if (prop in properties) {
             children.push(
                 <SchemaType
                     {...props}
+                    status={props.status[prop] || EMPTY_OBJECT}
                     schema={properties[prop]}
                     value={value[prop]}
                     editKey={prop}
@@ -50,6 +72,7 @@ function renderChildren(props) {
             children.push(
                 <SchemaType
                     {...props}
+                    status={props.status[prop] || EMPTY_OBJECT}
                     schema={schema}
                     value={value[prop]}
                     editKey={prop}
@@ -61,23 +84,25 @@ function renderChildren(props) {
     return children;
 }
 
-function ObjectField(props) {
-    function addKey(key, value) {
-        props.onChange(Object.assign({}, props.value, {
-            [key]: value
-        }));
+function ObjectField(props: Props) {
+    function addKey(key: string, value: mixed): void {
+        props.onChange(
+            Object.assign({}, props.value, {
+                [key]: value
+            })
+        );
     }
 
-    function removeKey(key) {
-        const value = Object.assign({}, props.value);
+    function removeKey(key: string): void {
+        const value: {} = Object.assign({}, props.value);
         delete value[key];
         props.actions.deleteSchema(props.path.concat([key]), {});
         props.onChange(value);
     }
 
-    function alterKey(key, newKey) {
-        const value = {};
-        Object.keys(props.value).forEach((p) => {
+    function alterKey(key: string, newKey: string): void {
+        const value: {} = {};
+        Object.keys(props.value).forEach(p => {
             if (p !== key) {
                 value[p] = props.value[p];
             } else {
@@ -98,16 +123,6 @@ function ObjectField(props) {
     );
 }
 
-ObjectField.propTypes = {
-    schema: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
-        properties: PropTypes.object
-    }).isRequired,
-    value: PropTypes.any, // eslint-disable-line react/forbid-prop-types
-    path: PropTypes.arrayOf( // eslint-disable-line react/no-unused-prop-types
-        PropTypes.string
-    ).isRequired,
-    onChange: PropTypes.func.isRequired
-};
 ObjectField.defaultProps = {
     value: {}
 };

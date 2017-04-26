@@ -1,3 +1,4 @@
+// @flow
 import undefinedWidgetFactory from './undefinedWidgetFactory';
 import TextWidget from './TextWidget';
 import ArrowNumberWidget from './ArrowNumberWidget';
@@ -6,7 +7,14 @@ import ArrayWidget from './ArrayWidget';
 import ObjectWidget from './ObjectWidget';
 import SelectWidget from './SelectWidget';
 
-let DefaultWidget = {
+import type { WidgetProp } from '../../types.js.flow';
+
+type WidgetMap = {
+    [string]:
+        | Class<React$Component<*, WidgetProp, *>>
+        | ((props: WidgetProp) => React$Element<*>)
+};
+let DefaultWidget: WidgetMap = {
     string: TextWidget,
     number: TextWidget,
     boolean: CheckboxWidget,
@@ -16,11 +24,11 @@ let DefaultWidget = {
     select: SelectWidget
 };
 
-function defaultWidget(type) {
+function defaultWidget(type: string) {
     return DefaultWidget[type] || undefinedWidgetFactory(type);
 }
 
-function setDefaultWidgets(obj) {
+function setDefaultWidgets(obj: WidgetMap) {
     DefaultWidget = Object.assign({}, DefaultWidget, obj);
 }
 

@@ -8,7 +8,8 @@
                 "loose": true
             }
         ],
-        "react"
+        "react",
+        "flow"
     ],
     "plugins": [
         "transform-object-rest-spread"

@@ -1,11 +1,30 @@
+// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
 import validate from './../../Utils/customValidator';
+import type { Schema, Action } from '../../types.js.flow';
 
-function validated(Comp) {
-    function Validator(props) {
-        function onChange(val) {
-            const validation = validate(val, props.schema, props.actions.getFormValue());
+type Props = {
+    schema: Schema,
+    value?: mixed,
+    actions: {
+        [string]: Action,
+        getFormValue: Action,
+        getErrors: (string[]) => string[]
+    },
+    path: string[],
+    onChange: mixed => void
+};
+
+function validated<P: Props>(
+    Comp: Class<React.Component<*, *, *>> | ((*) => ?React.Element<*>)
+) {
+    function Validator(props: P) {
+        function onChange(val: mixed): void {
+            const validation = validate(
+                val,
+                props.schema,
+                props.actions.getFormValue()
+            );
             const err = validation.errors.map(error => error.message);
             props.onChange(val, err);
         }
@@ -18,16 +37,6 @@ function validated(Comp) {
             />
         );
     }
-
-    Validator.propTypes = {
-        onChange: PropTypes.func.isRequired,
-        schema: PropTypes.shape({
-            errored: PropTypes.func
-        }).isRequired,
-        value: PropTypes.any, // eslint-disable-line
-        path: PropTypes.arrayOf(PropTypes.string).isRequired,
-        actions: PropTypes.objectOf(PropTypes.func).isRequired
-    };
     return Validator;
 }
 

@@ -16,7 +16,7 @@ function Input(props) {
         <input
             type={props.type}
             placeholder={props.schema.placeholder}
-            value={props.value}
+            value={props.value || ''}
             className={props.className}
             onChange={onInputChange(props.onChange)}
             checked={props.checked}

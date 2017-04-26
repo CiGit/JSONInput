@@ -1,3 +1,4 @@
+// @flow
 import Baobab from 'baobab';
 
 const createTree = () => new Baobab({

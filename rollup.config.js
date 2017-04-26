@@ -21,17 +21,6 @@ export default {
         }),
         replace({ 'process.env.NODE_ENV': JSON.stringify(env) }),
         babel({
-            // nodeResolve({
-            //     module: true,
-            //     jsnext: true,
-            //     main: true,
-            //     skip: external,
-            //     browser: true,
-            //     preferBuiltins: false
-            // }),
-            // commonjs({
-            //     include: 'node_modules/**'
-            // }),
             exclude: 'node_modules/**'
         }),
         commonjs(),

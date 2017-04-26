@@ -4,10 +4,18 @@ import labeled from '../Decorators/labeled';
 
 function ArrayWidget(props) {
     function renderChild(child, index) {
-        return (<div>
-            <button onClick={props.onChildRemove(index)}>-</button>
-            {child}
-        </div>);
+        return (
+            <div>
+                <button
+                    onClick={function remove() {
+                        props.onChildRemove(index);
+                    }}
+                >
+                    -
+                </button>
+                {child}
+            </div>
+        );
     }
 
     const children = React.Children.map(props.children, renderChild);
