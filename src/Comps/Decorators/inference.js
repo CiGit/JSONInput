@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import infer from './../../Utils/infer';
-import type { Schema, Action } from '../../types.js.flow';
+import type { Schema } from '../../types.js.flow';
 /**
  * Update store's value path.
  * @param {Array<string>} currentValuePath the valuePath the parent
@@ -18,11 +18,7 @@ type Props = {
     path: string[],
     editKey?: string,
     value?: mixed,
-    schema: Schema,
-    actions: {
-        [string]: Action,
-        updateSchema: Action
-    }
+    schema: Schema
 };
 
 /**

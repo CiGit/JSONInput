@@ -5,28 +5,15 @@ import visible from './Decorators/visible';
 import UndefinedField from './Fields/Undefined';
 import inference from './Decorators/inference';
 import fromDefaultValue from './Decorators/fromDefaultValue';
+import { update } from '../Store/actions';
 
 import type { Schema, Action } from '../types.js.flow';
-
-/**
- * bind function callback with its path
- * @param {function(Array<String>)} func callback function to bind
- * @param {Array<string>} path the value's path to act on
- */
-function doAction(
-    func: (string[], ...args: mixed[]) => mixed,
-    path: string[]
-): (...mixed[]) => void {
-    return function action(...args) {
-        func(path, ...args);
-    };
-}
 
 type SchemaProps = {
     schema: Schema,
     status: { [string | number]: {} },
     path: string[],
-    actions: { [func: string]: Action, update: Action },
+    dispatch: (Action, ...args: mixed[]) => any,
     editKey?: string,
     value: ?mixed
 };
@@ -40,7 +27,9 @@ class SchemaType extends React.Component<*, SchemaProps, *> {
     onChange: mixed => void;
     constructor(props: SchemaProps) {
         super(props);
-        this.onChange = doAction(props.actions.update, props.path);
+        this.onChange = function onChange(...args) {
+            props.dispatch(update, props.path, ...args);
+        };
     }
     shouldComponentUpdate(props: SchemaProps) {
         const { editKey, schema, value, status } = this.props;

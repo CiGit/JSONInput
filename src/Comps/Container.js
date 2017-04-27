@@ -3,11 +3,11 @@ import React from 'react';
 import { root, branch } from 'baobab-react/higher-order';
 import createTree from '../Store/index';
 import SchemaType from './SchemaType';
-import * as actions from '../Store/actions';
+import { setErrors } from '../Store/actions';
 import validate from './../Utils/customValidator';
 import { setDefaultWidgets } from './Views/index';
 
-import type { Schema, Action } from '../types.js.flow';
+import type { Schema } from '../types.js.flow';
 
 const BranchedSchemaType = branch(
     {
@@ -30,13 +30,11 @@ type Props = {
 class Container extends React.Component<void, Props, void> {
     static setDefaultWidgets: *;
     tree: any;
-    ACTIONS: { [actionName: string]: Action };
     rooted: Class<
         React.Component<
             void,
             {
                 onChange: mixed => void,
-                actions: { [actionName: string]: Action },
                 path: string[]
             },
             void
@@ -48,11 +46,6 @@ class Container extends React.Component<void, Props, void> {
         super(props);
         this.tree = createTree();
         this.updateTree(props.value, props.schema);
-        // should use dispatcher instead. from baobab-react v2
-        this.ACTIONS = {};
-        Object.keys(actions).forEach(action => {
-            this.ACTIONS[action] = actions[action].bind(this.tree, this.tree);
-        });
         this.rooted = root(this.tree, BranchedSchemaType);
     }
     componentDidMount() {
@@ -85,10 +78,9 @@ class Container extends React.Component<void, Props, void> {
         return this.tree.get('value');
     }
     updateTree(value: mixed, schema?: Schema) {
-        this.tree.set('value', value);
-        this.tree.set('schema', schema || {});
-        this.tree.set('status', {});
-        this.tree.commit();
+        this.tree.select('value').set(value);
+        this.tree.select('schema').set(schema);
+        this.tree.select('status').set({});
     }
     validate() {
         const validationResult = validate(
@@ -96,7 +88,6 @@ class Container extends React.Component<void, Props, void> {
             this.tree.get('schema'),
             this.tree.get('value')
         );
-        const { setErrors } = this.ACTIONS;
         const errorMap = new Map();
         // Collect each error associated with a given path
         validationResult.errors.forEach(error => {
@@ -106,6 +97,7 @@ class Container extends React.Component<void, Props, void> {
         });
         errorMap.forEach((value, key) => {
             setErrors(
+                this.tree,
                 key.split(/\.|\[|\]/).filter(x => x !== '').slice(1),
                 value
             );
@@ -114,13 +106,7 @@ class Container extends React.Component<void, Props, void> {
     }
     render() {
         const Rooted = this.rooted;
-        return (
-            <Rooted
-                onChange={this.props.onChange}
-                path={[]}
-                actions={this.ACTIONS}
-            />
-        );
+        return <Rooted onChange={this.props.onChange} path={[]} />;
     }
 }
 

@@ -4,7 +4,7 @@ import SchemaType from '../SchemaType';
 import Widget from '../Views/Widget';
 import validator from '../Decorators/validator';
 
-import type { Schema, Action } from '../../types.js.flow';
+import type { Schema } from '../../types.js.flow';
 
 type Props = {
     onChange: (mixed[]) => void,
@@ -15,10 +15,6 @@ type Props = {
     value?: mixed[],
     editKey: string,
     status: { [string | number]: {} },
-    actions: {
-        [string]: Action,
-        deleteSchema: Action
-    },
     path: string[]
 };
 const EMPTY_OBJECT = {};

@@ -3,6 +3,7 @@ import React from 'react';
 import SchemaType from '../SchemaType';
 import Widget from '../Views/Widget';
 import validator from '../Decorators/validator';
+import { updateSchema, deleteSchema } from '../../Store/actions';
 
 import type { Schema, Action } from '../../types.js.flow';
 
@@ -14,10 +15,7 @@ type Props = {
     status: { [string | number]: {} },
     editKey: string,
     value: { [key: string]: mixed },
-    actions: {
-        [string]: Action,
-        deleteSchema: Action
-    },
+    dispatch: (Action, ...args: mixed[]) => any,
     path: Array<string>,
     onChange: ({}) => void
 };
@@ -67,7 +65,7 @@ function renderChildren(props: Props): [] {
         } else {
             const schema = props.schema.defaultProperties;
             if (schema) {
-                props.actions.updateSchema(props.path.concat([prop]), schema);
+                props.dispatch(updateSchema, props.path.concat([prop]), schema);
             }
             children.push(
                 <SchemaType
@@ -96,7 +94,7 @@ function ObjectField(props: Props) {
     function removeKey(key: string): void {
         const value: {} = Object.assign({}, props.value);
         delete value[key];
-        props.actions.deleteSchema(props.path.concat([key]), {});
+        props.dispatch(deleteSchema, props.path.concat([key]), {});
         props.onChange(value);
     }
 

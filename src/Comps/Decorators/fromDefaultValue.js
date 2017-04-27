@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-
+import { setDefaultValue } from '../../Store/actions';
 import type { Action, Schema } from '../../types.js.flow';
 
 function updateDefault({ value, schema: { value: defaultValue } }) {
@@ -8,11 +8,11 @@ function updateDefault({ value, schema: { value: defaultValue } }) {
     return val;
 }
 type Props = {
-    actions: { [string]: Action, setDefaultValue: Action },
     editKey?: string,
     path: string[],
     value?: mixed,
-    schema: Schema
+    schema: Schema,
+    dispatch: (Action, ...args: mixed[]) => any
 };
 
 function fromDefaultValue<P: Props>(
@@ -32,19 +32,24 @@ function fromDefaultValue<P: Props>(
         }
         componentWillReceiveProps(nextProps: P) {
             if (nextProps.schema !== this.props.schema) {
-                this.setState(
-                    { val: updateDefault(nextProps) },
-                    this.notifyDefaultChange.bind(this)
-                );
+                this.setState({ val: updateDefault(nextProps) });
             } else {
                 this.setState({ val: nextProps.value });
             }
         }
+        componentDidUpdate() {
+            this.notifyDefaultChange();
+        }
         notifyDefaultChange() {
             if (this.props.value !== this.state.val) {
-                this.props.actions.setDefaultValue(
-                    this.props.path,
-                    this.state.val
+                setTimeout(
+                    () =>
+                        this.props.dispatch(
+                            setDefaultValue,
+                            this.props.path,
+                            this.state.val
+                        ),
+                    10
                 );
             }
         }
