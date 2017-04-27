@@ -9,6 +9,7 @@ type Props = {
     schema: Schema & { type: 'number' | 'string' },
     value?: number | string,
     editKey: string,
+    path: string[],
     onChange: (value: string | number) => void
 };
 

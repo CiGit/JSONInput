@@ -9,6 +9,7 @@ function BooleanField(
     props: {
         schema: Schema & { type: 'boolean' },
         editKey: string,
+        path: string[],
         value: boolean,
         onChange: (value: boolean) => void
     }
