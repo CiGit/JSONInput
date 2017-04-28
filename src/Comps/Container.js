@@ -20,14 +20,14 @@ const BranchedSchemaType = branch(
 
 type Props = {
     onChange: mixed => any,
-    schema?: Schema,
+    schema: Schema,
     value?: mixed
 };
 
 /**
  * Top Component
  */
-class Container extends React.Component<void, Props, void> {
+class Container extends React.Component<*, Props, void> {
     static setDefaultWidgets: *;
     tree: any;
     rooted: Class<
@@ -78,9 +78,9 @@ class Container extends React.Component<void, Props, void> {
         return this.tree.get('value');
     }
     updateTree(value: mixed, schema?: Schema) {
-        this.tree.select('value').set(value);
-        this.tree.select('schema').set(schema);
-        this.tree.select('status').set({});
+        this.tree.set('value', value);
+        this.tree.set('schema', schema);
+        this.tree.set('status', {});
     }
     validate() {
         const validationResult = validate(
@@ -109,6 +109,8 @@ class Container extends React.Component<void, Props, void> {
         return <Rooted onChange={this.props.onChange} path={[]} />;
     }
 }
-
+Container.defaultProps = {
+    schema: {}
+};
 Container.setDefaultWidgets = setDefaultWidgets;
 export default Container;

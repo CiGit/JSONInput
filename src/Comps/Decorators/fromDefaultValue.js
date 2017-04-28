@@ -42,14 +42,10 @@ function fromDefaultValue<P: Props>(
         }
         notifyDefaultChange() {
             if (this.props.value !== this.state.val) {
-                setTimeout(
-                    () =>
-                        this.props.dispatch(
-                            setDefaultValue,
-                            this.props.path,
-                            this.state.val
-                        ),
-                    10
+                this.props.dispatch(
+                    setDefaultValue,
+                    this.props.path,
+                    this.state.val
                 );
             }
         }

@@ -9,7 +9,7 @@ const formSchema = {
             type: 'string',
             value: 'www',
             required: true,
-            errored: val => val === 'www' ? 'world wide web' : '',
+            errored: val => (val === 'www' ? 'world wide web' : ''),
             view: {
                 title: 'This is a string'
             }
@@ -60,7 +60,7 @@ const formSchema = {
                         type: 'number',
                         title: 'object number',
                         placeholder: 'number in obj',
-                        errored: val => val > 100 ? 'too big' : ''
+                        errored: val => (val > 100 ? 'too big' : '')
                     }
                 },
                 view: {
@@ -96,6 +96,9 @@ function stringify(obj) {
 }
 
 function parse(str) {
+    if (str === '') {
+        return undefined;
+    }
     return JSON.parse(str, (key, value) => {
         if (
             value &&
@@ -125,8 +128,8 @@ class App extends React.Component {
     schemaChange(event) {
         this.setState({
             schema: parse(event.target.value),
-            editData: '',
-            data: ''
+            editData: undefined,
+            data: undefined
         });
     }
     dataChange(event) {
