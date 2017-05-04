@@ -78,9 +78,9 @@ class Container extends React.Component<*, Props, void> {
         return this.tree.get('value');
     }
     updateTree(value: mixed, schema?: Schema) {
-        this.tree.set('value', value);
-        this.tree.set('schema', schema);
-        this.tree.set('status', {});
+        this.tree.select('value', value);
+        this.tree.select('schema', schema);
+        this.tree.select('status', {});
     }
     validate() {
         const validationResult = validate(
