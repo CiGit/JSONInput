@@ -1,6 +1,5 @@
 import React from 'react';
 import { ErrorFn } from './Utils/customValidator';
-import Form from './Comps/Container';
 
 export type TYPESTRING =
     | 'string'
@@ -13,7 +12,7 @@ export type TYPESTRING =
 type View = {
     type?:
     | string
-    | React.Component<WidgetProp, {}>
+    | React.ComponentClass<WidgetProp>
     | React.SFC<WidgetProp>,
     [key: string]: any
 };
@@ -28,7 +27,7 @@ export type Schema = {
 };
 export type WidgetProp = {
     value: {},
-    onChange: ({ }) => void,
+    onChange: (value: {}) => void,
     schema: Schema,
     view: View,
     errorMessage?: string,
@@ -41,5 +40,3 @@ export type WidgetProp = {
 };
 
 export type Action = (tree: any, path?: string[], ...args: {}[]) => {} | void;
-
-export default Form;

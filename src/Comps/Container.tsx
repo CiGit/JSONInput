@@ -4,9 +4,8 @@ import createTree from '../Store/index';
 import SchemaType from './SchemaType';
 import { setErrors } from '../Store/actions';
 import validate from './../Utils/customValidator';
-import { setDefaultWidgets } from './Views/index';
 
-import { Schema, Form } from '../types';
+import { Schema } from '../types';
 
 const BranchedSchemaType = branch(
     {
@@ -27,7 +26,6 @@ export type Props = {
  * Top Component
  */
 class Container extends React.Component<Props, undefined> {
-    static setDefaultWidgets: typeof setDefaultWidgets;
     static defaultProps = { schema: {} };
     private tree: any;
     private rooted: React.StatelessComponent<{
@@ -104,5 +102,4 @@ class Container extends React.Component<Props, undefined> {
     }
 }
 
-Container.setDefaultWidgets = setDefaultWidgets;
 export default Container;

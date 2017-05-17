@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Form creation from JSONSchema input",
   "main": "lib/index.js",
-  "typings": "src/types.d.ts",
+  "types": "typings/jsoninput.d.ts",
   "module": "lib/index.es2015.js",
   "scripts": {
     "clean": "rimraf dist lib",
