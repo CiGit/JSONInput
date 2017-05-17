@@ -10,7 +10,9 @@ function labeled(Comp) {
                 <label //eslint-disable-line
                     className={`${props.schema.type}Field ${requiredClassName}`}
                 >
-                    <span className="title">{props.view.title || props.editKey}</span>
+                    <span className="title">
+                        {props.view.title || props.editKey}
+                    </span>
                     <Comp {...props} />
                     <span>{props.view.description}</span>
                     <span>{props.errorMessage}</span>
@@ -22,9 +24,22 @@ function labeled(Comp) {
     Label.propTypes = {
         schema: PropTypes.shape({
             type: PropTypes.oneOfType([
-                PropTypes.oneOf(['object', 'string', 'number', 'array', 'boolean']),
+                PropTypes.oneOf([
+                    'object',
+                    'string',
+                    'number',
+                    'array',
+                    'boolean'
+                ]),
                 PropTypes.arrayOf(
-                    PropTypes.oneOf(['object', 'string', 'number', 'array', 'boolean', 'null'])
+                    PropTypes.oneOf([
+                        'object',
+                        'string',
+                        'number',
+                        'array',
+                        'boolean',
+                        'null'
+                    ])
                 )
             ]).isRequired,
             required: PropTypes.bool,

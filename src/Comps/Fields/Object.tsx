@@ -1,30 +1,32 @@
-/* @flow */
 import React from 'react';
 import SchemaType from '../SchemaType';
 import Widget from '../Views/Widget';
 import validator from '../Decorators/validator';
 import { updateSchema, deleteSchema } from '../../Store/actions';
 
-import type { Schema, Action } from '../../types.js.flow';
+import { Schema, Action } from '../../types';
 
 type Props = {
     schema: Schema & {
         properties?: { [property: string]: Schema },
         defaultProperties?: Schema
     },
-    status: { [string | number]: {} },
+    status: { [key: string]: {} },
     editKey: string,
-    value: { [key: string]: mixed },
-    dispatch: (Action, ...args: mixed[]) => any,
-    path: Array<string>,
-    onChange: ({}) => void
+    value: {
+        [key: string]: {},
+    }
+    dispatch: (action: Action, ...args: {}[]) => any,
+    path: string[],
+    onChange: ({ }) => void
 };
+
 const EMPTY_OBJECT = {};
 
-function renderChildren(props: Props): [] {
+function renderChildren(props: Props): JSX.Element[] {
     const children = [];
     const properties: { [key: string]: Schema } = props.schema.properties || {};
-    const value: { [key: string]: mixed } = props.value || {};
+    const value: { [key: string]: {} } = props.value || {};
     // Holds schema properties and value properties missing from schema.
     const mergedProperties: Array<string> = Object.keys(properties);
 
@@ -36,10 +38,12 @@ function renderChildren(props: Props): [] {
     });
     function indexFor(property: string): number {
         if (
-            properties[property] &&
-            typeof properties[property].index === 'number'
+            properties[property]
         ) {
-            return properties[property].index;
+            const index = properties[property].index;
+            if (typeof index === 'number') {
+                return index;
+            }
         }
         return 0;
     }
@@ -54,7 +58,7 @@ function renderChildren(props: Props): [] {
         if (prop in properties) {
             children.push(
                 <SchemaType
-                    {...props}
+                    {...(props as any)}
                     status={props.status[prop] || EMPTY_OBJECT}
                     schema={properties[prop]}
                     value={value[prop]}
@@ -69,7 +73,7 @@ function renderChildren(props: Props): [] {
             }
             children.push(
                 <SchemaType
-                    {...props}
+                    {...(props as any)}
                     status={props.status[prop] || EMPTY_OBJECT}
                     schema={schema}
                     value={value[prop]}
@@ -83,7 +87,7 @@ function renderChildren(props: Props): [] {
 }
 
 function ObjectField(props: Props) {
-    function addKey(key: string, value: mixed): void {
+    function addKey(key: string, value: {}): void {
         props.onChange(
             Object.assign({}, props.value, {
                 [key]: value
@@ -92,14 +96,14 @@ function ObjectField(props: Props) {
     }
 
     function removeKey(key: string): void {
-        const value: {} = Object.assign({}, props.value);
+        const value: { [key: string]: {} } = Object.assign({}, props.value);
         delete value[key];
         props.dispatch(deleteSchema, props.path.concat([key]), {});
         props.onChange(value);
     }
 
     function alterKey(key: string, newKey: string): void {
-        const value: {} = {};
+        const value: { [key: string]: {} } = {};
         Object.keys(props.value).forEach(p => {
             if (p !== key) {
                 value[p] = props.value[p];
@@ -111,7 +115,7 @@ function ObjectField(props: Props) {
     }
     return (
         <Widget
-            {...props}
+            {...(props as any)}
             addKey={addKey}
             removeKey={removeKey}
             alterKey={alterKey}
@@ -120,9 +124,5 @@ function ObjectField(props: Props) {
         </Widget>
     );
 }
-
-ObjectField.defaultProps = {
-    value: {}
-};
 
 export default validator(ObjectField);

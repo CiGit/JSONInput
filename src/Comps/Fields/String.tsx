@@ -1,23 +1,23 @@
-/* @flow */
 import React from 'react';
 import Widget from '../Views/Widget';
 import validator from '../Decorators/validator';
 
-import type { Schema } from '../../types.js.flow';
+import { Schema, Action } from '../../types';
 
 type Props = {
     schema: Schema & { type: 'number' | 'string' },
     value?: number | string,
     editKey: string,
     path: string[],
-    onChange: (value: string | number) => void
+    onChange: (value: string | number) => void,
+    dispatch: (action: Action, ...args: {}[]) => any,
 };
 
 function StringField(props: Props) {
     const val = props.value !== undefined && props.value !== null
         ? String(props.value)
         : props.value;
-    return <Widget {...props} value={val} />;
+    return <Widget {...(props as any)} value={val} />;
 }
 
 export { StringField as SimpleStringField };

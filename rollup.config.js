@@ -4,6 +4,7 @@ import replace from 'rollup-plugin-replace';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import babili from 'rollup-plugin-babili';
 import filesize from 'rollup-plugin-filesize';
+import typescript from 'rollup-plugin-typescript';
 
 const pkg = require('./package.json');
 
@@ -13,13 +14,16 @@ const external = Object.keys(pkg.dependencies).concat(
     Object.keys(pkg.peerDependencies)
 );
 export default {
-    entry: 'src/index.js',
+    entry: 'src/index.ts',
     plugins: [
         nodeResolve({
             jsnext: true,
             main: true
         }),
         replace({ 'process.env.NODE_ENV': JSON.stringify(env) }),
+        typescript({
+            typescript: require('typescript')
+        }),
         babel({
             exclude: 'node_modules/**'
         }),

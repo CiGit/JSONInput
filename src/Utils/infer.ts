@@ -1,5 +1,4 @@
-// @flow
-export default function infer(value: mixed) {
+export default function infer(value?: {}) {
     switch (typeof value) {
         case 'number':
             return 'number';

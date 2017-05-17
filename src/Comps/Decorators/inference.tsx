@@ -1,7 +1,6 @@
-// @flow
 import React from 'react';
 import infer from './../../Utils/infer';
-import type { Schema } from '../../types.js.flow';
+import { Schema } from '../../types';
 /**
  * Update store's value path.
  * @param {Array<string>} currentValuePath the valuePath the parent
@@ -17,7 +16,7 @@ function updatePath(currentPath: string[], editKey?: string): string[] {
 type Props = {
     path: string[],
     editKey?: string,
-    value?: mixed,
+    value?: {},
     schema: Schema
 };
 
@@ -26,14 +25,14 @@ type Props = {
  * @param {React.Component} Comp component to decorate.
  * @return {React.Component} the decorated component.
  */
-function inference<P: Props>(
-    Comp: Class<React.Component<*, P, *>> | ((props: P) => ?React.Element<*>)
-): * {
-    class Infer extends React.Component<void, P, { schema: Schema }> {
+function inference<P extends Props>(
+    Comp: React.ComponentClass<P> | React.SFC<P>
+) {
+    class Infer extends React.Component<Props, { schema: Schema }> {
         state: {
             schema: Schema
         };
-        constructor(props: P) {
+        constructor(props: Props) {
             super(props);
             const { schema } = props;
             let inferedSchema = schema;
@@ -42,7 +41,7 @@ function inference<P: Props>(
             }
             this.state = { schema: inferedSchema };
         }
-        componentWillReceiveProps(nextProps: P) {
+        componentWillReceiveProps(nextProps: Props) {
             if (this.props.schema !== nextProps.schema) {
                 let inferedSchema = nextProps.schema;
                 if (!inferedSchema || !('type' in inferedSchema)) {
@@ -54,7 +53,7 @@ function inference<P: Props>(
         render() {
             const path = updatePath(this.props.path, this.props.editKey);
             return (
-                <Comp {...this.props} path={path} schema={this.state.schema} />
+                <Comp {...(this.props as any) } path={path} schema={this.state.schema} />
             );
         }
     }

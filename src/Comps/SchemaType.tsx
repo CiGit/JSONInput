@@ -1,4 +1,3 @@
-/* @flow */
 import React from 'react';
 import Fields from './Fields/index';
 import visible from './Decorators/visible';
@@ -7,15 +6,15 @@ import inference from './Decorators/inference';
 import fromDefaultValue from './Decorators/fromDefaultValue';
 import { update } from '../Store/actions';
 
-import type { Schema, Action } from '../types.js.flow';
+import { Schema, Action } from '../types';
 
 type SchemaProps = {
     schema: Schema,
-    status: { [string | number]: {} },
+    status: { [key: string]: {} },
     path: string[],
-    dispatch: (Action, ...args: mixed[]) => any,
+    dispatch: (action: Action, ...args: {}[]) => any,
     editKey?: string,
-    value: ?mixed
+    value?: {}
 };
 
 /**
@@ -23,20 +22,24 @@ type SchemaProps = {
  * @constructor
  * @param {Object} props
  */
-class SchemaType extends React.Component<*, SchemaProps, *> {
-    onChange: mixed => void;
+class SchemaType extends React.Component<SchemaProps, undefined> {
+    static defaultProps = {
+        path: []
+    };
+    onChange: ({ }) => void;
     constructor(props: SchemaProps) {
         super(props);
-        this.onChange = function onChange(...args) {
+        this.onChange = function onChange(...args: {}[]) {
             props.dispatch(update, props.path, ...args);
         };
     }
     shouldComponentUpdate(props: SchemaProps) {
-        const { editKey, schema, value, status } = this.props;
-        return !(editKey === props.editKey &&
-            schema === props.schema &&
-            value === props.value &&
-            status === props.status);
+        return true;
+        // const { editKey, schema, value, status } = this.props;
+        // return !(editKey === props.editKey &&
+        //     schema === props.schema &&
+        //     value === props.value &&
+        //     status === props.status);
     }
     render() {
         const { schema: { type } } = this.props;
@@ -49,11 +52,8 @@ class SchemaType extends React.Component<*, SchemaProps, *> {
         } else {
             Type = Fields[renderType];
         }
-        return <Type {...this.props} onChange={this.onChange} />;
+        return <Type {...(this.props as any)} onChange={this.onChange} />;
     }
 }
-SchemaType.defaultProps = {
-    path: []
-};
 
 export default inference(fromDefaultValue(visible(SchemaType)));

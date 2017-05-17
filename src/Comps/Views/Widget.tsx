@@ -1,17 +1,16 @@
-// @flow
 import React from 'react';
 import { defaultWidget } from './index';
 
-import type { Schema, WidgetProp } from '../../types.js.flow';
+import { Schema, WidgetProp } from '../../types';
 
 type Props = {
-    value: mixed,
+    value: {},
     onChange: (value: any) => void,
     schema: Schema,
     editKey: string,
     path: string[],
-    children?: React$Element<*>,
-    addKey?: (key: string, value: mixed) => void,
+    children?: (React.ComponentClass<WidgetProp> | React.SFC<WidgetProp>)[],
+    addKey?: (key: string, value: {}) => void,
     removeKey?: (key: string) => void,
     alterKey?: (key: string, newKey: string) => void,
     onChildAdd?: () => void,
@@ -20,7 +19,7 @@ type Props = {
 };
 
 const EMPTYOBJECT = {};
-function Widget(props: Props): React$Element<WidgetProp> {
+function Widget(props: Props) {
     const {
         value,
         schema,
@@ -58,16 +57,18 @@ function Widget(props: Props): React$Element<WidgetProp> {
         }
         if (typeof type === 'function') {
             const Type = type;
-            return <Type {...forwardProps} view={view} />;
+            return <Type {...(forwardProps as any) } view={view} />;
         }
     }
     let renderType = Array.isArray(schema.type)
         ? schema.type.find(t => t !== 'null')
         : schema.type;
+    let Wdgt;
     if (renderType === undefined) {
-        renderType = 'undefinedType';
+        Wdgt = defaultWidget('undefinedType');
+    } else {
+        Wdgt = defaultWidget(renderType)
     }
-    const Wdgt = defaultWidget(renderType);
     return <Wdgt {...forwardProps} view={view || EMPTYOBJECT} />;
 }
 

@@ -1,21 +1,21 @@
-// @flow
 import jsonschema, { Validator } from 'jsonschema';
 
-import type { Schema } from '../types.js.flow';
+import { Schema } from '../types';
 
 type ValidationError = {
-    instance: mixed,
+    instance: {},
     message: string,
     property: string
 };
 type ValidatorResult = {
     errors: ValidationError[]
 };
+export type ErrorFn = (value: {}, formValue: {}) => string
 const customValidator = new Validator();
 customValidator.attributes.errored = function validateErrored(
-    instance,
-    schema,
-    options
+    instance: {},
+    schema: { errored?: ErrorFn },
+    options: { formValue: {} }
 ) {
     if (typeof schema.errored !== 'function') {
         throw new jsonschema.SchemaError('"errored" expects a function');
@@ -27,9 +27,9 @@ customValidator.attributes.errored = function validateErrored(
     return undefined;
 };
 function validate(
-    value: mixed,
+    value: {},
     schema: Schema,
-    formValue: mixed
+    formValue: {}
 ): ValidatorResult {
     return customValidator.validate(value, schema, {
         formValue

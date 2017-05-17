@@ -1,26 +1,27 @@
-// @flow
 import React from 'react';
 import SchemaType from '../SchemaType';
 import Widget from '../Views/Widget';
 import validator from '../Decorators/validator';
 
-import type { Schema } from '../../types.js.flow';
+import { Schema, Action } from '../../types';
 
 type Props = {
-    onChange: (mixed[]) => void,
+    onChange: (val: {}[]) => void,
     schema: Schema & {
-        items?: Schema[],
-        value?: mixed
+        items?: Schema[] | Schema,
+        value?: {}[]
     },
-    value?: mixed[],
+    dispatch: (action: Action, ...args: {}[]) => any,
+    value?: {}[],
     editKey: string,
-    status: { [string | number]: {} },
-    path: string[]
+    status: { [key: string]: {} },
+    path: string[],
+    [key: string]: any
 };
 const EMPTY_OBJECT = {};
 
 function onChildChange(index: number, props: Props) {
-    return function onChange(val: mixed) {
+    return function onChange(val: {}) {
         const { value } = props;
         if (value) {
             props.onChange(
@@ -53,19 +54,19 @@ function onChildAdd(props: Props) {
 
 function renderChildren(props: Props) {
     const { value, schema: { value: defaultValue, items } } = props;
-    let valueItems: mixed[];
+    let valueItems: {}[];
     if (value) {
         valueItems = value;
     } else if (defaultValue) {
-        valueItems = defaultValue;
+        valueItems = defaultValue as {}[];
     } else {
         valueItems = [];
     }
-    const children = [];
+    const children: JSX.Element[] = [];
     valueItems.forEach((val, i) =>
         children.push(
             <SchemaType
-                {...props}
+                {...(props as any) }
                 schema={Array.isArray(items) ? items[i] || {} : items}
                 value={val}
                 editKey={String(i)}
@@ -81,7 +82,7 @@ function renderChildren(props: Props) {
 function ArrayField(props: Props) {
     return (
         <Widget
-            {...props}
+            {...(props as any) }
             onChildAdd={onChildAdd(props)}
             onChildRemove={onChildRemove(props)}
         >

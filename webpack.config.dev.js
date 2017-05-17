@@ -3,13 +3,19 @@ const webpack = require('webpack');
 
 module.exports = {
     devtool: 'cheap-module-eval-source-map',
-    entry: ['react-hot-loader/patch', 'eventsource-polyfill', 'webpack-hot-middleware/client', './src/play/index'],
+    entry: [
+        'react-hot-loader/patch',
+        'eventsource-polyfill',
+        'webpack-hot-middleware/client',
+        './src/play/index'
+    ],
     output: {
         path: path.join(__dirname, 'build'),
         filename: 'bundle.js',
         publicPath: '/static/'
     },
     resolve: {
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
         mainFields: ['module', 'jsnext:main', 'browser', 'main']
     },
     plugins: [
@@ -19,6 +25,10 @@ module.exports = {
     module: {
         loaders: [
             {
+                test: /\.tsx?$/,
+                loader: 'awesome-typescript-loader'
+            },
+            {
                 test: /\.jsx?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/
@@ -26,9 +36,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 loader: 'style-loader!css',
-                include: [
-                    path.join(__dirname, 'css')
-                ],
+                include: [path.join(__dirname, 'css')]
             }
         ]
     },

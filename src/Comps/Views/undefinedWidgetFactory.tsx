@@ -1,9 +1,8 @@
-// @flow
 import React from 'react';
 
 function undefinedWidgetFactory(
     type: string
-): (...props: mixed[]) => React$Element<*> {
+) {
     return function UndefinedWidget() {
         return (
             <span>

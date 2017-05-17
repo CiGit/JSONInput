@@ -1,7 +1,6 @@
-/* @flow */
 import React from 'react';
 
-import type { Schema } from '../../types.js.flow';
+import { Schema } from '../../types';
 
 type Props = {
     schema: Schema,

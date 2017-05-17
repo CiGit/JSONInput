@@ -1,44 +1,39 @@
-// @flow
 import React from 'react';
 import { setDefaultValue } from '../../Store/actions';
-import type { Action, Schema } from '../../types.js.flow';
+import { Action, Schema } from '../../types';
 
-function updateDefault({ value, schema: { value: defaultValue } }) {
+export type Props = {
+    editKey?: string,
+    path: string[],
+    value?: {},
+    schema: Schema,
+    dispatch: (action: Action, ...args: ({} | void)[]) => any
+};
+function updateDefault({ value, schema: { value: defaultValue } }: Props) {
     const val = value !== undefined ? value : defaultValue;
     return val;
 }
-type Props = {
-    editKey?: string,
-    path: string[],
-    value?: mixed,
-    schema: Schema,
-    dispatch: (Action, ...args: mixed[]) => any
-};
 
-function fromDefaultValue<P: Props>(
-    Comp: Class<React.Component<*, P, *>> | ((props: P) => ?React.Element<P>)
+function fromDefaultValue<P extends Props>(
+    Comp: React.ComponentClass<P> | React.SFC<P>
 ) {
-    class DefaultValue extends React.Component<void, *, *> {
-        state: {
-            val?: mixed
-        };
-        props: P;
-        constructor(props: P) {
+    class DefaultValue extends React.Component<Props, { val?: {} }> {
+        constructor(props: Props) {
             super(props);
             this.state = { val: updateDefault(props) };
-        }
-        componentDidMount() {
             this.notifyDefaultChange();
         }
-        componentWillReceiveProps(nextProps: P) {
+        componentDidMount() {
+        }
+        componentWillReceiveProps(nextProps: Props) {
             if (nextProps.schema !== this.props.schema) {
                 this.setState({ val: updateDefault(nextProps) });
             } else {
                 this.setState({ val: nextProps.value });
             }
+            this.notifyDefaultChange();
         }
         componentDidUpdate() {
-            this.notifyDefaultChange();
         }
         notifyDefaultChange() {
             if (this.props.value !== this.state.val) {
@@ -50,7 +45,7 @@ function fromDefaultValue<P: Props>(
             }
         }
         render() {
-            return <Comp {...this.props} value={this.state.val} />;
+            return <Comp {...(this.props as any) } value={this.state.val} />;
         }
     }
 

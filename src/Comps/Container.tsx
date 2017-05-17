@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { root, branch } from 'baobab-react/higher-order';
 import createTree from '../Store/index';
@@ -7,7 +6,7 @@ import { setErrors } from '../Store/actions';
 import validate from './../Utils/customValidator';
 import { setDefaultWidgets } from './Views/index';
 
-import type { Schema } from '../types.js.flow';
+import { Schema, Form } from '../types';
 
 const BranchedSchemaType = branch(
     {
@@ -18,28 +17,23 @@ const BranchedSchemaType = branch(
     SchemaType
 );
 
-type Props = {
-    onChange: mixed => any,
+export type Props = {
+    onChange: ({ }, errors?: {}[]) => any,
     schema: Schema,
-    value?: mixed
+    value?: {}
 };
 
 /**
  * Top Component
  */
-class Container extends React.Component<*, Props, void> {
-    static setDefaultWidgets: *;
-    tree: any;
-    rooted: Class<
-        React.Component<
-            void,
-            {
-                onChange: mixed => void,
-                path: string[]
-            },
-            void
-        >
-    >;
+class Container extends React.Component<Props, undefined> {
+    static setDefaultWidgets: typeof setDefaultWidgets;
+    static defaultProps = { schema: {} };
+    private tree: any;
+    private rooted: React.StatelessComponent<{
+        onChange: (value: {}, errors?: {}[]) => void,
+        path: string[]
+    }>;
     props: Props;
 
     constructor(props: Props) {
@@ -51,7 +45,7 @@ class Container extends React.Component<*, Props, void> {
     componentDidMount() {
         this.tree
             .select('value')
-            .on('update', event =>
+            .on('update', (event: { data: { currentData: {} } }) =>
                 this.props.onChange(
                     event.data.currentData,
                     validate(
@@ -77,7 +71,7 @@ class Container extends React.Component<*, Props, void> {
     getValue() {
         return this.tree.get('value');
     }
-    updateTree(value: mixed, schema?: Schema) {
+    updateTree(value?: {}, schema?: Schema) {
         this.tree.set('value', value);
         this.tree.set('schema', schema);
         this.tree.set('status', {});
@@ -88,7 +82,7 @@ class Container extends React.Component<*, Props, void> {
             this.tree.get('schema'),
             this.tree.get('value')
         );
-        const errorMap = new Map();
+        const errorMap = new Map<string, string[]>();
         // Collect each error associated with a given path
         validationResult.errors.forEach(error => {
             const errors = errorMap.get(error.property) || [];
@@ -109,8 +103,6 @@ class Container extends React.Component<*, Props, void> {
         return <Rooted onChange={this.props.onChange} path={[]} />;
     }
 }
-Container.defaultProps = {
-    schema: {}
-};
+
 Container.setDefaultWidgets = setDefaultWidgets;
 export default Container;

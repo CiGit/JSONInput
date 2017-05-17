@@ -1,3 +1,4 @@
+import React from 'react';
 import undefinedWidgetFactory from './undefinedWidgetFactory';
 import TextWidget from './TextWidget';
 import ArrowNumberWidget from './ArrowNumberWidget';
@@ -5,7 +6,13 @@ import CheckboxWidget from './CheckboxWidget';
 import ArrayWidget from './ArrayWidget';
 import ObjectWidget from './ObjectWidget';
 import SelectWidget from './SelectWidget';
-let DefaultWidget = {
+
+import { WidgetProp } from '../../types';
+
+export type WidgetMap = {
+    [key: string]: React.ComponentClass<any> | React.SFC<any>
+};
+let DefaultWidget: WidgetMap = {
     string: TextWidget,
     number: TextWidget,
     boolean: CheckboxWidget,
@@ -14,10 +21,13 @@ let DefaultWidget = {
     arrowNumber: ArrowNumberWidget,
     select: SelectWidget
 };
-function defaultWidget(type) {
+
+function defaultWidget(type: string) {
     return DefaultWidget[type] || undefinedWidgetFactory(type);
 }
-function setDefaultWidgets(obj) {
+
+function setDefaultWidgets(obj: WidgetMap) {
     DefaultWidget = Object.assign({}, DefaultWidget, obj);
 }
+
 export { defaultWidget, setDefaultWidgets, undefinedWidgetFactory };

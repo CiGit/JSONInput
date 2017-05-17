@@ -1,9 +1,8 @@
-// @flow
 import React from 'react';
 import Widget from '../Views/Widget';
 import validator from './../Decorators/validator';
 
-import type { Schema } from '../../types.js.flow';
+import{ Schema, Action } from '../../types';
 
 function BooleanField(
     props: {
@@ -11,10 +10,11 @@ function BooleanField(
         editKey: string,
         path: string[],
         value: boolean,
-        onChange: (value: boolean) => void
+        onChange: (value: boolean) => void,
+        dispatch: (action: Action, ...args: {}[]) => any,
     }
 ) {
-    return <Widget {...props} />;
+    return <Widget {...(props as any)} />;
 }
 
 export default validator(BooleanField);
