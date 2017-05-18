@@ -1,5 +1,6 @@
 import React from 'react';
-import { ErrorFn } from './Utils/customValidator';
+
+type ErrorFn = (value: {}, formValue: {}) => string
 
 export type TYPESTRING =
     | 'string'

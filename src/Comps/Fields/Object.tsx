@@ -4,7 +4,7 @@ import Widget from '../Views/Widget';
 import validator from '../Decorators/validator';
 import { updateSchema, deleteSchema } from '../../Store/actions';
 
-import { Schema, Action } from '../../types';
+import { Schema, Action } from '../../../typings/types';
 
 type Props = {
     schema: Schema & {

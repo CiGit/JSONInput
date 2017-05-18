@@ -1,6 +1,6 @@
 import React from 'react';
 import infer from './../../Utils/infer';
-import { Schema } from '../../types';
+import { Schema } from '../../../typings/types';
 /**
  * Update store's value path.
  * @param {Array<string>} currentValuePath the valuePath the parent

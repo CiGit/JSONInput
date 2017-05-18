@@ -1,9 +1,11 @@
 import React from 'react';
-import { Schema } from '../src/types';
+import { Schema } from './types';
 import { ValidationError } from "jsonschema/lib";
-import { setDefaultWidgets } from "../src/index";
 
-export { setDefaultWidgets }
+type WidgetMap = {
+    [key: string]: React.ComponentClass<any> | React.SFC<any>
+}
+export function setDefaultWidgets(map: WidgetMap): void
 
 declare class Form extends React.Component<
     { schema?: {}, value?: {}, onChange: (value: {}, errors: {}[]) => void }, any>{

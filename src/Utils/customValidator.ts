@@ -1,8 +1,6 @@
 import jsonschema, { Validator } from 'jsonschema';
-import { ValidatorResult, Options } from "jsonschema/lib";
-import { Schema } from '../types';
-
-export type ErrorFn = (value: {}, formValue: {}) => string
+import { ValidatorResult } from "jsonschema/lib";
+import { Schema, ErrorFn } from '../../typings/types';
 
 const customValidator = new Validator();
 customValidator.attributes.errored = function validateErrored(

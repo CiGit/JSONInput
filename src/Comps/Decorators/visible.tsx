@@ -1,6 +1,6 @@
 import React from 'react';
 import { getFormValue } from '../../Store/actions';
-import { Action, Schema } from '../../types';
+import { Action, Schema } from '../../../typings/types';
 
 type Props = {
     schema: Schema,

@@ -7,7 +7,7 @@ import ArrayWidget from './ArrayWidget';
 import ObjectWidget from './ObjectWidget';
 import SelectWidget from './SelectWidget';
 
-import { WidgetProp } from '../../types';
+import { WidgetProp } from '../../../typings/types';
 
 export type WidgetMap = {
     [key: string]: React.ComponentClass<any> | React.SFC<any>

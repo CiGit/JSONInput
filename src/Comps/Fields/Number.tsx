@@ -1,7 +1,7 @@
 import React from 'react';
 import validator from '../Decorators/validator';
 import { SimpleStringField } from './String';
-import { Schema, Action } from '../../types';
+import { Schema, Action } from '../../../typings/types';
 
 type Props = {
     schema: Schema & { type: 'number' | 'string' },

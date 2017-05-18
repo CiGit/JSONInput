@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Schema } from '../../types';
+import { Schema } from '../../../typings/types';
 
 type Props = {
     schema: Schema,

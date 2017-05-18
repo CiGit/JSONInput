@@ -3,7 +3,7 @@ import SchemaType from '../SchemaType';
 import Widget from '../Views/Widget';
 import validator from '../Decorators/validator';
 
-import { Schema, Action } from '../../types';
+import { Schema, Action } from '../../../typings/types';
 
 type Props = {
     onChange: (val: {}[]) => void,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { setDefaultValue } from '../../Store/actions';
-import { Action, Schema } from '../../types';
+import { Action, Schema } from '../../../typings/types';
 
 export type Props = {
     editKey?: string,

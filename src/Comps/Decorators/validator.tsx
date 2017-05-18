@@ -2,7 +2,7 @@ import React from 'react';
 import validate from './../../Utils/customValidator';
 import { getFormValue, getErrors } from '../../Store/actions';
 
-import { Schema, Action } from '../../types';
+import { Schema, Action } from '../../../typings/types';
 
 type Props = {
     schema: Schema,

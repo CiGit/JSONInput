@@ -5,7 +5,7 @@ import SchemaType from './SchemaType';
 import { setErrors } from '../Store/actions';
 import validate from './../Utils/customValidator';
 
-import { Schema } from '../types';
+import { Schema } from '../../typings/types';
 
 const BranchedSchemaType = branch(
     {

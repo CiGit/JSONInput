@@ -6,7 +6,7 @@ import inference from './Decorators/inference';
 import fromDefaultValue from './Decorators/fromDefaultValue';
 import { update } from '../Store/actions';
 
-import { Schema, Action } from '../types';
+import { Schema, Action } from '../../typings/types';
 
 type SchemaProps = {
     schema: Schema,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { defaultWidget } from './index';
 
-import { Schema, WidgetProp } from '../../types';
+import { Schema, WidgetProp } from '../../../typings/types';
 
 type Props = {
     value: {},
