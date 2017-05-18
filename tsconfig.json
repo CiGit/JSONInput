@@ -12,12 +12,12 @@
         "moduleResolution": "node"
     },
     "exclude": [
-        "node_modules/**",
-        "src/play/**"
+        "node_modules",
+        "src/play"
     ],
     "include": [
-        "src/**",
-        "typings/**"
+        "src",
+        "typings"
     ],
     "typeAcquisition": {
         "enable": true

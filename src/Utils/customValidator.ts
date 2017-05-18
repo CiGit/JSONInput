@@ -1,5 +1,5 @@
 import jsonschema, { Validator } from 'jsonschema';
-import { ValidatorResult } from "jsonschema/lib";
+import { ValidatorResult, Options } from "jsonschema/lib";
 import { Schema } from '../types';
 
 export type ErrorFn = (value: {}, formValue: {}) => string
@@ -24,9 +24,7 @@ function validate(
     schema: Schema,
     formValue: {}
 ): ValidatorResult {
-    return customValidator.validate(value, schema, {
-        'formValue': formValue
-    });
+    return customValidator.validate(value, schema, { formValue });
 }
 
 export default validate;
