@@ -17,7 +17,7 @@ const BranchedSchemaType = branch(
 );
 
 export type Props = {
-    onChange: ({ }, errors?: {}[]) => any,
+    onChange: (value: {}, errors: {}[]) => void,
     schema: Schema,
     value?: {}
 };

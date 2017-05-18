@@ -9,7 +9,7 @@ import SelectWidget from './SelectWidget';
 
 import { WidgetProp } from '../../types';
 
-type WidgetMap = {
+export type WidgetMap = {
     [key: string]: React.ComponentClass<any> | React.SFC<any>
 };
 let DefaultWidget: WidgetMap = {

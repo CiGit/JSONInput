@@ -8,14 +8,16 @@
         "noEmit": true,
         "allowSyntheticDefaultImports": true,
         "target": "es2017",
-        "module": "es2015"
+        "module": "es2015",
+        "moduleResolution": "node"
     },
     "exclude": [
-        "node_modules",
-        "src/play"
+        "node_modules/**",
+        "src/play/**"
     ],
     "include": [
-        "src"
+        "src/**",
+        "typings/**"
     ],
     "typeAcquisition": {
         "enable": true

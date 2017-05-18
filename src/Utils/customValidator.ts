@@ -1,16 +1,9 @@
 import jsonschema, { Validator } from 'jsonschema';
-
+import { ValidatorResult } from "jsonschema/lib";
 import { Schema } from '../types';
 
-type ValidationError = {
-    instance: {},
-    message: string,
-    property: string
-};
-type ValidatorResult = {
-    errors: ValidationError[]
-};
 export type ErrorFn = (value: {}, formValue: {}) => string
+
 const customValidator = new Validator();
 customValidator.attributes.errored = function validateErrored(
     instance: {},
@@ -32,7 +25,7 @@ function validate(
     formValue: {}
 ): ValidatorResult {
     return customValidator.validate(value, schema, {
-        formValue
+        'formValue': formValue
     });
 }
 
