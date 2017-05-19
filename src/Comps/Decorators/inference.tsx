@@ -29,6 +29,7 @@ function inference<P extends Props>(
     Comp: React.ComponentClass<P> | React.SFC<P>
 ) {
     class Infer extends React.Component<Props, { schema: Schema }> {
+        path: string[];
         state: {
             schema: Schema
         };
@@ -40,6 +41,7 @@ function inference<P extends Props>(
                 inferedSchema = { type: infer(props.value) };
             }
             this.state = { schema: inferedSchema };
+            this.path = updatePath(this.props.path, this.props.editKey);
         }
         componentWillReceiveProps(nextProps: Props) {
             if (this.props.schema !== nextProps.schema) {
@@ -51,9 +53,8 @@ function inference<P extends Props>(
             }
         }
         render() {
-            const path = updatePath(this.props.path, this.props.editKey);
             return (
-                <Comp {...(this.props as any) } path={path} schema={this.state.schema} />
+                <Comp {...(this.props as any) } path={this.path} schema={this.state.schema} />
             );
         }
     }

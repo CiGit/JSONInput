@@ -33,14 +33,6 @@ class SchemaType extends React.Component<SchemaProps, undefined> {
             props.dispatch(update, props.path, ...args);
         };
     }
-    shouldComponentUpdate(props: SchemaProps) {
-        return true;
-        // const { editKey, schema, value, status } = this.props;
-        // return !(editKey === props.editKey &&
-        //     schema === props.schema &&
-        //     value === props.value &&
-        //     status === props.status);
-    }
     render() {
         const { schema: { type } } = this.props;
         const renderType = Array.isArray(type)

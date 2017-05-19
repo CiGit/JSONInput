@@ -21,11 +21,12 @@ export type Props = {
     schema: Schema,
     value?: {}
 };
-
+function noop() { };
 /**
  * Top Component
  */
 class Container extends React.Component<Props, undefined> {
+    event: boolean;
     static defaultProps = { schema: {} };
     private tree: any;
     private rooted: React.StatelessComponent<{
@@ -43,17 +44,21 @@ class Container extends React.Component<Props, undefined> {
     componentDidMount() {
         this.tree
             .select('value')
-            .on('update', (event: { data: { currentData: {} } }) =>
-                this.props.onChange(
-                    event.data.currentData,
-                    validate(
+            .on('update', (event: { data: { currentData: {} } }) => {
+                if (this.event) {
+                    this.props.onChange(
                         event.data.currentData,
-                        this.tree.get('schema'),
-                        event.data.currentData
-                    ).errors
-                )
+                        validate(
+                            event.data.currentData,
+                            this.tree.get('schema'),
+                            event.data.currentData
+                        ).errors
+                    )
+                }
+            }
             );
     }
+
     componentWillReceiveProps(nextProps: Props) {
         if (
             nextProps.value === this.tree.get('value') &&
@@ -66,13 +71,19 @@ class Container extends React.Component<Props, undefined> {
     componentWillUnmount() {
         this.tree.release();
     }
+    shouldComponentUpdate() {
+        return false;
+    }
     getValue() {
         return this.tree.get('value');
     }
     updateTree(value?: {}, schema?: Schema) {
+        this.event = false;
         this.tree.set('value', value);
         this.tree.set('schema', schema);
         this.tree.set('status', {});
+        this.tree.commit();
+        this.event = true;
     }
     validate() {
         const validationResult = validate(
@@ -98,7 +109,7 @@ class Container extends React.Component<Props, undefined> {
     }
     render() {
         const Rooted = this.rooted;
-        return <Rooted onChange={this.props.onChange} path={[]} />;
+        return <Rooted onChange={noop} path={[]} />;
     }
 }
 

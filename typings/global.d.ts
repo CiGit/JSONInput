@@ -21,6 +21,6 @@ declare module 'jsonschema' {
         constructor(message: string);
     }
 }
-declare module 'prop-types'{
+declare module 'prop-types' {
     export default React.PropTypes;
 }

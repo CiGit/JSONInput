@@ -31,9 +31,9 @@ function fromDefaultValue<P extends Props>(
             } else {
                 this.setState({ val: nextProps.value });
             }
-            this.notifyDefaultChange();
         }
         componentDidUpdate() {
+            this.notifyDefaultChange();
         }
         notifyDefaultChange() {
             if (this.props.value !== this.state.val) {
