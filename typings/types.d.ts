@@ -13,8 +13,8 @@ export type TYPESTRING =
 type View = {
     type?:
     | string
-    | React.ComponentClass<WidgetProp>
-    | React.SFC<WidgetProp>,
+    | React.ComponentClass<Widget.Props>
+    | React.SFC<Widget.Props>,
     [key: string]: any
 };
 export type Schema = {
@@ -26,18 +26,37 @@ export type Schema = {
     view?: View,
     [key: string]: any
 };
-export type WidgetProp = {
-    value: {},
-    onChange: (value: {}) => void,
-    schema: Schema,
-    view: View,
-    errorMessage?: string,
-    children?: (React.ComponentClass<WidgetProp> | React.SFC<WidgetProp>)[],
-    addKey?: (key: string, value: {}) => void,
-    removeKey?: (key: string) => void,
-    alterKey?: (key: string, newKey: string) => void,
-    onChildAdd?: () => void,
-    onChildRemove?: (index: number) => void
-};
+declare namespace Widget {
+    /**
+     * Use for string / number / boolean widgets
+     */
+    type BaseProps = {
+        value: {},
+        onChange: (value: {}) => void,
+        schema?: Schema,
+        view?: View,
+        errorMessage?: string,
+    }
+    /**
+     * Use for Object widget
+     */
+    type ObjectProps = BaseProps & {
+        children?: (React.ComponentClass<Props> | React.SFC<Props>)[],
+        addKey?: (key: string, value: {}) => void,
+        removeKey?: (key: string) => void,
+        alterKey?: (key: string, newKey: string) => void,
+    }
+    /**
+     * Use for Array widget
+     */
+    type ArrayProps = {
+        onChildAdd?: () => void,
+        onChildRemove?: (index: number) => void
+    };
+    /**
+     * Props passed in widgets.
+     */
+    type Props = ArrayProps | BaseProps | ObjectProps
+}
 
 export type Action = (tree: any, path?: string[], ...args: {}[]) => {} | void;

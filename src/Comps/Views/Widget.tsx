@@ -1,7 +1,7 @@
 import React from 'react';
 import { defaultWidget } from './index';
 
-import { Schema, WidgetProp } from '../../../typings/types';
+import { Schema, Widget as W } from '../../../typings/types';
 
 type Props = {
     value: {},
@@ -9,7 +9,7 @@ type Props = {
     schema: Schema,
     editKey: string,
     path: string[],
-    children?: (React.ComponentClass<WidgetProp> | React.SFC<WidgetProp>)[],
+    children?: (React.ComponentClass<W.Props> | React.SFC<W.Props>)[],
     addKey?: (key: string, value: {}) => void,
     removeKey?: (key: string) => void,
     alterKey?: (key: string, newKey: string) => void,
