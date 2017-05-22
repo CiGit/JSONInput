@@ -33,8 +33,8 @@ declare namespace Widget {
     type BaseProps = {
         value: {},
         onChange: (value: {}) => void,
-        schema?: Schema,
-        view?: View,
+        schema: Schema,
+        view: View,
         errorMessage?: string,
     }
     /**
@@ -42,16 +42,17 @@ declare namespace Widget {
      */
     type ObjectProps = BaseProps & {
         children?: (React.ComponentClass<Props> | React.SFC<Props>)[],
-        addKey?: (key: string, value: {}) => void,
-        removeKey?: (key: string) => void,
-        alterKey?: (key: string, newKey: string) => void,
+        addKey: (key: string, value: {}) => void,
+        removeKey: (key: string) => void,
+        alterKey: (key: string, newKey: string) => void,
     }
     /**
      * Use for Array widget
      */
     type ArrayProps = {
-        onChildAdd?: () => void,
-        onChildRemove?: (index: number) => void
+        children?: (React.ComponentClass<Props> | React.SFC<Props>)[],
+        onChildAdd: () => void,
+        onChildRemove: (index: number) => void
     };
     /**
      * Props passed in widgets.

@@ -58,7 +58,7 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-replace": "^1.1.1",
     "rollup-plugin-typescript": "^0.8.1",
-    "typescript": "^2.4.0-dev.20170517",
+    "typescript": "^2.4.0-dev.20170519",
     "webpack": "^2.4.1",
     "webpack-dev-middleware": "^1.10.2",
     "webpack-hot-middleware": "^2.18.0"
