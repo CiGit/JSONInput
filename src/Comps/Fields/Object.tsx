@@ -7,10 +7,7 @@ import { updateSchema, deleteSchema } from '../../Store/actions';
 import { Schema, Action } from '../../../typings/types';
 
 type Props = {
-    schema: Schema & {
-        properties?: { [property: string]: Schema },
-        defaultProperties?: Schema
-    },
+    schema: Schema.Object,
     status: { [key: string]: {} },
     editKey: string,
     value: {
@@ -18,14 +15,14 @@ type Props = {
     }
     dispatch: (action: Action, ...args: {}[]) => any,
     path: string[],
-    onChange: ({ }) => void
+    onChange: (value: {}) => void
 };
 
 const EMPTY_OBJECT = {};
 
 function renderChildren(props: Props): JSX.Element[] {
     const children = [];
-    const properties: { [key: string]: Schema } = props.schema.properties || {};
+    const properties = props.schema.properties || {};
     const value: { [key: string]: {} } = props.value || {};
     // Holds schema properties and value properties missing from schema.
     const mergedProperties: Array<string> = Object.keys(properties);
@@ -58,7 +55,7 @@ function renderChildren(props: Props): JSX.Element[] {
         if (prop in properties) {
             children.push(
                 <SchemaType
-                    {...(props as any)}
+                    {...(props as any) }
                     status={props.status[prop] || EMPTY_OBJECT}
                     schema={properties[prop]}
                     value={value[prop]}
@@ -67,13 +64,13 @@ function renderChildren(props: Props): JSX.Element[] {
                 />
             );
         } else {
-            const schema = props.schema.defaultProperties;
+            const schema = props.schema.additionalProperties;
             if (schema) {
                 props.dispatch(updateSchema, props.path.concat([prop]), schema);
             }
             children.push(
                 <SchemaType
-                    {...(props as any)}
+                    {...(props as any) }
                     status={props.status[prop] || EMPTY_OBJECT}
                     schema={schema}
                     value={value[prop]}
@@ -115,7 +112,7 @@ function ObjectField(props: Props) {
     }
     return (
         <Widget
-            {...(props as any)}
+            {...(props as any) }
             addKey={addKey}
             removeKey={removeKey}
             alterKey={alterKey}

@@ -1,7 +1,7 @@
 import React from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 
-function purePropsRenderer<P extends {}, S>(
+function purePropsRenderer<P extends {}>(
     Comp: React.ComponentClass<P> | React.SFC<P>
 ) {
     class PureProps extends React.Component<P, any> {

@@ -5,6 +5,7 @@
         "jsx": "preserve",
         "checkJs": false,
         "declaration": false,
+        "noUnusedLocals": true,
         "noEmit": true,
         "allowSyntheticDefaultImports": true,
         "target": "esnext",

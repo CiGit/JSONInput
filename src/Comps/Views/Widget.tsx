@@ -1,21 +1,17 @@
 import React from 'react';
 import { defaultWidget } from './index';
 
-import { Schema, Widget as W } from '../../../typings/types';
+import { WidgetProps, TYPESTRING } from '../../../typings/types';
 
-type Props = {
-    value: {},
-    onChange: (value: any) => void,
-    schema: Schema,
+type Props = WidgetProps & {
     editKey: string,
     path: string[],
-    children?: (React.ComponentClass<W.Props> | React.SFC<W.Props>)[],
+    children?: (React.ComponentClass<WidgetProps> | React.SFC<WidgetProps>)[],
     addKey?: (key: string, value: {}) => void,
     removeKey?: (key: string) => void,
     alterKey?: (key: string, newKey: string) => void,
     onChildAdd?: () => void,
-    onChildRemove?: (index: number) => void,
-    errorMessage?: string
+    onChildRemove?: (index: number) => void
 };
 
 const EMPTYOBJECT = {};
@@ -23,6 +19,7 @@ function Widget(props: Props) {
     const {
         value,
         schema,
+        schema: { view },
         children,
         editKey,
         path,
@@ -32,7 +29,7 @@ function Widget(props: Props) {
         addKey,
         removeKey,
         alterKey,
-        errorMessage
+        errorMessage,
     } = props;
     const forwardProps = {
         value,
@@ -48,7 +45,6 @@ function Widget(props: Props) {
         alterKey,
         errorMessage
     };
-    const { view } = schema;
     if (view) {
         const { type } = view;
         if (typeof type === 'string') {
@@ -57,11 +53,11 @@ function Widget(props: Props) {
         }
         if (typeof type === 'function') {
             const Type = type;
-            return <Type {...(forwardProps as any) } view={view} />;
+            return <Type {...forwardProps} view={view} />;
         }
     }
     let renderType = Array.isArray(schema.type)
-        ? schema.type.find(t => t !== 'null')
+        ? (schema.type as TYPESTRING[]).find(t => t !== 'null')
         : schema.type;
     let Wdgt;
     if (renderType === undefined) {

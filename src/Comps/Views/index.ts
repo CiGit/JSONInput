@@ -7,10 +7,10 @@ import ArrayWidget from './ArrayWidget';
 import ObjectWidget from './ObjectWidget';
 import SelectWidget from './SelectWidget';
 
-import { Widget } from '../../../typings/types';
+import { WidgetProps } from '../../../typings/types';
 
 export type WidgetMap = {
-    [key: string]: React.ComponentClass<Widget.Props> | React.SFC<Widget.Props>
+    [key: string]: React.ComponentClass<WidgetProps> | React.SFC<WidgetProps>
 };
 let DefaultWidget: WidgetMap = {
     string: TextWidget,

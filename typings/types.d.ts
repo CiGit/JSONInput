@@ -1,8 +1,9 @@
 import React from 'react';
+import { Schema as JsonSchema } from "jsonschema/lib";
 
 type ErrorFn = (value: {}, formValue: {}) => string
 
-export type TYPESTRING =
+type TYPESTRING =
     | 'string'
     | 'number'
     | 'boolean'
@@ -13,20 +14,48 @@ export type TYPESTRING =
 type View = {
     type?:
     | string
-    | React.ComponentClass<Widget.Props>
-    | React.SFC<Widget.Props>,
+    | React.ComponentClass<WidgetProps>
+    | React.SFC<WidgetProps>,
     [key: string]: any
 };
-export type Schema = {
-    type: TYPESTRING | TYPESTRING[],
-    value?: {},
-    visible?: (value?: {}, formValue?: {}) => boolean,
-    errored?: ErrorFn,
-    index?: number,
-    view?: View,
-    [key: string]: any
-};
-declare namespace Widget {
+declare namespace Schema {
+    type BASE = {
+        type: TYPESTRING | TYPESTRING[];
+        value?: {};
+        visible?: (value?: {}, formValue?: {}) => boolean;
+        errored?: ErrorFn;
+        index?: number;
+        view?: View;
+        required?: boolean;
+    }
+    type String = BASE & {
+        type: 'string' | ['string', 'null'];
+        maxLength?: number;
+        minLength?: number;
+    }
+    type Number = BASE & {
+        type: 'number' | ['number', 'null'];
+        maximum?: number;
+        minimum?: number
+    }
+    type Boolean = BASE & {
+        type: 'boolean' | ['boolean', 'null'];
+    }
+    type Object = BASE & {
+        type: 'object' | ['object', 'null'];
+        properties?: { [property: string]: Schema };
+        additionalProperties?: Schema;
+    }
+    type Array = BASE & {
+        type: 'array' | ['array', 'null']
+        items?: Schema | Schema[];
+        additionalItems?: Schema;
+        maxItems?: number;
+        minItems?: number;
+    }
+}
+type Schema = Schema.BASE | Schema.String | Schema.Number | Schema.Boolean | Schema.Array | Schema.Object;
+declare namespace WidgetProps {
     /**
      * Use for string / number / boolean widgets
      */
@@ -35,29 +64,31 @@ declare namespace Widget {
         onChange: (value: {}) => void,
         schema: Schema,
         view: View,
-        errorMessage?: string,
+        errorMessage?: string[],
+        editKey: string,
+        path: string[]
     }
     /**
      * Use for Object widget
      */
     type ObjectProps = BaseProps & {
-        children?: (React.ComponentClass<Props> | React.SFC<Props>)[],
-        addKey: (key: string, value: {}) => void,
+        children?: (React.ComponentClass<WidgetProps> | React.SFC<WidgetProps>)[],
+        addKey: (key: string, value?: {}) => void,
         removeKey: (key: string) => void,
         alterKey: (key: string, newKey: string) => void,
     }
     /**
      * Use for Array widget
      */
-    type ArrayProps = {
-        children?: (React.ComponentClass<Props> | React.SFC<Props>)[],
+    type ArrayProps = BaseProps & {
+        children?: (React.ComponentClass<WidgetProps> | React.SFC<WidgetProps>)[],
         onChildAdd: () => void,
         onChildRemove: (index: number) => void
     };
+}
     /**
      * Props passed in widgets.
      */
-    type Props = ArrayProps | BaseProps | ObjectProps
-}
+    type WidgetProps = WidgetProps.ArrayProps | WidgetProps.BaseProps | WidgetProps.ObjectProps
 
-export type Action = (tree: any, path?: string[], ...args: {}[]) => {} | void;
+type Action = (tree: any, path?: string[], ...args: {}[]) => {} | void;

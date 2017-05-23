@@ -6,7 +6,7 @@ import inference from './Decorators/inference';
 import fromDefaultValue from './Decorators/fromDefaultValue';
 import { update } from '../Store/actions';
 
-import { Schema, Action } from '../../typings/types';
+import { Schema, Action, TYPESTRING } from '../../typings/types';
 
 type SchemaProps = {
     schema: Schema,
@@ -36,15 +36,15 @@ class SchemaType extends React.Component<SchemaProps, undefined> {
     render() {
         const { schema: { type } } = this.props;
         const renderType = Array.isArray(type)
-            ? type.find(t => t !== 'null')
+            ? (type as TYPESTRING[]).find(t => t !== 'null')
             : type;
-        let Type;
-        if (renderType == null || renderType === 'null') {
+        let Type: React.ComponentClass<any> | React.SFC<any>;
+        if (renderType === undefined || renderType === 'null') {
             Type = UndefinedField;
         } else {
             Type = Fields[renderType];
         }
-        return <Type {...(this.props as any)} onChange={this.onChange} />;
+        return <Type {...this.props} onChange={this.onChange} />;
     }
 }
 
