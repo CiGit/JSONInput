@@ -20,7 +20,7 @@ type View = {
 };
 declare namespace Schema {
     type BASE = {
-        type: TYPESTRING | TYPESTRING[];
+        type?: TYPESTRING | TYPESTRING[];
         value?: {};
         visible?: (value?: {}, formValue?: {}) => boolean;
         errored?: ErrorFn;
@@ -29,25 +29,25 @@ declare namespace Schema {
         required?: boolean;
     }
     type String = BASE & {
-        type: 'string' | ['string', 'null'];
+        type?: 'string' | ['string', 'null'];
         maxLength?: number;
         minLength?: number;
     }
     type Number = BASE & {
-        type: 'number' | ['number', 'null'];
+        type?: 'number' | ['number', 'null'];
         maximum?: number;
         minimum?: number
     }
     type Boolean = BASE & {
-        type: 'boolean' | ['boolean', 'null'];
+        type?: 'boolean' | ['boolean', 'null'];
     }
     type Object = BASE & {
-        type: 'object' | ['object', 'null'];
+        type?: 'object' | ['object', 'null'];
         properties?: { [property: string]: Schema };
         additionalProperties?: Schema;
     }
     type Array = BASE & {
-        type: 'array' | ['array', 'null']
+        type?: 'array' | ['array', 'null']
         items?: Schema | Schema[];
         additionalItems?: Schema;
         maxItems?: number;
@@ -60,9 +60,9 @@ declare namespace WidgetProps {
      * Use for string / number / boolean widgets
      */
     type BaseProps = {
-        value: {},
+        value?: {},
         onChange: (value: {}) => void,
-        schema: Schema,
+        schema: Schema & { type: TYPESTRING },
         view: View,
         errorMessage?: string[],
         editKey: string,
@@ -72,6 +72,7 @@ declare namespace WidgetProps {
      * Use for Object widget
      */
     type ObjectProps = BaseProps & {
+        value?: object;
         children?: (React.ComponentClass<WidgetProps> | React.SFC<WidgetProps>)[],
         addKey: (key: string, value?: {}) => void,
         removeKey: (key: string) => void,
@@ -81,14 +82,15 @@ declare namespace WidgetProps {
      * Use for Array widget
      */
     type ArrayProps = BaseProps & {
+        value?: {}[];
         children?: (React.ComponentClass<WidgetProps> | React.SFC<WidgetProps>)[],
         onChildAdd: () => void,
         onChildRemove: (index: number) => void
     };
 }
-    /**
-     * Props passed in widgets.
-     */
-    type WidgetProps = WidgetProps.ArrayProps | WidgetProps.BaseProps | WidgetProps.ObjectProps
+/**
+ * Props passed in widgets.
+ */
+type WidgetProps = WidgetProps.ArrayProps | WidgetProps.BaseProps | WidgetProps.ObjectProps
 
 type Action = (tree: any, path?: string[], ...args: {}[]) => {} | void;
