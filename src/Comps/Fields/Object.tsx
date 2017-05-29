@@ -95,7 +95,9 @@ function ObjectField(props: Props) {
     function removeKey(key: string): void {
         const value: { [key: string]: {} } = Object.assign({}, props.value);
         delete value[key];
-        props.dispatch(deleteSchema, props.path.concat([key]), {});
+        if (!(props.schema.properties && (key in props.schema.properties))) {
+            props.dispatch(deleteSchema, props.path.concat([key]), {});
+        }
         props.onChange(value);
     }
 
