@@ -73,6 +73,7 @@ declare namespace WidgetProps {
      */
     type ObjectProps = BaseProps & {
         value?: object;
+        schema: Schema.Object;
         children?: (React.ComponentClass<WidgetProps> | React.SFC<WidgetProps>)[],
         addKey: (key: string, value?: {}) => void,
         removeKey: (key: string) => void,
@@ -83,6 +84,7 @@ declare namespace WidgetProps {
      */
     type ArrayProps = BaseProps & {
         value?: {}[];
+        schema:Schema.Array;
         children?: (React.ComponentClass<WidgetProps> | React.SFC<WidgetProps>)[],
         onChildAdd: () => void,
         onChildRemove: (index: number) => void
