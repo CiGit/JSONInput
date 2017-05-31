@@ -22,7 +22,7 @@ declare namespace Schema {
     type BASE = {
         type?: TYPESTRING | TYPESTRING[];
         value?: {};
-        visible?: (value?: {}, formValue?: {}) => boolean;
+        visible?: (value: {} | undefined, formValue: {} | undefined, path: string[]) => boolean;
         errored?: ErrorFn;
         index?: number;
         view?: View;
@@ -84,7 +84,7 @@ declare namespace WidgetProps {
      */
     type ArrayProps = BaseProps & {
         value?: {}[];
-        schema:Schema.Array;
+        schema: Schema.Array;
         children?: (React.ComponentClass<WidgetProps> | React.SFC<WidgetProps>)[],
         onChildAdd: () => void,
         onChildRemove: (index: number) => void

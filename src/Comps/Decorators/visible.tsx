@@ -4,6 +4,7 @@ import { Action, Schema } from '../../../typings/types';
 
 type Props = {
     schema: Schema,
+    path: string[],
     value?: {},
     dispatch: (action: Action, ...args: {}[]) => any
 };
@@ -14,10 +15,10 @@ function visibility<P extends Props>(
         const { schema: { visible }, value } = props;
         try {
 
-            if (visible && !visible(value, props.dispatch(getFormValue))) {
+            if (visible && !visible(value, props.dispatch(getFormValue), props.path)) {
                 return null!;
             }
-        } catch (e){ return null!; }
+        } catch (e) { return null!; }
         return <Comp {...props } />;
     };
 }
