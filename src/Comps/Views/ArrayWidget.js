@@ -24,7 +24,7 @@ function ArrayWidget(props) {
             <div>
                 {children}
             </div>
-            <button onClick={props.onChildAdd}>+</button>
+            <button onClick={() => props.onChildAdd()}>+</button>
         </div>
     );
 }
