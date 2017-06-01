@@ -86,7 +86,7 @@ declare namespace WidgetProps {
         value?: {}[];
         schema: Schema.Array;
         children?: (React.ComponentClass<WidgetProps> | React.SFC<WidgetProps>)[],
-        onChildAdd: () => void,
+        onChildAdd: (value?: {}) => void,
         onChildRemove: (index: number) => void
     };
 }

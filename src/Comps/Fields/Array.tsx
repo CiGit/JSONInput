@@ -46,9 +46,9 @@ function onChildRemove(props: Props) {
 }
 
 function onChildAdd(props: Props) {
-    return function onAdd() {
+    return function onAdd(value?:{}) {
         const oldValue = props.value || [];
-        props.onChange(oldValue.concat([undefined]));
+        props.onChange(oldValue.concat([value]));
     };
 }
 
