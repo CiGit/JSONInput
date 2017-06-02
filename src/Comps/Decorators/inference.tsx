@@ -36,9 +36,9 @@ function inference<P extends Props>(
         constructor(props: Props) {
             super(props);
             const { schema } = props;
-            let inferedSchema = schema;
-            if (!inferedSchema || !('type' in inferedSchema)) {
-                inferedSchema = { type: infer(props.value) };
+            let inferedSchema = schema || {};
+            if (!('type' in inferedSchema)) {
+                inferedSchema = { type: infer(props.value), ...inferedSchema };
             }
             this.state = { schema: inferedSchema };
             this.path = updatePath(this.props.path, this.props.editKey);
