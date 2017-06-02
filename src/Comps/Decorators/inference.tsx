@@ -45,9 +45,9 @@ function inference<P extends Props>(
         }
         componentWillReceiveProps(nextProps: Props) {
             if (this.props.schema !== nextProps.schema) {
-                let inferedSchema = nextProps.schema;
-                if (!inferedSchema || !('type' in inferedSchema)) {
-                    inferedSchema = { type: infer(nextProps.value) };
+                let inferedSchema = nextProps.schema || {};
+                if (!('type' in inferedSchema)) {
+                    inferedSchema = { type: infer(nextProps.value), ...inferedSchema };
                 }
                 this.setState(() => ({ schema: inferedSchema }));
             }
