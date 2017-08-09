@@ -11,6 +11,7 @@ import { Schema, Action, TYPESTRING } from '../../typings/types';
 type SchemaProps = {
     schema: Schema,
     status: { [key: string]: {} },
+    x?:string,
     path: string[],
     dispatch: (action: Action, ...args: {}[]) => any,
     editKey?: string,
@@ -22,12 +23,12 @@ type SchemaProps = {
  * @constructor
  * @param {Object} props
  */
-class SchemaType extends React.Component<SchemaProps, undefined> {
+class SchemaType<P extends SchemaProps> extends React.Component<P> {
     static defaultProps = {
         path: []
     };
     onChange: ({ }) => void;
-    constructor(props: SchemaProps) {
+    constructor(props: P) {
         super(props);
         this.onChange = function onChange(...args: {}[]) {
             props.dispatch(update, props.path, ...args);

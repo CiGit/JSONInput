@@ -17,7 +17,7 @@ type Props = {
     path: string[],
     editKey?: string,
     value?: {},
-    schema: Schema
+    schema?: Schema
 };
 
 /**
@@ -28,33 +28,33 @@ type Props = {
 function inference<P extends Props>(
     Comp: React.ComponentClass<P> | React.SFC<P>
 ) {
-    class Infer extends React.Component<Props, { schema: Schema }> {
+    class Infer extends React.Component<Partial<P> & Props, { schema: Schema }> {
         path: string[];
         state: {
             schema: Schema
         };
-        constructor(props: Props) {
+        constructor(props: P) {
             super(props);
             const { schema } = props;
-            let inferedSchema = schema || {};
-            if (!('type' in inferedSchema)) {
-                inferedSchema = { type: infer(props.value), ...inferedSchema };
+            let inferredSchema = schema || {};
+            if (!('type' in inferredSchema)) {
+                inferredSchema = { type: infer(props.value), ...inferredSchema };
             }
-            this.state = { schema: inferedSchema };
+            this.state = { schema: inferredSchema };
             this.path = updatePath(this.props.path, this.props.editKey);
         }
-        componentWillReceiveProps(nextProps: Props) {
+        componentWillReceiveProps(nextProps: P) {
             if (this.props.schema !== nextProps.schema) {
-                let inferedSchema = nextProps.schema || {};
-                if (!('type' in inferedSchema)) {
-                    inferedSchema = { type: infer(nextProps.value), ...inferedSchema };
+                let inferredSchema = nextProps.schema || {};
+                if (!('type' in inferredSchema)) {
+                    inferredSchema = { type: infer(nextProps.value), ...inferredSchema };
                 }
-                this.setState(() => ({ schema: inferedSchema }));
+                this.setState(() => ({ schema: inferredSchema }));
             }
         }
         render() {
             return (
-                <Comp {...(this.props as any) } path={this.path} schema={this.state.schema} />
+                <Comp {...(this.props) } path={this.path} schema={this.state.schema} />
             );
         }
     }

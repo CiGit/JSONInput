@@ -9,7 +9,7 @@ function purePropsRenderer<P extends {}>(
             return shouldPureComponentUpdate.apply(this, nextProps);
         }
         render() {
-            return <Comp {...(this.props as any)} />;
+            return <Comp {...(this.props)} />;
         }
     }
     return PureProps;

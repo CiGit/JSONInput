@@ -6,17 +6,18 @@ import validator from '../Decorators/validator';
 import { Schema, Action } from '../../../typings/types';
 
 type Props = {
-    onChange: (val: {}[]) => void,
+    onChange: (val: {}[]) => void;
     schema: Schema & {
-        items?: Schema[] | Schema,
-        value?: {}[]
-    },
-    dispatch: (action: Action, ...args: {}[]) => any,
-    value?: {}[],
-    editKey: string,
-    status: { [key: string]: {} },
-    path: string[],
-    [key: string]: any
+        type: 'array';
+        items?: Schema[] | Schema;
+        value?: {}[];
+    };
+    dispatch: (action: Action, ...args: {}[]) => any;
+    value?: {}[];
+    editKey: string;
+    status: { [key: string]: {} };
+    path: string[];
+    [key: string]: any;
 };
 const EMPTY_OBJECT = {};
 
@@ -46,7 +47,7 @@ function onChildRemove(props: Props) {
 }
 
 function onChildAdd(props: Props) {
-    return function onAdd(value?:{}) {
+    return function onAdd(value?: {}) {
         const oldValue = props.value || [];
         props.onChange(oldValue.concat([value]));
     };
@@ -66,7 +67,7 @@ function renderChildren(props: Props) {
     valueItems.forEach((val, i) =>
         children.push(
             <SchemaType
-                {...(props as any) }
+                {...props}
                 schema={Array.isArray(items) ? items[i] || {} : items}
                 value={val}
                 editKey={String(i)}
@@ -82,7 +83,7 @@ function renderChildren(props: Props) {
 function ArrayField(props: Props) {
     return (
         <Widget
-            {...(props as any) }
+            {...props as any}
             onChildAdd={onChildAdd(props)}
             onChildRemove={onChildRemove(props)}
         >

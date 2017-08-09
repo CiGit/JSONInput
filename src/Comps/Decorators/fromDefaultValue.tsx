@@ -3,11 +3,14 @@ import { setDefaultValue } from '../../Store/actions';
 import { Action, Schema } from '../../../typings/types';
 
 export type Props = {
-    editKey?: string,
-    path: string[],
-    value?: {},
-    schema: Schema,
-    dispatch: (action: Action, ...args: ({} | void)[]) => any
+    editKey?: string;
+    path: string[];
+    status: {
+        state?: string;
+    };
+    value?: {};
+    schema: Schema;
+    dispatch: (action: Action, ...args: ({} | void)[]) => any;
 };
 function updateDefault({ value, schema: { value: defaultValue } }: Props) {
     const val = value !== undefined ? value : defaultValue;
@@ -17,16 +20,15 @@ function updateDefault({ value, schema: { value: defaultValue } }: Props) {
 function fromDefaultValue<P extends Props>(
     Comp: React.ComponentClass<P> | React.SFC<P>
 ) {
-    class DefaultValue extends React.Component<Props, { val?: {} }> {
-        constructor(props: Props) {
+    class DefaultValue extends React.Component<P, { val?: {} }> {
+        constructor(props: P) {
             super(props);
             this.state = { val: updateDefault(props) };
             this.notifyDefaultChange();
         }
-        componentDidMount() {
-        }
-        componentWillReceiveProps(nextProps: Props) {
-            if (nextProps.schema !== this.props.schema) {
+        componentDidMount() {}
+        componentWillReceiveProps(nextProps: P) {
+            if (nextProps.status.state === undefined) {
                 this.setState({ val: updateDefault(nextProps) });
             } else {
                 this.setState({ val: nextProps.value });
@@ -45,7 +47,7 @@ function fromDefaultValue<P extends Props>(
             }
         }
         render() {
-            return <Comp {...(this.props as any) } value={this.state.val} />;
+            return <Comp {...this.props} value={this.state.val} />;
         }
     }
 

@@ -7,15 +7,15 @@ import { updateSchema, deleteSchema } from '../../Store/actions';
 import { Schema, Action } from '../../../typings/types';
 
 type Props = {
-    schema: Schema.Object,
-    status: { [key: string]: {} },
-    editKey: string,
+    schema: Schema.Object;
+    status: { [key: string]: {} };
+    editKey: string;
     value: {
-        [key: string]: {},
-    }
-    dispatch: (action: Action, ...args: {}[]) => any,
-    path: string[],
-    onChange: (value: {}) => void
+        [key: string]: {};
+    };
+    dispatch: (action: Action, ...args: {}[]) => any;
+    path: string[];
+    onChange: (value: {}) => void;
 };
 
 const EMPTY_OBJECT = {};
@@ -34,9 +34,7 @@ function renderChildren(props: Props): JSX.Element[] {
         mergedProperties.push(v);
     });
     function indexFor(property: string): number {
-        if (
-            properties[property]
-        ) {
+        if (properties[property]) {
             const index = properties[property].index;
             if (typeof index === 'number') {
                 return index;
@@ -55,7 +53,7 @@ function renderChildren(props: Props): JSX.Element[] {
         if (prop in properties) {
             children.push(
                 <SchemaType
-                    {...(props as any) }
+                    {...props}
                     status={props.status[prop] || EMPTY_OBJECT}
                     schema={properties[prop]}
                     value={value[prop]}
@@ -70,7 +68,7 @@ function renderChildren(props: Props): JSX.Element[] {
             }
             children.push(
                 <SchemaType
-                    {...(props as any) }
+                    {...props}
                     status={props.status[prop] || EMPTY_OBJECT}
                     schema={schema}
                     value={value[prop]}
@@ -87,7 +85,7 @@ function ObjectField(props: Props) {
     function addKey(key: string, value: {}): void {
         props.onChange(
             Object.assign({}, props.value, {
-                [key]: value
+                [key]: value,
             })
         );
     }
@@ -95,7 +93,7 @@ function ObjectField(props: Props) {
     function removeKey(key: string): void {
         const value: { [key: string]: {} } = Object.assign({}, props.value);
         delete value[key];
-        if (!(props.schema.properties && (key in props.schema.properties))) {
+        if (!(props.schema.properties && key in props.schema.properties)) {
             props.dispatch(deleteSchema, props.path.concat([key]), {});
         }
         props.onChange(value);
@@ -114,7 +112,7 @@ function ObjectField(props: Props) {
     }
     return (
         <Widget
-            {...(props as any) }
+            {...props as any}
             addKey={addKey}
             removeKey={removeKey}
             alterKey={alterKey}

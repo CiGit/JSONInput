@@ -14,7 +14,7 @@ function BooleanField(
         dispatch: (action: Action, ...args: {}[]) => any,
     }
 ) {
-    return <Widget {...(props as any)} />;
+    return <Widget {...(props)} />;
 }
 
 export default validator(BooleanField);
