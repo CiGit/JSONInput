@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import undefinedWidgetFactory from './undefinedWidgetFactory';
 import TextWidget from './TextWidget';
 import ArrowNumberWidget from './ArrowNumberWidget';

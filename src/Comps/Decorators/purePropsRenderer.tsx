@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 
 function purePropsRenderer<P extends {}>(

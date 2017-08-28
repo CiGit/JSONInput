@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Fields from './Fields/index';
 import visible from './Decorators/visible';
 import UndefinedField from './Fields/Undefined';

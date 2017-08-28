@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { defaultWidget } from './index';
 
 import { WidgetProps, TYPESTRING, Schema } from '../../../typings/types';

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Schema } from './types';
 import { ValidationError } from "jsonschema/lib";
 

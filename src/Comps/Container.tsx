@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { root, branch } from 'baobab-react/higher-order';
 import createTree from '../Store/index';
 import SchemaType from './SchemaType';

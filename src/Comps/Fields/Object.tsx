@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import SchemaType from '../SchemaType';
 import Widget from '../Views/Widget';
 import validator from '../Decorators/validator';

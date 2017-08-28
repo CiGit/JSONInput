@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import validator from '../Decorators/validator';
 import { SimpleStringField } from './String';
 import { Schema, Action } from '../../../typings/types';

@@ -7,9 +7,9 @@
         "declaration": false,
         "noUnusedLocals": true,
         "noEmit": true,
-        "allowSyntheticDefaultImports": true,
+        "allowSyntheticDefaultImports": false,
         "target": "esnext",
-        "module": "es2015",
+        "module": "esnext",
         "moduleResolution": "node"
     },
     "exclude": [

@@ -1,12 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import { getFormValue } from '../../Store/actions';
 import { Action, Schema } from '../../../typings/types';
 
 type Props = {
-    schema: Schema,
-    path: string[],
-    value?: {},
-    dispatch: (action: Action, ...args: {}[]) => any
+    schema: Schema;
+    path: string[];
+    value?: {};
+    dispatch: (action: Action, ...args: {}[]) => any;
 };
 function visibility<P extends Props>(
     Comp: React.ComponentClass<P> | React.SFC<P>
@@ -14,12 +14,16 @@ function visibility<P extends Props>(
     return function Visible(props: P) {
         const { schema: { visible }, value } = props;
         try {
-
-            if (visible && !visible(value, props.dispatch(getFormValue), props.path)) {
+            if (
+                visible &&
+                !visible(value, props.dispatch(getFormValue), props.path)
+            ) {
                 return null!;
             }
-        } catch (e) { return null!; }
-        return <Comp {...props } />;
+        } catch (e) {
+            return null!;
+        }
+        return <Comp {...props} />;
     };
 }
 

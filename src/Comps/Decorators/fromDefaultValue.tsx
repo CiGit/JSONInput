@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { setDefaultValue } from '../../Store/actions';
 import { Action, Schema } from '../../../typings/types';
 

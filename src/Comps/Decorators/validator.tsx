@@ -1,15 +1,15 @@
-import React from 'react';
+import * as React from 'react';
 import validate from './../../Utils/customValidator';
 import { getFormValue, getErrors } from '../../Store/actions';
 
 import { Schema, Action } from '../../../typings/types';
 
 type Props = {
-    schema: Schema,
-    value?: {},
-    dispatch: (action: Action, ...args: {}[]) => any,
-    path: string[],
-    onChange: (value: {}, errors?: string[]) => void
+    schema: Schema;
+    value?: {};
+    dispatch: (action: Action, ...args: {}[]) => any;
+    path: string[];
+    onChange: (value: {}, errors?: string[]) => void;
 };
 
 function validated<P extends Props>(
@@ -28,7 +28,7 @@ function validated<P extends Props>(
         // console.log(getErrors);
         return (
             <Comp
-                {...props }
+                {...props}
                 errorMessage={props.dispatch(getErrors, props.path)}
                 onChange={onChange}
             />
