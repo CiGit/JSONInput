@@ -6,11 +6,12 @@ import CheckboxWidget from './CheckboxWidget';
 import ArrayWidget from './ArrayWidget';
 import ObjectWidget from './ObjectWidget';
 import SelectWidget from './SelectWidget';
+import HashmapWidget from './HashmapWidget';
 
 import { WidgetProps } from '../../../typings/types';
 
 export type WidgetMap = {
-    [key: string]: React.ComponentClass<WidgetProps> | React.SFC<WidgetProps>
+    [key: string]: React.ComponentClass<WidgetProps> | React.SFC<WidgetProps>;
 };
 let DefaultWidget: WidgetMap = {
     string: TextWidget,
@@ -19,7 +20,8 @@ let DefaultWidget: WidgetMap = {
     array: ArrayWidget,
     object: ObjectWidget,
     arrowNumber: ArrowNumberWidget,
-    select: SelectWidget
+    select: SelectWidget,
+    hashmap: HashmapWidget,
 };
 
 function defaultWidget(type: string) {

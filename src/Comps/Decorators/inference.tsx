@@ -8,7 +8,7 @@ import { Schema } from '../../../typings/types';
  * @returns {Array<string>}the updated valuePath
  */
 function updatePath(currentPath: string[], editKey?: string): string[] {
-    if (editKey) {
+    if (editKey !== undefined) {
         return currentPath.concat([editKey]);
     }
     return currentPath;
@@ -44,6 +44,9 @@ function inference<P extends Props>(
             this.path = updatePath(this.props.path, this.props.editKey);
         }
         componentWillReceiveProps(nextProps: P) {
+            if(nextProps.editKey !== this.props.editKey || nextProps.path !== this.props.path){
+                this.path = updatePath(nextProps.path, nextProps.editKey);
+            }
             if (this.props.schema !== nextProps.schema) {
                 let inferredSchema = nextProps.schema || {};
                 if (!('type' in inferredSchema)) {

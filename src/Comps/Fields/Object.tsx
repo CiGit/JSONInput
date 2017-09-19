@@ -58,7 +58,7 @@ function renderChildren(props: Props): JSX.Element[] {
                     schema={properties[prop]}
                     value={value[prop]}
                     editKey={prop}
-                    key={prop}
+                    key={i}
                 />
             );
         } else {
@@ -73,7 +73,7 @@ function renderChildren(props: Props): JSX.Element[] {
                     schema={schema}
                     value={value[prop]}
                     editKey={prop}
-                    key={prop}
+                    key={i}
                 />
             );
         }
@@ -83,6 +83,9 @@ function renderChildren(props: Props): JSX.Element[] {
 
 function ObjectField(props: Props) {
     function addKey(key: string, value: {}): void {
+        if (typeof props.value === 'object' &&  key in props.value) {
+            throw new Error(`Property "${key}" already exists`);
+        }
         props.onChange(
             Object.assign({}, props.value, {
                 [key]: value,
@@ -100,6 +103,9 @@ function ObjectField(props: Props) {
     }
 
     function alterKey(key: string, newKey: string): void {
+        if (newKey in props.value) {
+            throw new Error(`Property "${key}" already exists`);
+        }
         const value: { [key: string]: {} } = {};
         Object.keys(props.value).forEach(p => {
             if (p !== key) {
