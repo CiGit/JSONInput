@@ -2,9 +2,8 @@ import * as React from 'react';
 import SchemaType from '../SchemaType';
 import Widget from '../Views/Widget';
 import validator from '../Decorators/validator';
-import { updateSchema, deleteSchema } from '../../Store/actions';
 
-import { Schema, Action } from '../../../typings/types';
+import { Schema } from '../../../typings/types';
 
 type Props = {
     schema: Schema.Object;
@@ -13,7 +12,6 @@ type Props = {
     value: {
         [key: string]: {};
     };
-    dispatch: (action: Action, ...args: {}[]) => any;
     path: string[];
     onChange: (value: {}) => void;
 };
@@ -63,9 +61,6 @@ function renderChildren(props: Props): JSX.Element[] {
             );
         } else {
             const schema = props.schema.additionalProperties;
-            if (schema) {
-                props.dispatch(updateSchema, props.path.concat([prop]), schema);
-            }
             children.push(
                 <SchemaType
                     {...props}
@@ -96,9 +91,6 @@ function ObjectField(props: Props) {
     function removeKey(key: string): void {
         const value: { [key: string]: {} } = Object.assign({}, props.value);
         delete value[key];
-        if (!(props.schema.properties && key in props.schema.properties)) {
-            props.dispatch(deleteSchema, props.path.concat([key]), {});
-        }
         props.onChange(value);
     }
 

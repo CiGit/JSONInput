@@ -58,28 +58,3 @@ export function getErrors(tree: any, path: string[] = []) {
 export function getFormValue(tree: any) {
     return tree.get(VALUE);
 }
-/**
- * handle object's "properties" path and array's "item" path
- */
-function schemaPath(tree: any, path: string[] = []) {
-    return path.reduce(
-        (prev, val) => {
-            if (tree.get(prev).type === 'object') {
-                return prev.concat(['properties', val]);
-            } else if (tree.get(prev).type === 'array') {
-                return prev.concat(['items']);
-            }
-            return prev.concat([val]);
-        },
-        ['schema']
-    );
-}
-export function updateSchema(tree: any, path: string[] = [], value: string[]) {
-    const updatedPath = schemaPath(tree, path);
-    tree.set(updatedPath, value);
-}
-
-export function deleteSchema(tree: any, path: string[] = []) {
-    const updatedPath = schemaPath(tree, path);
-    tree.unset(updatedPath);
-}
