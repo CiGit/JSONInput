@@ -23,17 +23,16 @@
     ],
     "env": {
         "development": {
-            "plugins": [
-                "react-hot-loader/babel"
-            ]
+            "plugins": ["react-hot-loader/babel"]
         },
         "production": {
-            "presets": [
-                "babili"
-            ],
+            "presets": ["minify"],
             "plugins": [
                 "external-helpers",
-                "transform-react-remove-prop-types"
+                [
+                    "transform-react-remove-prop-types",
+                    { "removeImport": true }
+                ]
             ]
         }
     }

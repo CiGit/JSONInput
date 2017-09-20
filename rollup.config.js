@@ -2,7 +2,7 @@ import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
 import nodeResolve from 'rollup-plugin-node-resolve';
-import babili from 'rollup-plugin-babili';
+import minify from 'rollup-plugin-babel-minify';
 import filesize from 'rollup-plugin-filesize';
 import typescript from 'rollup-plugin-typescript';
 
@@ -14,37 +14,36 @@ const external = Object.keys(pkg.dependencies).concat(
     Object.keys(pkg.peerDependencies)
 );
 export default {
-    entry: 'src/index.ts',
+    input: 'src/index.ts',
     plugins: [
         nodeResolve({
             jsnext: true,
-            main: true
+            main: true,
         }),
         replace({ 'process.env.NODE_ENV': JSON.stringify(env) }),
         typescript({
-            typescript: require('typescript')
+            typescript: require('typescript'),
         }),
         babel({
-            exclude: 'node_modules/**'
+            exclude: 'node_modules/**',
         }),
         commonjs(),
-        env === 'production' && babili(),
-        filesize()
+        env === 'production' && minify(),
+        filesize(),
     ],
     external: function ext(module) {
         return external.indexOf(module.split('/')[0]) > -1;
     },
-    targets: [
+    output: [
         {
-            dest: pkg.main,
+            file: pkg.main,
             format: 'cjs',
-            moduleName: pkg.name,
-            sourceMap: true
+            name: pkg.name,
         },
         {
-            dest: pkg.module,
+            file: pkg.module,
             format: 'es',
-            sourceMap: true
-        }
-    ]
+        },
+    ],
+    sourcemap: true,
 };
