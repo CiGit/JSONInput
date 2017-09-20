@@ -14,7 +14,7 @@ const external = Object.keys(pkg.dependencies).concat(
     Object.keys(pkg.peerDependencies)
 );
 export default {
-    input: 'src/index.ts',
+    input: 'src/Comps/Views/index.ts',
     plugins: [
         nodeResolve({
             jsnext: true,
@@ -36,11 +36,11 @@ export default {
     },
     output: [
         {
-            file: pkg.main,
+            file: 'lib/views.js',
             format: 'cjs',
         },
         {
-            file: pkg.module,
+            file: 'lib/views.es2015.js',
             format: 'es',
         },
     ],

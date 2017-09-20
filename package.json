@@ -10,7 +10,8 @@
         "build:rollup": "cross-env NODE_ENV=production rollup -c",
         "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
         "build:lib": "cross-env NODE_ENV=production babel src -d lib",
-        "build": "npm run clean && npm run build:rollup",
+        "build:view":"cross-env NODE_ENV=production rollup -c rollup-view.config.js",
+        "build": "npm run clean && npm run build:rollup && npm run build:view",
         "start": "node dev-server.js"
     },
     "author": "CiGit",

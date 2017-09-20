@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Widget from '../Views/Widget';
+import Widget from './Widget';
 import validator from './../Decorators/validator';
 
 import{ Schema, Action } from '../../../typings/types';

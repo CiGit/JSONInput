@@ -1,5 +1,8 @@
 import React from 'react';
-import Container from '../index';
+import Container, { setDefaultWidgets } from '../index';
+import Widgets from '../Comps/Views';
+
+setDefaultWidgets(Widgets);
 /* eslint-disable */
 const formSchema = {
     title: 'Form Base',
@@ -11,8 +14,8 @@ const formSchema = {
             required: true,
             errored: val => (val === 'www' ? 'world wide web' : ''),
             view: {
-                title: 'This is a string'
-            }
+                title: 'This is a string',
+            },
         },
         showNum: {
             type: 'boolean',
@@ -28,16 +31,12 @@ const formSchema = {
                             onChange={ev =>
                                 props.onChange(eval(ev.target.value))}
                         >
-                            <option value={true}>
-                                true
-                            </option>
-                            <option value={false}>
-                                false
-                            </option>
+                            <option value={true}>true</option>
+                            <option value={false}>false</option>
                         </select>
                     );
-                }
-            }
+                },
+            },
         },
         num: {
             type: 'number',
@@ -45,33 +44,33 @@ const formSchema = {
             index: -1,
             visible: (value, formValue) => formValue.showNum,
             view: {
-                title: 'A number'
-            }
+                title: 'A number',
+            },
         },
         myArray: {
             type: 'array',
             items: {
                 type: 'object',
                 value: {
-                    key1: 100
+                    key1: 100,
                 },
                 properties: {
                     key1: {
                         type: 'number',
                         title: 'object number',
                         placeholder: 'number in obj',
-                        errored: val => (val > 100 ? 'too big' : '')
-                    }
+                        errored: val => (val > 100 ? 'too big' : ''),
+                    },
                 },
                 view: {
-                    title: 'object array field title'
-                }
+                    title: 'object array field title',
+                },
             },
             view: {
-                title: 'this is an array'
-            }
-        }
-    }
+                title: 'this is an array',
+            },
+        },
+    },
 };
 /* eslint-enable */
 const formData = {
@@ -79,8 +78,8 @@ const formData = {
     unknownKey: false,
     u: {
         a: 1,
-        b: 3
-    }
+        b: 3,
+    },
 };
 function stringify(obj) {
     return JSON.stringify(
@@ -119,7 +118,7 @@ class App extends React.Component {
         this.state = {
             schema: formSchema,
             data: formData,
-            editData: formData
+            editData: formData,
         };
         // setDefaultWidgets({
         //     string: ""
@@ -129,33 +128,33 @@ class App extends React.Component {
         this.setState({
             schema: parse(event.target.value),
             editData: undefined,
-            data: undefined
+            data: undefined,
         });
     }
     dataChange(event) {
         this.setState({
-            data: parse(event.target.value)
+            data: parse(event.target.value),
         });
     }
     editDataChange(event) {
         this.setState({
-            editData: event.target.value
+            editData: event.target.value,
         });
     }
     formChange(val) {
         this.setState({
             data: val,
-            editData: stringify(val)
+            editData: stringify(val),
         });
     }
     render() {
         const styleLeft = {
             width: '45%',
-            height: '300px'
+            height: '300px',
         };
         const styleForm = {
             float: 'right',
-            width: '50%'
+            width: '50%',
         };
         return (
             <div>

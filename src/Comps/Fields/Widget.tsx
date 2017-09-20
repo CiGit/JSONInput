@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { defaultWidget } from './index';
+import { defaultWidget } from '../defaultWidgets';
 
 import { WidgetProps, TYPESTRING, Schema } from '../../../typings/types';
 
