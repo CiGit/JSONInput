@@ -10,7 +10,7 @@
         "build:rollup": "cross-env NODE_ENV=production rollup -c",
         "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
         "build:lib": "cross-env NODE_ENV=production babel src -d lib",
-        "build:view":"cross-env NODE_ENV=production rollup -c rollup-view.config.js",
+        "build:view": "cross-env NODE_ENV=production rollup -c rollup-view.config.js",
         "build": "npm run clean && npm run build:rollup && npm run build:view",
         "start": "node dev-server.js"
     },
@@ -59,7 +59,7 @@
         "webpack-hot-middleware": "^2.19.1"
     },
     "peerDependencies": {
-        "react": "^15.3.0",
-        "react-dom": "^15.3.0"
+        "react": "^15.3.0 || ^16.0.0-rc",
+        "react-dom": "^15.3.0 || ^16.0.0-rc"
     }
 }

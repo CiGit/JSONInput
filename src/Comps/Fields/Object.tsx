@@ -78,7 +78,7 @@ function renderChildren(props: Props): JSX.Element[] {
 
 function ObjectField(props: Props) {
     function addKey(key: string, value: {}): void {
-        if (typeof props.value === 'object' &&  key in props.value) {
+        if (typeof props.value === 'object' && key in props.value) {
             throw new Error(`Property "${key}" already exists`);
         }
         props.onChange(
@@ -95,6 +95,9 @@ function ObjectField(props: Props) {
     }
 
     function alterKey(key: string, newKey: string): void {
+        if (key === newKey) {
+            return;
+        }
         if (newKey in props.value) {
             throw new Error(`Property "${key}" already exists`);
         }
