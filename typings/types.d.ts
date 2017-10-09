@@ -1,6 +1,9 @@
 import * as React from 'react';
 
-type ErrorFn = (value: {}, formValue: {}) => string;
+type ErrorFn = (
+    value: {} | undefined | null,
+    formValue: {} | undefined | null
+) => string;
 
 type TYPESTRING = 'string' | 'number' | 'boolean' | 'object' | 'array' | 'null';
 
