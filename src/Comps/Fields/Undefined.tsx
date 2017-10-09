@@ -4,7 +4,7 @@ import { WidgetProps } from '../../../typings/types';
 
 function Undefined(props: WidgetProps) {
     return (
-        <span>{`Undefined field type "${props.schema.type.toString()}", [${props.path.toString()}]`}</span>
+        <div>{`Undefined field type "${props.schema.type!.toString()}", [${props.path.toString()}]`}</div>
     );
 }
 

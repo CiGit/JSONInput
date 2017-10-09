@@ -14,11 +14,7 @@ type Props = {
 };
 
 function StringField(props: Props) {
-    const val =
-        props.value !== undefined && props.value !== null
-            ? String(props.value)
-            : props.value;
-    return <Widget {...props} value={val} />;
+    return <Widget {...props} />;
 }
 
 export { StringField as SimpleStringField };
