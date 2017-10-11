@@ -16,7 +16,7 @@ function Input(props) {
         <input
             type={props.type}
             placeholder={props.schema.placeholder}
-            value={props.value || ''}
+            value={props.value == null ? '' : props.value}
             className={props.className}
             onChange={onInputChange(props.onChange)}
             checked={props.checked}
@@ -31,11 +31,11 @@ Input.propTypes = {
     checked: PropTypes.bool,
     value: PropTypes.any, // eslint-disable-line
     schema: PropTypes.shape({
-        placeholder: PropTypes.string
-    }).isRequired
+        placeholder: PropTypes.string,
+    }).isRequired,
 };
 Input.defaultProps = {
     className: undefined,
-    checked: false
+    checked: false,
 };
 export default Input;
