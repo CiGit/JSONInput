@@ -3,13 +3,14 @@ import validate from './../../Utils/customValidator';
 import { getFormValue, getErrors } from '../../Store/actions';
 
 import { Schema, Action } from '../../../typings/types';
+import { ValidationError } from 'jsonschema/lib';
 
 type Props = {
     schema: Schema;
     value?: {};
     dispatch: (action: Action, ...args: {}[]) => any;
     path: string[];
-    onChange: (value: {}, errors?: string[]) => void;
+    onChange: (value: {}, errors?: ValidationError[]) => void;
 };
 
 function validated<P extends Props>(
@@ -22,8 +23,7 @@ function validated<P extends Props>(
                 props.schema,
                 props.dispatch(getFormValue)
             );
-            const err = validation.errors.map(error => error.message);
-            props.onChange(val, err);
+            props.onChange(val, validation.errors);
         }
         // console.log(getErrors);
         return (

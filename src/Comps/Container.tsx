@@ -2,8 +2,8 @@ import * as React from 'react';
 import { root, branch } from 'baobab-react/higher-order';
 import createTree from '../Store/index';
 import SchemaType from './SchemaType';
-import { setErrors } from '../Store/actions';
 import validate from './../Utils/customValidator';
+import { setValidationErrors } from '../Store/actions';
 
 import { Schema } from '../../typings/types';
 
@@ -91,20 +91,7 @@ class Container extends React.Component<Props, undefined> {
             this.tree.get('schema'),
             this.tree.get('value')
         );
-        const errorMap = new Map<string, string[]>();
-        // Collect each error associated with a given path
-        validationResult.errors.forEach(error => {
-            const errors = errorMap.get(error.property) || [];
-            errors.push(error.message); // Add new error
-            errorMap.set(error.property, errors);
-        });
-        errorMap.forEach((value, key) => {
-            setErrors(
-                this.tree,
-                key.split(/\.|\[|\]/).filter(x => x !== '').slice(1),
-                value
-            );
-        });
+        setValidationErrors(this.tree, [], validationResult.errors);
         return validationResult.errors;
     }
     render() {

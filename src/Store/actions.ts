@@ -1,3 +1,5 @@
+import { ValidationError } from 'jsonschema/lib';
+
 /*
 Every tree should be of type Baobab
 */
@@ -7,7 +9,7 @@ const STATE = 'state';
 const ERRORS = 'errors';
 const NO_ERRORS: string[] = [];
 
-export function setErrors(tree: any, path: string[] = [], errors: string[]) {
+function setErrors(tree: any, path: string[] = [], errors: string[]) {
     const errorPath = [STATUS].concat(path).concat([ERRORS]);
     const errorsCursor = tree.select(errorPath);
     if (errors && errors.length && Array.isArray(errorsCursor.get())) {
@@ -16,6 +18,32 @@ export function setErrors(tree: any, path: string[] = [], errors: string[]) {
     } else {
         errorsCursor.set(errors || NO_ERRORS);
     }
+}
+export function setValidationErrors(
+    tree: any,
+    path: string[] = [],
+    errors: ValidationError[]
+) {
+    const errorMap = new Map<string, string[]>();
+    // Collect each error associated with a given path
+    errors.forEach(error => {
+        const errors = errorMap.get(error.property) || [];
+        errors.push(error.message); // Add new error
+        errorMap.set(error.property, errors);
+    });
+    setErrors(tree, path, NO_ERRORS);
+    errorMap.forEach((value, key) => {
+        setErrors(
+            tree,
+            path.concat(
+                key
+                    .split(/\.|\[|\]/)
+                    .filter(x => x !== '')
+                    .slice(1)
+            ),
+            value
+        );
+    });
 }
 
 /**
@@ -30,12 +58,12 @@ export function update(
     tree: any,
     path: string[] = [],
     value: {},
-    errors: string[]
+    errors: ValidationError[]
 ) {
     const statusPath = [STATUS].concat(path);
     tree.set([VALUE].concat(path), value);
     tree.set(statusPath.concat([STATE]), 'dirty');
-    setErrors(tree, path, errors);
+    setValidationErrors(tree, path, errors);
 }
 
 export function setDefaultValue(tree: any, path: string[] = [], value: {}) {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-type v = Record<
+type View = Record<
     | 'string'
     | 'number'
     | 'object'
@@ -11,5 +11,5 @@ type v = Record<
     | 'hashmap',
     React.ComponentType
 >;
-declare const view: v;
+declare const view: View;
 export default view;
