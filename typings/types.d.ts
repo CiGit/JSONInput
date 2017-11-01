@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 type ErrorFn = (
-    value: {} | undefined | null,
-    formValue: {} | undefined | null
+    value: any,
+    formValue: any
 ) => string;
 
 type TYPESTRING = 'string' | 'number' | 'boolean' | 'object' | 'array' | 'null';
@@ -116,4 +116,4 @@ type WidgetProps<TView extends string = string> =
     | WidgetProps.BaseProps<TView>
     | WidgetProps.ObjectProps<TView>;
 
-type Action = (tree: any, path?: string[], ...args: {}[]) => {} | void;
+type Action = (tree: any, path?: string[], ...args: any[]) => {} | void;

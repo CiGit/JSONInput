@@ -7,7 +7,7 @@ type Props = {
     value?: {};
     schema: Schema & { type: TYPESTRING };
     editKey: string;
-    onChange: (value?: {}) => void;
+    onChange: (value: any) => void;
     errorMessage?: string[];
     path: string[];
     children?: (React.ComponentClass<WidgetProps> | React.SFC<WidgetProps>)[];

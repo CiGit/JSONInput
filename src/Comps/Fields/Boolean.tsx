@@ -10,7 +10,7 @@ function BooleanField(
         editKey: string,
         path: string[],
         value: boolean,
-        onChange: (value: boolean) => void,
+        onChange: (value?: boolean) => void,
         dispatch: (action: Action, ...args: {}[]) => any,
     }
 ) {
