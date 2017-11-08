@@ -19,13 +19,13 @@
     "license": "MIT",
     "dependencies": {
         "baobab": "^2.5.0",
-        "baobab-react": "^2.1.4",
+        "baobab-react": "^3.0.0",
         "jsonschema": "^1.2.0",
         "react-pure-render": "^1.0.2"
     },
     "devDependencies": {
         "@types/prop-types": "^15.5.2",
-        "@types/react": "^16.0.19",
+        "@types/react": "^16.0.21",
         "@types/react-dom": "^16.0.2",
         "awesome-typescript-loader": "^3.3.0",
         "babel-cli": "^6.26.0",
