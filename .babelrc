@@ -26,7 +26,6 @@
             "plugins": ["react-hot-loader/babel"]
         },
         "production": {
-            "presets": ["minify"],
             "plugins": [
                 "external-helpers",
                 [

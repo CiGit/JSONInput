@@ -2,7 +2,8 @@ import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
 import nodeResolve from 'rollup-plugin-node-resolve';
-import minify from 'rollup-plugin-babel-minify';
+import uglify from 'rollup-plugin-uglify';
+import { minify } from 'uglify-es';
 import filesize from 'rollup-plugin-filesize';
 import typescript from 'rollup-plugin-typescript';
 
@@ -28,7 +29,7 @@ export default {
             exclude: 'node_modules/**',
         }),
         commonjs(),
-        env === 'production' && minify(),
+        env === 'production' && uglify({ mangle: { toplevel: true } }, minify),
         filesize(),
     ],
     external: function ext(module) {
