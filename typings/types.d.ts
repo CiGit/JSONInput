@@ -20,8 +20,8 @@ declare namespace Schema {
         type?: TYPESTRING | TYPESTRING[];
         value?: {};
         visible?: (
-            value: {} | undefined,
-            formValue: {} | undefined,
+            value: any,
+            formValue: any,
             path: string[]
         ) => boolean;
         errored?: ErrorFn;

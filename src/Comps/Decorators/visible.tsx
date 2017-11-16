@@ -16,7 +16,11 @@ function visibility<P extends Props>(
         try {
             if (
                 visible &&
-                !visible(value, props.dispatch(getFormValue), props.path)
+                !visible(
+                    value,
+                    props.dispatch(getFormValue),
+                    props.path.concat() // Copy
+                )
             ) {
                 return null!;
             }
