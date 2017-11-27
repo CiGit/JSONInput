@@ -1,23 +1,29 @@
 import * as React from 'react';
 import { Schema } from './types';
-import { ValidationError } from "jsonschema/lib";
+import { ValidationError } from 'jsonschema/lib';
 
 type WidgetMap = {
-    [key: string]: React.ComponentClass<any> | React.SFC<any>
-}
-export function setDefaultWidgets(map: WidgetMap): void
+    [key: string]: React.ComponentType<any>;
+};
+export function setDefaultWidgets(map: WidgetMap): void;
 
 declare class Form extends React.Component<
-    { schema?: {}, value?: {}, onChange: (value: {}, errors: {}[]) => void }, any>{
+    {
+        schema?: {};
+        value?: {};
+        onChange: (value: any, errors: ValidationError[]) => void;
+    },
+    any
+> {
     /**
      * Retrieve current form's value
      */
     getValue: () => {} | void;
     /**
      * Validate the entire form and pass errors down to views
-     * 
+     *
      */
-    validate: () => ValidationError[]
+    validate: () => ValidationError[];
 }
 export { Schema };
 export default Form;
