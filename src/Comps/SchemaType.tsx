@@ -9,12 +9,12 @@ import { update } from '../Store/actions';
 import { Schema, Action, TYPESTRING } from '../../typings/types';
 
 type SchemaProps = {
-    schema: Schema,
-    status: { [key: string]: {} },
-    path: string[],
-    dispatch: (action: Action, ...args: {}[]) => any,
-    editKey?: string,
-    value?: {}
+    schema: Schema;
+    status: { [key: string]: {} };
+    path: string[];
+    dispatch: (action: Action, ...args: {}[]) => any;
+    editKey?: string;
+    value?: {};
 };
 
 /**
@@ -24,9 +24,9 @@ type SchemaProps = {
  */
 class SchemaType<P extends SchemaProps> extends React.Component<P> {
     static defaultProps = {
-        path: []
+        path: [],
     };
-    onChange: ({ }) => void;
+    onChange: ({}) => void;
     constructor(props: P) {
         super(props);
         this.onChange = (...args: {}[]) => {
@@ -43,6 +43,9 @@ class SchemaType<P extends SchemaProps> extends React.Component<P> {
             Type = UndefinedField;
         } else {
             Type = Fields[renderType];
+        }
+        if (Type === undefined) {
+            Type = UndefinedField;
         }
         return <Type {...this.props} onChange={this.onChange} />;
     }
