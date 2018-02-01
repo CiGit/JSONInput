@@ -14,7 +14,6 @@ type Props = {
 
 class NumberField extends React.Component<Props, { value?: string | number }> {
     boundChange: (value: number | string) => void;
-    props: Props;
     constructor(props: Props) {
         super(props);
         this.state = {

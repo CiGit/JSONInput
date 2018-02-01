@@ -5,6 +5,7 @@
         "jsx": "preserve",
         "checkJs": false,
         "declaration": false,
+        "pretty": true,
         "noUnusedLocals": true,
         "noEmit": true,
         "allowSyntheticDefaultImports": false,

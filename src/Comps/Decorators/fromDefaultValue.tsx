@@ -10,7 +10,7 @@ export type Props = {
     };
     value?: {};
     schema: Schema;
-    dispatch: (action: Action, ...args: ({} | void)[]) => any;
+    dispatch: (action: Action, ...args: ({} | undefined)[]) => any;
 };
 function updateDefault({ value, schema: { value: defaultValue } }: Props) {
     const val = value !== undefined ? value : defaultValue;

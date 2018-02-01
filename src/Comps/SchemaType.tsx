@@ -12,9 +12,10 @@ type SchemaProps = {
     schema: Schema;
     status: { [key: string]: {} };
     path: string[];
-    dispatch: (action: Action, ...args: {}[]) => any;
+    dispatch: (action: Action, ...args: ({} | undefined)[]) => any;
     editKey?: string;
     value?: {};
+    onChange: (value: any) => void;
 };
 
 /**
@@ -50,5 +51,4 @@ class SchemaType<P extends SchemaProps> extends React.Component<P> {
         return <Type {...this.props} onChange={this.onChange} />;
     }
 }
-
 export default inference(fromDefaultValue(visible(SchemaType)));

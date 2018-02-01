@@ -12,7 +12,7 @@ type Props = {
         items?: Schema[] | Schema;
         value?: {}[];
     };
-    dispatch: (action: Action, ...args: {}[]) => any;
+    dispatch: (action: Action, ...args: ({} | undefined)[]) => any;
     value?: {}[];
     editKey: string;
     status: { [key: string]: {} };

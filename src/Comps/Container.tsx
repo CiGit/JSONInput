@@ -11,29 +11,28 @@ const BranchedSchemaType = branch(
     {
         schema: 'schema',
         status: 'status',
-        value: 'value'
+        value: 'value',
     },
     SchemaType
 );
 
 export type Props = {
-    onChange: (value: {}, errors: {}[]) => void,
-    schema: Schema,
-    value?: {}
+    onChange: (value: {}, errors: {}[]) => void;
+    schema: Schema;
+    value?: {};
 };
-function noop() { };
+function noop() {}
 /**
  * Top Component
  */
 class Container extends React.Component<Props, undefined> {
-    event: boolean;
+    event: boolean = false;
     static defaultProps = { schema: {} };
     private tree: any;
     private rooted: React.StatelessComponent<{
-        onChange: (value: {}, errors?: {}[]) => void,
-        path: string[]
+        onChange: (value: {}, errors?: {}[]) => void;
+        path: string[];
     }>;
-    props: Props;
 
     constructor(props: Props) {
         super(props);
@@ -53,10 +52,9 @@ class Container extends React.Component<Props, undefined> {
                             this.tree.get('schema'),
                             event.data.currentData
                         ).errors
-                    )
+                    );
                 }
-            }
-            );
+            });
     }
 
     componentWillReceiveProps(nextProps: Props) {

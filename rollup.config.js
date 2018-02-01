@@ -5,7 +5,7 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 import uglify from 'rollup-plugin-uglify';
 import { minify } from 'uglify-es';
 import filesize from 'rollup-plugin-filesize';
-import typescript from 'rollup-plugin-typescript';
+import typescript from 'rollup-plugin-typescript2';
 
 const pkg = require('./package.json');
 
@@ -39,11 +39,12 @@ export default {
         {
             file: pkg.main,
             format: 'cjs',
+            sourcemap: true,
         },
         {
             file: pkg.module,
             format: 'es',
+            sourcemap: true,
         },
     ],
-    sourcemap: true,
 };
