@@ -27,12 +27,12 @@ class SchemaType<P extends SchemaProps> extends React.Component<P> {
     static defaultProps = {
         path: [],
     };
-    onChange: ({}) => void;
     constructor(props: P) {
         super(props);
-        this.onChange = (...args: {}[]) => {
-            props.dispatch(update, this.props.path, ...args);
-        };
+        this.onChange = this.onChange.bind(this);
+    }
+    onChange(...args: {}[]) {
+        this.props.dispatch(update, this.props.path, ...args);
     }
     render() {
         const { schema: { type } } = this.props;

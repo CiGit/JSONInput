@@ -11,19 +11,31 @@ type Props = {
     dispatch: (action: Action, ...args: {}[]) => any;
     onChange: (value: string | void | number) => void;
 };
-
+/**
+ * Transform to numeric value or undefined. Used to compare exp,
+ * binary, hexa, ... strings
+ * @param value value to convert
+ */
+function toNumber(value?: string | number) {
+    switch (typeof value) {
+        case 'number':
+            return value;
+        case 'string':
+            return value === '' ? undefined : Number(value);
+        default:
+            return undefined;
+    }
+}
 class NumberField extends React.Component<Props, { value?: string | number }> {
-    boundChange: (value: number | string) => void;
     constructor(props: Props) {
         super(props);
         this.state = {
             value: props.value,
         };
-        this.boundChange = this.onChange.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
     componentWillReceiveProps(nextProps: Props) {
-        // if numerical values differ: update
-        if (Number(this.state.value) !== Number(nextProps.value)) {
+        if (toNumber(this.state.value) !== toNumber(nextProps.value)) {
             this.setState({
                 value: nextProps.value,
             });
@@ -44,7 +56,7 @@ class NumberField extends React.Component<Props, { value?: string | number }> {
             <SimpleStringField
                 {...this.props}
                 value={this.state.value}
-                onChange={this.boundChange}
+                onChange={this.onChange}
             />
         );
     }
