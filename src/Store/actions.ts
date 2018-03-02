@@ -67,7 +67,7 @@ export function update(
 }
 
 export function setDefaultValue(tree: any, path: string[] = [], value: {}) {
-    tree.set([VALUE].concat(path), value);
+    update(tree, path, value, []);
     tree.set([STATUS].concat(path).concat([STATE]), 'pristine');
 }
 
