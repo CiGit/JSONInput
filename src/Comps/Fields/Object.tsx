@@ -99,7 +99,7 @@ function ObjectField(props: Props) {
             return;
         }
         if (newKey in props.value) {
-            throw new Error(`Property "${key}" already exists`);
+            throw new Error(`Property "${newKey}" already exists`);
         }
         const value: { [key: string]: {} } = {};
         Object.keys(props.value).forEach(p => {
