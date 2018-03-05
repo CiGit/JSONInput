@@ -1,6 +1,6 @@
 {
     "name": "jsoninput",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Form creation from JSONSchema input",
     "main": "lib/index.js",
     "types": "typings/jsoninput.d.ts",

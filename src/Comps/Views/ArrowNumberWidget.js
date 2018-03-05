@@ -1,5 +1,5 @@
 import React from 'react';
-import labeled from '../Decorators/labeled';
+import labeled from './labeled';
 import Input from './Input';
 
 function ArrowNumberWidget(props) {

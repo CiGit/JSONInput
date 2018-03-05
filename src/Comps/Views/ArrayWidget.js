@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import labeled from '../Decorators/labeled';
+import labeled from './labeled';
 
 function ArrayWidget(props) {
     function renderChild(child, index) {

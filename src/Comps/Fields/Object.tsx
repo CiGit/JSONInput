@@ -15,7 +15,42 @@ type Props = {
     path: string[];
     onChange: (value: {}) => void;
 };
-
+/**
+ * Get schema from properties field
+ * @param schema Object's schema
+ * @param prop prop to get schema for
+ */
+function schemaFromProperties(schema: Schema.Object, prop: string) {
+    const { properties = {} } = schema;
+    if (prop in properties) {
+        return properties[prop];
+    }
+}
+/**
+ * Retrieve **first** matching schema from patternProperties
+ * @param schema Object's schema
+ * @param prop prop to get schema for
+ */
+function schemaFromPattern(schema: Schema.Object, prop: string) {
+    const patternProperties = schema.patternProperties || {};
+    const patterns = Object.keys(patternProperties);
+    const p = patterns.find(p => new RegExp(p).test(prop));
+    if (p) {
+        return patternProperties[p];
+    }
+}
+/**
+ * Get schema for a given property
+ * @param schema Object's schema
+ * @param prop prop to get schema for
+ */
+function schemaForProp(schema: Schema.Object, prop: string) {
+    return (
+        schemaFromProperties(schema, prop) ||
+        schemaFromPattern(schema, prop) ||
+        schema.additionalProperties
+    );
+}
 const EMPTY_OBJECT = {};
 
 function renderChildren(props: Props): JSX.Element[] {
@@ -48,30 +83,17 @@ function renderChildren(props: Props): JSX.Element[] {
     mergedProperties.sort(sortProperties);
     for (let i: number = 0; i < mergedProperties.length; i += 1) {
         const prop: string = mergedProperties[i];
-        if (prop in properties) {
-            children.push(
-                <SchemaType
-                    {...props}
-                    status={props.status[prop] || EMPTY_OBJECT}
-                    schema={properties[prop]}
-                    value={value[prop]}
-                    editKey={prop}
-                    key={i}
-                />
-            );
-        } else {
-            const schema = props.schema.additionalProperties;
-            children.push(
-                <SchemaType
-                    {...props}
-                    status={props.status[prop] || EMPTY_OBJECT}
-                    schema={schema}
-                    value={value[prop]}
-                    editKey={prop}
-                    key={i}
-                />
-            );
-        }
+        const propSchema = schemaForProp(props.schema, prop);
+        children.push(
+            <SchemaType
+                {...props}
+                status={props.status[prop] || EMPTY_OBJECT}
+                schema={propSchema}
+                value={value[prop]}
+                editKey={prop}
+                key={i}
+            />
+        );
     }
     return children;
 }

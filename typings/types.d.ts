@@ -1,9 +1,6 @@
 import * as React from 'react';
 
-type ErrorFn = (
-    value: any,
-    formValue: any
-) => string;
+type ErrorFn = (value: any, formValue: any) => string;
 
 type TYPESTRING = 'string' | 'number' | 'boolean' | 'object' | 'array' | 'null';
 
@@ -19,11 +16,7 @@ declare namespace Schema {
     interface BASE<TView extends string> {
         type?: TYPESTRING | TYPESTRING[];
         value?: {};
-        visible?: (
-            value: any,
-            formValue: any,
-            path: string[]
-        ) => boolean;
+        visible?: (value: any, formValue: any, path: string[]) => boolean;
         errored?: ErrorFn;
         index?: number;
         view?: View<TView>;
@@ -45,6 +38,7 @@ declare namespace Schema {
     interface Object<TView extends string = string> extends BASE<TView> {
         type?: 'object' | ['object', 'null'];
         properties?: { [property: string]: Schema<TView> };
+        patternProperties?: { [pattern: string]: Schema<TView> };
         additionalProperties?: Schema<TView>;
     }
     interface Array<TView extends string = string> extends BASE<TView> {
@@ -57,7 +51,7 @@ declare namespace Schema {
 }
 /**
  * Schema for form's schema prop
- * 
+ *
  * @template TView View's available types
  */
 type Schema<TView extends string = string> =
