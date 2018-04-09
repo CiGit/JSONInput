@@ -92,4 +92,4 @@ function ArrayField(props: Props) {
     );
 }
 
-export default validator(ArrayField);
+export default validator<Props>(ArrayField);

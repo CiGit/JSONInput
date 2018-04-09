@@ -7,14 +7,14 @@ import { ValidationError } from 'jsonschema/lib';
 
 type Props = {
     schema: Schema;
-    value?: {};
+    value?: any;
     dispatch: (action: Action, ...args: {}[]) => any;
     path: string[];
-    onChange: (value: {}, errors?: ValidationError[]) => void;
+    onChange: (value: any, errors?: ValidationError[]) => void;
 };
 
 function validated<P extends Props>(
-    Comp: React.ComponentClass<any> | React.SFC<any>
+    Comp: React.ComponentType<P & { errorMessage?: string[] }>
 ) {
     function Validator(props: P) {
         function onChange(val: {}): void {
@@ -25,7 +25,6 @@ function validated<P extends Props>(
             );
             props.onChange(val, validation.errors);
         }
-        // console.log(getErrors);
         return (
             <Comp
                 {...props}

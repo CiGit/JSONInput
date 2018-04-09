@@ -1,8 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import Container, { setDefaultWidgets } from '../index';
 import Widgets from '../Comps/Views';
 
 setDefaultWidgets(Widgets);
+
+const h = React.createElement;
 /* eslint-disable */
 const formSchema = {
     title: 'Form Base',
@@ -25,15 +27,15 @@ const formSchema = {
             view: {
                 title: 'Number',
                 type: function(props) {
-                    return (
-                        <select
-                            value={props.value}
-                            onChange={ev =>
-                                props.onChange(eval(ev.target.value))}
-                        >
-                            <option value={true}>true</option>
-                            <option value={false}>false</option>
-                        </select>
+                    return h(
+                        'select',
+                        {
+                            value: props.value,
+                            onChange: ev =>
+                                props.onChange(eval(ev.target.value)),
+                        },
+                        h('option', { value: true }, 'true'),
+                        h('option', { value: false }, 'false')
                     );
                 },
             },
@@ -158,26 +160,28 @@ class App extends React.Component {
         };
         return (
             <div>
-                <div style={styleForm}>
-                    <Container
-                        schema={this.state.schema}
-                        value={this.state.data}
-                        onChange={v => this.formChange(v)}
+                <React.StrictMode>
+                    <div style={styleForm}>
+                        <Container
+                            schema={this.state.schema}
+                            value={this.state.data}
+                            onChange={v => this.formChange(v)}
+                        />
+                    </div>
+                    <h2>schema</h2>
+                    <textarea
+                        defaultValue={stringify(this.state.schema)}
+                        onBlur={v => this.schemaChange(v)}
+                        style={styleLeft}
                     />
-                </div>
-                <h2>schema</h2>
-                <textarea
-                    defaultValue={stringify(this.state.schema)}
-                    onBlur={v => this.schemaChange(v)}
-                    style={styleLeft}
-                />
-                <h2>value</h2>
-                <textarea
-                    value={this.state.editData}
-                    onChange={v => this.editDataChange(v)}
-                    onBlur={v => this.dataChange(v)}
-                    style={styleLeft}
-                />
+                    <h2>value</h2>
+                    <textarea
+                        value={this.state.editData}
+                        onChange={v => this.editDataChange(v)}
+                        onBlur={v => this.dataChange(v)}
+                        style={styleLeft}
+                    />
+                </React.StrictMode>
             </div>
         );
     }

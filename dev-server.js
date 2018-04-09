@@ -5,21 +5,22 @@ const webpack = require('webpack');
 const config = require('./webpack.config.dev');
 
 const app = express();
-const compiler = webpack(config);
+const compiler = webpack({ ...config, mode: 'development' });
 
 const PORT = 4000;
 
 app.use(
     require('webpack-dev-middleware')(compiler, {
         noInfo: true,
-        publicPath: config.output.publicPath
+        publicPath: config.output.publicPath,
     })
 );
 
 app.use(require('webpack-hot-middleware')(compiler));
 
 app.get('*', (req, res) =>
-    res.sendFile(path.join(__dirname, 'src/play/index.html')));
+    res.sendFile(path.join(__dirname, 'src/play/index.html'))
+);
 
 app.listen(PORT, 'localhost', err => {
     if (err) {

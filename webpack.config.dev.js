@@ -4,8 +4,6 @@ const webpack = require('webpack');
 module.exports = {
     devtool: 'cheap-module-eval-source-map',
     entry: [
-        'react-hot-loader/patch',
-        'eventsource-polyfill',
         'webpack-hot-middleware/client',
         './src/play/index'
     ],
@@ -20,22 +18,21 @@ module.exports = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
     ],
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.tsx?$/,
-                loader: 'awesome-typescript-loader'
+                use: 'awesome-typescript-loader'
             },
             {
                 test: /\.jsx?$/,
-                loader: 'babel-loader',
+                use: 'babel-loader',
                 exclude: /node_modules/
             },
             {
                 test: /\.css$/,
-                loader: 'style-loader!css',
+                use: 'style-loader!css',
                 include: [path.join(__dirname, 'css')]
             }
         ]

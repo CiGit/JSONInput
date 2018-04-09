@@ -1,6 +1,5 @@
 {
     "presets": [
-        // "es2015-rollup",
         [
             "es2015",
             {
@@ -12,18 +11,9 @@
     ],
     "plugins": [
         "transform-object-rest-spread"
-        // [
-        //     "transform-runtime",
-        //     {
-        //         "polyfill": false,
-        //         "regenerator": true
-        //     }
-        // ],
-        // "external-helpers",
     ],
     "env": {
         "development": {
-            "plugins": ["react-hot-loader/babel"]
         },
         "production": {
             "plugins": [

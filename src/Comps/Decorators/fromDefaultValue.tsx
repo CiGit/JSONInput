@@ -21,18 +21,12 @@ function fromDefaultValue<P extends Props>(
     Comp: React.ComponentClass<P> | React.SFC<P>
 ) {
     class DefaultValue extends React.Component<P, { val?: {} }> {
-        constructor(props: P) {
-            super(props);
-            this.state = { val: updateDefault(props) };
-            this.notifyDefaultChange();
+        static getDerivedStateFromProps(nextProps: P) {
+            return { val: updateDefault(nextProps) };
         }
-        componentDidMount() {}
-        componentWillReceiveProps(nextProps: P) {
-            if (nextProps.status.state === undefined) {
-                this.setState({ val: updateDefault(nextProps) });
-            } else {
-                this.setState({ val: nextProps.value });
-            }
+        state = { val: undefined };
+        componentDidMount() {
+            this.notifyDefaultChange();
         }
         componentDidUpdate() {
             this.notifyDefaultChange();

@@ -7,7 +7,7 @@ import { minify } from 'uglify-es';
 import filesize from 'rollup-plugin-filesize';
 import typescript from 'rollup-plugin-typescript2';
 
-const pkg = require('./package.json');
+import * as pkg from './package.json';
 
 const env = process.env.NODE_ENV;
 

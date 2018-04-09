@@ -13,51 +13,68 @@ function updatePath(currentPath: string[], editKey?: string): string[] {
     }
     return currentPath;
 }
-type Props = {
-    path: string[],
-    editKey?: string,
-    value?: {},
-    schema?: Schema
-};
-
+interface InferProps {
+    path: string[];
+    editKey?: string;
+    value?: {};
+    schema?: Schema;
+    [p: string]: any;
+}
+interface InferState {
+    schema: Schema;
+    path: string[];
+    oldPath: string[] | null;
+    oldEditKey: string | null;
+    oldSchema: Schema | null;
+}
 /**
  * HOC, compute schema value from inferred type if schema is missing
- * @param {React.Component} Comp component to decorate.
- * @return {React.Component} the decorated component.
+ * @param Comp component to decorate.
+ * @return the decorated component.
  */
-function inference<P extends Props>(
-    Comp: React.ComponentClass<P> | React.SFC<P>
-) {
-    class Infer extends React.Component<Partial<P> & Props, { schema: Schema }> {
-        path: string[];
-        state: {
-            schema: Schema
+function inference<P extends InferProps>(Comp: React.ComponentType<P>) {
+    class Infer extends React.Component<InferProps, InferState> {
+        state: InferState = {
+            path: [],
+            schema: {},
+            oldPath: null,
+            oldEditKey: null,
+            oldSchema: null,
         };
-        constructor(props: P) {
-            super(props);
-            const { schema } = props;
-            let inferredSchema = schema || {};
-            if (!('type' in inferredSchema)) {
-                inferredSchema = { type: infer(props.value), ...inferredSchema };
+        static getDerivedStateFromProps(
+            nextProps: P,
+            curState: InferState
+        ): Partial<InferState> {
+            let nextState: Partial<InferState> = {};
+            if (
+                curState.oldEditKey !== nextProps.editKey ||
+                curState.oldPath !== nextProps.path
+            ) {
+                nextState.path = updatePath(nextProps.path, nextProps.editKey);
+                nextState.oldPath = nextProps.path;
+                nextState.oldEditKey = nextProps.editKey;
             }
-            this.state = { schema: inferredSchema };
-            this.path = updatePath(this.props.path, this.props.editKey);
-        }
-        componentWillReceiveProps(nextProps: P) {
-            if(nextProps.editKey !== this.props.editKey || nextProps.path !== this.props.path){
-                this.path = updatePath(nextProps.path, nextProps.editKey);
-            }
-            if (this.props.schema !== nextProps.schema) {
+            if (curState.oldSchema !== nextProps.schema) {
                 let inferredSchema = nextProps.schema || {};
                 if (!('type' in inferredSchema)) {
-                    inferredSchema = { type: infer(nextProps.value), ...inferredSchema };
+                    inferredSchema = {
+                        type: infer(nextProps.value),
+                        ...inferredSchema,
+                    };
                 }
-                this.setState(() => ({ schema: inferredSchema }));
+                nextState.schema = inferredSchema;
+                nextState.oldSchema = nextProps.schema;
             }
+            return nextState;
         }
+        
         render() {
             return (
-                <Comp {...(this.props) } path={this.path} schema={this.state.schema} />
+                <Comp
+                    {...this.props}
+                    path={this.state.path}
+                    schema={this.state.schema}
+                />
             );
         }
     }

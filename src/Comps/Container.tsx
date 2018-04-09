@@ -6,7 +6,7 @@ import validate from './../Utils/customValidator';
 import { setValidationErrors } from '../Store/actions';
 
 import { Schema } from '../../typings/types';
-
+const EMPTY_ARRAY: any[] = [];
 const BranchedSchemaType = branch(
     {
         schema: 'schema',
@@ -57,21 +57,21 @@ class Container extends React.Component<Props, undefined> {
             });
     }
 
-    componentWillReceiveProps(nextProps: Props) {
+    componentDidUpdate(prevProps: Props) {
         if (
-            nextProps.value === this.tree.get('value') &&
-            nextProps.schema === this.props.schema
+            this.props.value === this.tree.get('value') &&
+            this.props.schema === prevProps.schema
         ) {
             return;
         }
-        this.updateTree(nextProps.value, nextProps.schema);
+        this.updateTree(this.props.value, this.props.schema);
     }
     componentWillUnmount() {
         this.tree.release();
     }
-    shouldComponentUpdate() {
-        return false;
-    }
+    // shouldComponentUpdate() {
+    //     return false;
+    // }
     getValue() {
         return this.tree.get('value');
     }
@@ -94,7 +94,7 @@ class Container extends React.Component<Props, undefined> {
     }
     render() {
         const Rooted = this.rooted;
-        return <Rooted onChange={noop} path={[]} />;
+        return <Rooted onChange={noop} path={EMPTY_ARRAY} />;
     }
 }
 

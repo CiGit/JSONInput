@@ -18,4 +18,4 @@ function StringField(props: Props) {
 }
 
 export { StringField as SimpleStringField };
-export default validator(StringField);
+export default validator<Props>(StringField);

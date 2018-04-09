@@ -3,11 +3,12 @@ import SchemaType from '../SchemaType';
 import Widget from './Widget';
 import validator from '../Decorators/validator';
 
-import { Schema } from '../../../typings/types';
+import { Schema, Action } from '../../../typings/types';
 
 type Props = {
     schema: Schema.Object;
     status: { [key: string]: {} };
+    dispatch: (action: Action, ...args: {}[]) => any;
     editKey: string;
     value: {
         [key: string]: {};

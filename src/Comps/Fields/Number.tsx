@@ -3,14 +3,14 @@ import validator from '../Decorators/validator';
 import { SimpleStringField } from './String';
 import { Schema, Action } from '../../../typings/types';
 
-type Props = {
+interface Props {
     schema: Schema & { type: 'number' | 'string' };
     value?: number;
     editKey: string;
     path: string[];
     dispatch: (action: Action, ...args: {}[]) => any;
     onChange: (value: string | void | number) => void;
-};
+}
 /**
  * Transform to numeric value or undefined. Used to compare exp,
  * binary, hexa, ... strings
@@ -27,21 +27,19 @@ function toNumber(value?: string | number) {
     }
 }
 class NumberField extends React.Component<Props, { value?: string | number }> {
-    constructor(props: Props) {
-        super(props);
-        this.state = {
-            value: props.value,
-        };
-        this.onChange = this.onChange.bind(this);
-    }
-    componentWillReceiveProps(nextProps: Props) {
-        if (toNumber(this.state.value) !== toNumber(nextProps.value)) {
-            this.setState({
-                value: nextProps.value,
-            });
+    static getDerivedStateFromProps = (
+        props: Props,
+        state: { value?: string | number }
+    ) => {
+        if (toNumber(state.value) !== toNumber(props.value)) {
+            return {
+                value: props.value,
+            };
         }
-    }
-    onChange(val?: string | number) {
+        return null;
+    };
+    state = { value: this.props.value };
+    onChange = (val?: string | number) => {
         const value: string | number | undefined = val === '' ? undefined : val;
         const numVal = Number(value);
         this.setState(
@@ -50,7 +48,7 @@ class NumberField extends React.Component<Props, { value?: string | number }> {
             },
             () => this.props.onChange(isNaN(numVal) ? value : numVal)
         );
-    }
+    };
     render() {
         return (
             <SimpleStringField
@@ -61,5 +59,4 @@ class NumberField extends React.Component<Props, { value?: string | number }> {
         );
     }
 }
-
-export default validator(NumberField);
+export default validator<Props>(NumberField);
