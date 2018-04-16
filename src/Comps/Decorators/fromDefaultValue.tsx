@@ -22,7 +22,10 @@ function fromDefaultValue<P extends Props>(
 ) {
     class DefaultValue extends React.Component<P, { val?: {} }> {
         static getDerivedStateFromProps(nextProps: P) {
-            return { val: updateDefault(nextProps) };
+            if (nextProps.status.state === undefined) {
+                return { val: updateDefault(nextProps) };
+            }
+            return { val: nextProps.value };
         }
         state = { val: undefined };
         componentDidMount() {

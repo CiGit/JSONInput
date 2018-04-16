@@ -4,47 +4,47 @@ type ErrorFn = (value: any, formValue: any) => string;
 
 type TYPESTRING = 'string' | 'number' | 'boolean' | 'object' | 'array' | 'null';
 
+interface BaseView {
+    type?: string | React.ComponentType<WidgetProps>;
+}
 /**
  * Schema's view property
- * @template TView strings defining view types.
+ * @template ViewBag  defining view props.
  */
-interface View<TView extends string> {
-    type?: TView | React.ComponentType<WidgetProps<TView>>;
-    [key: string]: any;
-}
+type View<ViewBag = { [key: string]: any }> = BaseView & ViewBag;
 declare namespace Schema {
-    interface BASE<TView extends string> {
+    interface BASE<ViewBag = { [key: string]: any }> {
         type?: TYPESTRING | TYPESTRING[];
         value?: {};
         visible?: (value: any, formValue: any, path: string[]) => boolean;
         errored?: ErrorFn;
         index?: number;
-        view?: View<TView>;
+        view?: View<ViewBag>;
         required?: boolean;
     }
-    interface String<TView extends string = string> extends BASE<TView> {
+    interface String extends BASE {
         type?: 'string' | ['string', 'null'];
         maxLength?: number;
         minLength?: number;
     }
-    interface Number<TView extends string = string> extends BASE<TView> {
+    interface Number extends BASE {
         type?: 'number' | ['number', 'null'];
         maximum?: number;
         minimum?: number;
     }
-    interface Boolean<TView extends string = string> extends BASE<TView> {
+    interface Boolean extends BASE {
         type?: 'boolean' | ['boolean', 'null'];
     }
-    interface Object<TView extends string = string> extends BASE<TView> {
+    interface Object extends BASE {
         type?: 'object' | ['object', 'null'];
-        properties?: { [property: string]: Schema<TView> };
-        patternProperties?: { [pattern: string]: Schema<TView> };
-        additionalProperties?: Schema<TView>;
+        properties?: { [property: string]: Schema };
+        patternProperties?: { [pattern: string]: Schema };
+        additionalProperties?: Schema;
     }
-    interface Array<TView extends string = string> extends BASE<TView> {
+    interface Array extends BASE {
         type?: 'array' | ['array', 'null'];
-        items?: Schema<TView> | Schema<TView>[];
-        additionalItems?: Schema<TView>;
+        items?: Schema | Schema[];
+        additionalItems?: Schema;
         maxItems?: number;
         minItems?: number;
     }
@@ -54,22 +54,22 @@ declare namespace Schema {
  *
  * @template TView View's available types
  */
-type Schema<TView extends string = string> =
-    | Schema.BASE<TView>
-    | Schema.String<TView>
-    | Schema.Number<TView>
-    | Schema.Boolean<TView>
-    | Schema.Array<TView>
-    | Schema.Object<TView>;
+type Schema =
+    | Schema.BASE
+    | Schema.String
+    | Schema.Number
+    | Schema.Boolean
+    | Schema.Array
+    | Schema.Object;
 declare namespace WidgetProps {
     /**
      * Use for string / number / boolean widgets
      */
-    interface BaseProps<TView extends string = string> {
+    interface BaseProps<ViewBag= { [key: string]: any }> {
         value?: {};
         onChange: (value?: {}) => void;
-        schema: Schema<TView>;
-        view: View<TView>;
+        schema: Schema;
+        view: View<ViewBag>;
         errorMessage?: string[];
         editKey: string;
         path: string[];
@@ -77,13 +77,12 @@ declare namespace WidgetProps {
     /**
      * Use for Object widget
      */
-    interface ObjectProps<TView extends string = string>
-        extends BaseProps<TView> {
+    interface ObjectProps<ViewBag= { [key: string]: any }> extends BaseProps<ViewBag> {
         value?: object;
-        schema: Schema.Object<TView>;
+        schema: Schema.Object;
         children?: (
-            | React.ComponentClass<WidgetProps<TView>>
-            | React.SFC<WidgetProps<TView>>)[];
+            | React.ComponentClass<WidgetProps>
+            | React.SFC<WidgetProps>)[];
         addKey: (key: string, value?: {}) => void;
         removeKey: (key: string) => void;
         alterKey: (key: string, newKey: string) => void;
@@ -91,13 +90,12 @@ declare namespace WidgetProps {
     /**
      * Use for Array widget
      */
-    interface ArrayProps<TView extends string = string>
-        extends BaseProps<TView> {
+    interface ArrayProps<ViewBag= { [key: string]: any }> extends BaseProps<ViewBag> {
         value?: {}[];
-        schema: Schema.Array<TView>;
+        schema: Schema.Array;
         children?: (
-            | React.ComponentClass<WidgetProps<TView>>
-            | React.SFC<WidgetProps<TView>>)[];
+            | React.ComponentClass<WidgetProps>
+            | React.SFC<WidgetProps>)[];
         onChildAdd: (value?: {}) => void;
         onChildRemove: (index: number) => void;
     }
@@ -105,9 +103,9 @@ declare namespace WidgetProps {
 /**
  * Props passed in widgets.
  */
-type WidgetProps<TView extends string = string> =
-    | WidgetProps.ArrayProps<TView>
-    | WidgetProps.BaseProps<TView>
-    | WidgetProps.ObjectProps<TView>;
+type WidgetProps =
+    | WidgetProps.ArrayProps
+    | WidgetProps.BaseProps
+    | WidgetProps.ObjectProps;
 
 type Action = (tree: any, path?: string[], ...args: any[]) => {} | void;
