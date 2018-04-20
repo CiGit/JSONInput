@@ -5,8 +5,8 @@ Every tree should be of type Baobab
 */
 const VALUE = 'value';
 const STATUS = 'status';
-const STATE = 'state';
-const ERRORS = 'errors';
+const STATE = '$$$state';
+const ERRORS = '$$$errors';
 const NO_ERRORS: string[] = [];
 
 function setErrors(tree: any, path: string[] = [], errors: string[]) {
@@ -78,7 +78,19 @@ export function getStatus(tree: any, path: string[] = []) {
     }
     return undefined;
 }
-
+/**
+ * Unset given path
+ * @param {Baobab} tree the tree
+ * @param path path to value
+ */
+export function destroy(tree: any, path: string[] = []) {
+    try {
+        tree.unset([STATUS].concat(path));
+        tree.unset([VALUE].concat(path));
+    } catch (e) {
+        // Maybe already destroyed
+    }
+}
 export function getErrors(tree: any, path: string[] = []) {
     return tree.get([STATUS].concat(path).concat([ERRORS])) || NO_ERRORS;
 }

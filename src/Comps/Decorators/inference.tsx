@@ -67,7 +67,7 @@ function inference<P extends InferProps>(Comp: React.ComponentType<P>) {
             }
             return nextState;
         }
-        
+
         render() {
             return (
                 <Comp

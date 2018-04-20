@@ -6,14 +6,20 @@ export type Props = {
     editKey?: string;
     path: string[];
     status: {
-        state?: string;
+        $$$state?: string;
     };
     value?: {};
     schema: Schema;
     dispatch: (action: Action, ...args: ({} | undefined)[]) => any;
 };
-function updateDefault({ value, schema: { value: defaultValue } }: Props) {
+function updateDefault({
+    value,
+    schema: { value: defaultValue },
+    dispatch,
+    path,
+}: Props) {
     const val = value !== undefined ? value : defaultValue;
+    dispatch(setDefaultValue, path, val);
     return val;
 }
 
@@ -22,27 +28,16 @@ function fromDefaultValue<P extends Props>(
 ) {
     class DefaultValue extends React.Component<P, { val?: {} }> {
         static getDerivedStateFromProps(nextProps: P) {
-            if (nextProps.status.state === undefined) {
+            if (nextProps.status.$$$state === undefined) {
+                /* 
+                Should avoid side effects, 
+                but in cDU, child is called before parent.
+                */
                 return { val: updateDefault(nextProps) };
             }
             return { val: nextProps.value };
         }
         state = { val: undefined };
-        componentDidMount() {
-            this.notifyDefaultChange();
-        }
-        componentDidUpdate() {
-            this.notifyDefaultChange();
-        }
-        notifyDefaultChange() {
-            if (this.props.value !== this.state.val) {
-                this.props.dispatch(
-                    setDefaultValue,
-                    this.props.path,
-                    this.state.val
-                );
-            }
-        }
         render() {
             return <Comp {...this.props} value={this.state.val} />;
         }

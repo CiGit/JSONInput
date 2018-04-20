@@ -77,9 +77,7 @@ class Container extends React.Component<Props, undefined> {
     }
     updateTree(value?: {}, schema?: Schema) {
         this.event = false;
-        this.tree.set('value', value);
-        this.tree.set('schema', schema);
-        this.tree.set('status', {});
+        this.tree.set({ value, schema, status: {} });
         this.tree.commit();
         this.event = true;
     }

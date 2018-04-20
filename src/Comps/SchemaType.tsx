@@ -4,7 +4,7 @@ import visible from './Decorators/visible';
 import UndefinedField from './Fields/Undefined';
 import inference from './Decorators/inference';
 import fromDefaultValue from './Decorators/fromDefaultValue';
-import { update } from '../Store/actions';
+import { update, destroy } from '../Store/actions';
 
 import { Schema, Action, TYPESTRING } from '../../typings/types';
 
@@ -34,8 +34,13 @@ class SchemaType<P extends SchemaProps> extends React.Component<P> {
     onChange(...args: {}[]) {
         this.props.dispatch(update, this.props.path, ...args);
     }
+    componentWillUnmount() {
+        this.props.dispatch(destroy, this.props.path);
+    }
     render() {
-        const { schema: { type } } = this.props;
+        const {
+            schema: { type },
+        } = this.props;
         const renderType = Array.isArray(type)
             ? (type as TYPESTRING[]).find(t => t !== 'null')
             : type;
