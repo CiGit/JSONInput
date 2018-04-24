@@ -120,7 +120,7 @@ class App extends React.Component {
         this.state = {
             schema: formSchema,
             data: formData,
-            editData: formData,
+            editData: stringify(formData),
         };
         // setDefaultWidgets({
         //     string: ""

@@ -19,7 +19,9 @@ function updateDefault({
     path,
 }: Props) {
     const val = value !== undefined ? value : defaultValue;
-    dispatch(setDefaultValue, path, val);
+    if (val !== value) {
+        dispatch(setDefaultValue, path, val);
+    }
     return val;
 }
 

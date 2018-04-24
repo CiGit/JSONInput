@@ -1,9 +1,10 @@
 import * as React from 'react';
 import validate from './../../Utils/customValidator';
-import { getFormValue, getErrors } from '../../Store/actions';
+import { getErrors } from '../../Store/actions';
 
 import { Schema, Action } from '../../../typings/types';
 import { ValidationError } from 'jsonschema/lib';
+import { FormConsumer } from '../../Store';
 
 type Props = {
     schema: Schema;
@@ -17,20 +18,23 @@ function validated<P extends Props>(
     Comp: React.ComponentType<P & { errorMessage?: string[] }>
 ) {
     function Validator(props: P) {
-        function onChange(val: {}): void {
-            const validation = validate(
-                val,
-                props.schema,
-                props.dispatch(getFormValue)
-            );
-            props.onChange(val, validation.errors);
-        }
         return (
-            <Comp
-                {...props}
-                errorMessage={props.dispatch(getErrors, props.path)}
-                onChange={onChange}
-            />
+            <FormConsumer>
+                {tree => (
+                    <Comp
+                        {...props}
+                        errorMessage={getErrors(tree, props.path)}
+                        onChange={val => {
+                            const validation = validate(
+                                val,
+                                props.schema,
+                                tree.value
+                            );
+                            props.onChange(val, validation.errors);
+                        }}
+                    />
+                )}
+            </FormConsumer>
         );
     }
     return Validator;

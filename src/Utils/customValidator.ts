@@ -1,5 +1,5 @@
 import * as jsonschema from 'jsonschema';
-import { ValidatorResult } from "jsonschema/lib";
+import { ValidatorResult } from 'jsonschema/lib';
 import { Schema, ErrorFn } from '../../typings/types';
 
 const customValidator = new jsonschema.Validator();
@@ -18,11 +18,13 @@ customValidator.attributes.errored = function validateErrored(
     return undefined;
 };
 function validate(
-    value: {},
+    value: {} | undefined,
     schema: Schema,
-    formValue: {}
+    formValue?: {}
 ): ValidatorResult {
-    return customValidator.validate(value, schema, { formValue });
+    return customValidator.validate(value, schema, {
+        formValue: formValue || {},
+    });
 }
 
 export default validate;
