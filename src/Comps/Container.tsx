@@ -22,11 +22,10 @@ export type Props = {
     schema: Schema;
     value?: {};
 };
-function noop() {}
 /**
  * Top Component
  */
-class Container extends React.Component<Props, undefined> {
+class Container extends React.Component<Props> {
     store: Store | null = null;
     static defaultProps = { schema: {} };
     getValue() {
@@ -42,7 +41,6 @@ class Container extends React.Component<Props, undefined> {
         return validationResult.errors;
     }
     render() {
-        
         return (
             <Store
                 ref={s => {
@@ -63,7 +61,6 @@ class Container extends React.Component<Props, undefined> {
                         dispatch={dispatch}
                         value={value}
                         path={EMPTY_ARRAY}
-                        onChange={noop}
                         status={status}
                     />
                 )}

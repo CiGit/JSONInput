@@ -15,7 +15,6 @@ type SchemaProps = {
     dispatch: (action: Action, ...args: ({} | undefined)[]) => any;
     editKey?: string;
     value?: {};
-    onChange: (value: any) => void;
 };
 
 /**

@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Visibility Hides throwing visibility function: Nothing 1`] = `null`;
+
+exports[`Visibility Simple visibility: Input visible 1`] = `
+<div>
+  <label
+    class="stringField "
+  >
+    <span
+      class="title"
+    />
+    <input
+      type="string"
+      value="World"
+    />
+    <span />
+    <span />
+  </label>
+</div>
+`;
+
+exports[`Visibility Simple visibility: Nothing 1`] = `null`;
+
+exports[`Visibility Toggle visibility: Hello input invisible 1`] = `
+<div>
+  <label
+    class="objectField "
+  >
+    <span
+      class="title"
+    />
+    <div>
+      <div>
+        <label
+          class="booleanField "
+        >
+          <span
+            class="title"
+          >
+            visible
+          </span>
+          <input
+            type="checkbox"
+            value="false"
+          />
+          <span />
+          <span />
+        </label>
+      </div>
+    </div>
+    <span />
+    <span />
+  </label>
+</div>
+`;
+
+exports[`Visibility Toggle visibility: Hello input visible 1`] = `
+<div>
+  <label
+    class="objectField "
+  >
+    <span
+      class="title"
+    />
+    <div>
+      <div>
+        <label
+          class="stringField "
+        >
+          <span
+            class="title"
+          >
+            val
+          </span>
+          <input
+            type="string"
+            value="Hello"
+          />
+          <span />
+          <span />
+        </label>
+      </div>
+      <div>
+        <label
+          class="booleanField "
+        >
+          <span
+            class="title"
+          >
+            visible
+          </span>
+          <input
+            type="checkbox"
+            value="true"
+          />
+          <span />
+          <span />
+        </label>
+      </div>
+    </div>
+    <span />
+    <span />
+  </label>
+</div>
+`;

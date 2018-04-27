@@ -1,0 +1,249 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Handle the unknown Inference 1`] = `
+<div>
+  <label
+    class="objectField "
+  >
+    <span
+      class="title"
+    />
+    <div>
+      <div>
+        <label
+          class="numberField "
+        >
+          <span
+            class="title"
+          >
+            number
+          </span>
+          <input
+            type="string"
+            value="1"
+          />
+          <span />
+          <span />
+        </label>
+      </div>
+      <div>
+        <label
+          class="stringField "
+        >
+          <span
+            class="title"
+          >
+            string
+          </span>
+          <input
+            type="string"
+            value=""
+          />
+          <span />
+          <span />
+        </label>
+      </div>
+      <div>
+        <label
+          class="booleanField "
+        >
+          <span
+            class="title"
+          >
+            boolean
+          </span>
+          <input
+            type="checkbox"
+            value="false"
+          />
+          <span />
+          <span />
+        </label>
+      </div>
+      <div>
+        <label
+          class="arrayField "
+        >
+          <span
+            class="title"
+          >
+            array
+          </span>
+          <div>
+            <div />
+            <button>
+              +
+            </button>
+          </div>
+          <span />
+          <span />
+        </label>
+      </div>
+      <div>
+        <label
+          class="objectField "
+        >
+          <span
+            class="title"
+          >
+            object
+          </span>
+          <div />
+          <span />
+          <span />
+        </label>
+      </div>
+    </div>
+    <span />
+    <span />
+  </label>
+</div>
+`;
+
+exports[`Handle the unknown Null: Undefined view null 1`] = `
+<div>
+  Undefined field type "null", []
+</div>
+`;
+
+exports[`Handle the unknown Unknown: Undefined view unknow 1`] = `
+<div>
+  Undefined field type "unknown", []
+</div>
+`;
+
+exports[`Render fields with default values Default array 1`] = `
+<div>
+  <label
+    class="arrayField "
+  >
+    <span
+      class="title"
+    />
+    <div>
+      <div>
+        <div>
+          <button>
+            -
+          </button>
+          <div>
+            <label
+              class="stringField "
+            >
+              <span
+                class="title"
+              >
+                0
+              </span>
+              <input
+                type="string"
+                value="string"
+              />
+              <span />
+              <span />
+            </label>
+          </div>
+        </div>
+      </div>
+      <button>
+        +
+      </button>
+    </div>
+    <span />
+    <span />
+  </label>
+</div>
+`;
+
+exports[`Render fields with default values Default boolean 1`] = `
+<div>
+  <label
+    class="booleanField "
+  >
+    <span
+      class="title"
+    />
+    <input
+      type="checkbox"
+      value="false"
+    />
+    <span />
+    <span />
+  </label>
+</div>
+`;
+
+exports[`Render fields with default values Default number 1`] = `
+<div>
+  <label
+    class="numberField "
+  >
+    <span
+      class="title"
+    />
+    <input
+      type="string"
+      value="4"
+    />
+    <span />
+    <span />
+  </label>
+</div>
+`;
+
+exports[`Render fields with default values Default object 1`] = `
+<div>
+  <label
+    class="objectField "
+  >
+    <span
+      class="title"
+    />
+    <div>
+      <div>
+        <label
+          class="numberField "
+        >
+          <span
+            class="title"
+          >
+            a
+          </span>
+          <input
+            type="string"
+            value="1"
+          />
+          <span />
+          <span />
+        </label>
+      </div>
+    </div>
+    <span />
+    <span />
+  </label>
+</div>
+`;
+
+exports[`Render fields with default values Default string 1`] = `
+<div>
+  <label
+    class="stringField "
+  >
+    <span
+      class="title"
+    />
+    <input
+      type="string"
+      value="String value"
+    />
+    <span />
+    <span />
+  </label>
+</div>
+`;
+
+exports[`renders a fallback view 1`] = `
+<span>
+  Widget for 'number' was not defined
+</span>
+`;

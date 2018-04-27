@@ -25,7 +25,7 @@ interface InferState {
     path: string[];
     oldPath: string[] | null;
     oldEditKey: string | null;
-    oldSchema: Schema | null;
+    oldValue?: {};
 }
 /**
  * HOC, compute schema value from inferred type if schema is missing
@@ -39,7 +39,6 @@ function inference<P extends InferProps>(Comp: React.ComponentType<P>) {
             schema: {},
             oldPath: null,
             oldEditKey: null,
-            oldSchema: null,
         };
         static getDerivedStateFromProps(
             nextProps: P,
@@ -54,7 +53,10 @@ function inference<P extends InferProps>(Comp: React.ComponentType<P>) {
                 nextState.oldPath = nextProps.path;
                 nextState.oldEditKey = nextProps.editKey;
             }
-            if (curState.oldSchema !== nextProps.schema) {
+            if (
+                curState.schema !== nextProps.schema ||
+                infer(nextProps.value) !== infer(curState.oldValue)
+            ) {
                 let inferredSchema = nextProps.schema || {};
                 if (!('type' in inferredSchema)) {
                     inferredSchema = {
@@ -63,7 +65,7 @@ function inference<P extends InferProps>(Comp: React.ComponentType<P>) {
                     };
                 }
                 nextState.schema = inferredSchema;
-                nextState.oldSchema = nextProps.schema;
+                // nextState.oldSchema = nextProps.schema;
             }
             return nextState;
         }

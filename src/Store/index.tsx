@@ -64,7 +64,10 @@ export class Store extends React.Component<StoreProps> {
         return this.state !== nextState;
     }
     componentDidUpdate(_prevProps: StoreProps, prevState: { value: {} }) {
-        if (this.state.value !== prevState.value) {
+        if (
+            this.state.value !== prevState.value &&
+            this.state.value !== this.props.value
+        ) {
             this.props.onValueChange(this.state.value);
         }
     }

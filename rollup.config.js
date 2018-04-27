@@ -11,16 +11,13 @@ import * as pkg from './package.json';
 
 const env = process.env.NODE_ENV;
 
-const external = Object.keys(pkg.dependencies).concat(
-    Object.keys(pkg.peerDependencies)
+const external = Object.keys(pkg.peerDependencies).concat(
+    Object.keys(pkg.dependencies)
 );
 export default {
     input: 'src/index.ts',
     plugins: [
-        nodeResolve({
-            jsnext: true,
-            main: true,
-        }),
+        nodeResolve({}),
         replace({ 'process.env.NODE_ENV': JSON.stringify(env) }),
         typescript({
             typescript: require('typescript'),
@@ -33,7 +30,7 @@ export default {
         filesize(),
     ],
     external: function ext(module) {
-        return external.indexOf(module.split('/')[0]) > -1;
+        return external.includes(module);
     },
     output: [
         {

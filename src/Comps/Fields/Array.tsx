@@ -21,24 +21,6 @@ type Props = {
 };
 const EMPTY_OBJECT = {};
 
-function onChildChange(index: number, props: Props) {
-    return function onChange(val: {}) {
-        const { value } = props;
-        if (value) {
-            props.onChange(
-                value.map((e, i) => {
-                    if (+i !== +index) {
-                        return e;
-                    }
-                    return val;
-                })
-            );
-        } else {
-            props.onChange([val]);
-        }
-    };
-}
-
 function onChildRemove(props: Props) {
     return function onRemove(index: number) {
         const oldValue = props.value || [];
@@ -54,12 +36,13 @@ function onChildAdd(props: Props) {
 }
 
 function renderChildren(props: Props) {
-    const { value, schema: { value: defaultValue, items } } = props;
+    const {
+        value,
+        schema: { items },
+    } = props;
     let valueItems: {}[];
     if (value) {
         valueItems = value;
-    } else if (defaultValue) {
-        valueItems = defaultValue as {}[];
     } else {
         valueItems = [];
     }
@@ -73,7 +56,6 @@ function renderChildren(props: Props) {
                 editKey={String(i)}
                 status={props.status[String(i)] || EMPTY_OBJECT}
                 key={i}
-                onChange={onChildChange(i, props)}
             />
         )
     );

@@ -77,13 +77,7 @@ export function destroy(state: any, path: string[] = []) {
 }
 
 // GETTERS, DO NOT USE with a dispatcher
-export function getStatus(state: any, path: string[] = []) {
-    const statePath = [STATUS].concat(path).concat([STATE]);
-    if (state.exists(statePath)) {
-        return get(state, [STATUS].concat(path).concat([STATE]));
-    }
-    return undefined;
-}
+
 export function getErrors(state: any, path: string[] = []) {
     return get(state, [STATUS].concat(path).concat([ERRORS])) || NO_ERRORS;
 }

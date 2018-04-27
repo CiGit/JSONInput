@@ -9,19 +9,15 @@
         ],
         "react"
     ],
-    "plugins": [
-        "transform-object-rest-spread"
-    ],
+    "plugins": ["transform-object-rest-spread"],
     "env": {
-        "development": {
+        "test": {
+            "presets": [["es2015"], "react"]
         },
         "production": {
             "plugins": [
                 "external-helpers",
-                [
-                    "transform-react-remove-prop-types",
-                    { "removeImport": true }
-                ]
+                ["transform-react-remove-prop-types", { "removeImport": true }]
             ]
         }
     }

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { cloneDeep } from 'lodash-es';
 import { setDefaultValue } from '../../Store/actions';
 import { Action, Schema } from '../../../typings/types';
 
@@ -18,7 +19,7 @@ function updateDefault({
     dispatch,
     path,
 }: Props) {
-    const val = value !== undefined ? value : defaultValue;
+    const val = value !== undefined ? value : cloneDeep(defaultValue);
     if (val !== value) {
         dispatch(setDefaultValue, path, val);
     }

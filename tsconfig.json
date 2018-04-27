@@ -13,13 +13,17 @@
         "module": "esnext",
         "moduleResolution": "node"
     },
-    "exclude": [
-        "node_modules",
-        "src/play"
-    ],
+    // "exclude": [
+    //     "node_modules",
+    //     "src/play"
+    // ],
     "include": [
-        "src",
+        // "src",
         "typings"
+    ],
+    "files": [
+        "src/index.ts",
+        "src/Comps/Views/index.ts"
     ],
     "typeAcquisition": {
         "enable": true

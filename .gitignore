@@ -1,5 +1,8 @@
 node_modules
 .rpt2_cache
+coverage
+yarn-error.log
+
 
 # Windows image file caches
 Thumbs.db
