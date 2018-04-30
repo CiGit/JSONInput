@@ -106,6 +106,24 @@ exports[`Handle the unknown Null: Undefined view null 1`] = `
 </div>
 `;
 
+exports[`Handle the unknown Render a multiple type 1`] = `
+<div>
+  <label
+    class="null,string,numberField "
+  >
+    <span
+      class="title"
+    />
+    <input
+      type="string"
+      value=""
+    />
+    <span />
+    <span />
+  </label>
+</div>
+`;
+
 exports[`Handle the unknown Unknown: Undefined view unknow 1`] = `
 <div>
   Undefined field type "unknown", []

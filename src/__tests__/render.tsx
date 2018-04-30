@@ -186,4 +186,41 @@ describe('Handle the unknown', () => {
         }
         expect(onChange).not.toBeCalled();
     });
+    test('Render a specified view', () => {
+        const { container } = render(
+            <Container
+                schema={{ type: 'number', view: { type: 'arrowNumber' } }}
+                onChange={() => {}}
+            />
+        );
+        expect(container.querySelectorAll('[type="number"]').length).toBe(1);
+    });
+    test('Render a component', () => {
+        const text = "I'm a dummy component";
+        const { getByText } = render(
+            <Container
+                schema={{
+                    type: 'string',
+                    view: {
+                        type: () => {
+                            return <div>{text}</div>;
+                        },
+                    },
+                }}
+                onChange={() => {}}
+            />
+        );
+        expect(() => getByText(text)).not.toThrow();
+    });
+    test('Render a multiple type', () => {
+        const { container } = render(
+            <Container
+                schema={{
+                    type: ['null', 'string', 'number'],
+                }}
+                onChange={() => {}}
+            />
+        );
+        expect(container.firstChild).toMatchSnapshot();
+    });
 });
