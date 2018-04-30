@@ -76,4 +76,30 @@ describe('Update values', () => {
         Simulate.click(getByText('-'));
         expect(val).toEqual([]);
     });
+    
+    test('Update a number with a string input', () => {
+        let val: any = '';
+        const { container } = render(
+            <Container
+                schema={{ type: 'number' }}
+                onChange={v => {
+                    val = v;
+                }}
+                value={val}
+            />
+        );
+        const input = container.querySelector('input');
+
+        input.value = '';
+        Simulate.change(input);
+        expect(val).toBe(undefined);
+
+        input.value = '4.2e1';
+        Simulate.change(input);
+        expect(val).toBe(42);
+
+        input.value = 'Hello';
+        Simulate.change(input);
+        expect(val).toBe('Hello');
+    });
 });
