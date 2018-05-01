@@ -63,10 +63,11 @@ export class Store extends React.Component<StoreProps> {
     shouldComponentUpdate(nextProps: any, nextState: any) {
         return this.state !== nextState;
     }
-    componentDidUpdate(_prevProps: StoreProps, prevState: { value: {} }) {
+    componentDidUpdate(prevProps: StoreProps, prevState: { value: {} }) {
         if (
             this.state.value !== prevState.value &&
-            this.state.value !== this.props.value
+            // This is not an update due to a props change.
+            this.props.value === prevProps.value
         ) {
             this.props.onValueChange(this.state.value);
         }

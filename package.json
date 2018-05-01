@@ -1,6 +1,6 @@
 {
     "name": "jsoninput",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "description": "Form creation from JSONSchema input",
     "main": "lib/index.js",
     "types": "typings/jsoninput.d.ts",
@@ -54,7 +54,7 @@
         "@types/jest": "^22.2.3",
         "@types/lodash-es": "^4.17.0",
         "@types/prop-types": "^15.5.2",
-        "@types/react": "16.3.12",
+        "@types/react": "16.3.13",
         "@types/react-dom": "^16.0.5",
         "awesome-typescript-loader": "^5.0.0",
         "babel-cli": "^6.26.0",

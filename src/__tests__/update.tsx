@@ -78,7 +78,7 @@ describe('Update values', () => {
     });
     
     test('Update a number with a string input', () => {
-        let val: any = '';
+        let val;
         const { container } = render(
             <Container
                 schema={{ type: 'number' }}
@@ -101,5 +101,9 @@ describe('Update values', () => {
         input.value = 'Hello';
         Simulate.change(input);
         expect(val).toBe('Hello');
+        
+        input.value = '';
+        Simulate.change(input);
+        expect(val).toBe(undefined);
     });
 });
