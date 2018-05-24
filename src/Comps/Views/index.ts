@@ -7,12 +7,12 @@ import SelectWidget from './SelectWidget';
 import HashmapWidget from './HashmapWidget';
 
 export default {
-    string: TextWidget,
-    number: TextWidget,
-    boolean: CheckboxWidget,
-    array: ArrayWidget,
-    object: ObjectWidget,
-    arrowNumber: ArrowNumberWidget,
-    select: SelectWidget,
-    hashmap: HashmapWidget,
+  string: TextWidget,
+  number: TextWidget,
+  boolean: CheckboxWidget,
+  array: ArrayWidget,
+  object: ObjectWidget,
+  arrowNumber: ArrowNumberWidget,
+  select: SelectWidget,
+  hashmap: HashmapWidget,
 };
