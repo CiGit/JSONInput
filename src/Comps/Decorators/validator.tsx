@@ -17,23 +17,39 @@ type Props = {
 function validated<P extends Props>(
   Comp: React.ComponentType<P & { errorMessage?: string[] }>,
 ) {
-  function Validator(props: P) {
-    return (
-      <FormConsumer>
-        {tree => (
-          <Comp
-            {...props}
-            errorMessage={getErrors(tree, props.path)}
-            onChange={val => {
-              const validation = validate(val, props.schema, tree.value);
-              props.onChange(val, validation.errors);
-            }}
-          />
-        )}
-      </FormConsumer>
-    );
+  class Validator extends React.Component<P & { __tree: any }> {
+    onChange = (val?: {}) => {
+      const validation = validate(
+        val,
+        this.props.schema,
+        this.props.__tree.value,
+      );
+      this.props.onChange(val, validation.errors);
+    };
+    shouldComponentUpdate(nextProps: P & { __tree: any }) {
+      return (
+        this.props.value !== nextProps.value ||
+        this.props.schema !== nextProps.schema ||
+        getErrors(this.props.__tree, this.props.path) !==
+          getErrors(nextProps.__tree, nextProps.path)
+      );
+    }
+    render() {
+      const { path } = this.props;
+      return (
+        <Comp
+          {...this.props}
+          errorMessage={getErrors(this.props.__tree, path)}
+          onChange={this.onChange}
+        />
+      );
+    }
   }
-  return Validator;
+  return (p: P) => {
+    return (
+      <FormConsumer>{tree => <Validator {...p} __tree={tree} />}</FormConsumer>
+    );
+  };
 }
 
 export default validated;
