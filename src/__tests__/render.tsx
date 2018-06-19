@@ -1,19 +1,21 @@
 import * as React from 'react';
-import { render } from 'react-testing-library';
+import { render, cleanup } from 'react-testing-library';
 import Container, { setDefaultWidgets } from '../index';
 import defaultViews from '../Comps/Views';
 import { Schema } from '../../typings/jsoninput';
 
 it('renders a fallback view', () => {
-  const { container } = render(
+  const { container, unmount } = render(
     <Container schema={{ type: 'number' }} onChange={() => {}} />,
   );
   expect(container.firstChild).toMatchSnapshot();
+  unmount();
 });
 describe('Render fields with default values', () => {
   beforeAll(() => {
     setDefaultWidgets(defaultViews as any);
   });
+  afterEach(cleanup);
   function renderDefault(schema: Schema) {
     return new Promise(resolve => {
       const { container, unmount } = render(
@@ -134,7 +136,7 @@ describe('Handle the unknown', () => {
         }}
         onChange={() => {}}
       />,
-      { container },
+      { container, baseElement: container },
     );
     expect(container.firstChild).toMatchSnapshot();
     let form: Container;
@@ -152,7 +154,7 @@ describe('Handle the unknown', () => {
         }}
         onChange={() => {}}
       />,
-      { container },
+      { container, baseElement: container },
     );
     // No errors after new value
     expect(form!.validate()).toHaveLength(0);
@@ -164,6 +166,7 @@ describe('Handle the unknown', () => {
     for (let i = 0; i < 10; i++) {
       render(<Container schema={schema} value={i} onChange={onChange} />, {
         container,
+        baseElement: container,
       });
     }
     expect(onChange).not.toBeCalled();
@@ -176,6 +179,7 @@ describe('Handle the unknown', () => {
     for (let i = 0; i < 10; i++) {
       render(<Container schema={schema} value={value} onChange={onChange} />, {
         container,
+        baseElement: container,
       });
     }
     expect(onChange).not.toBeCalled();

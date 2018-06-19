@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, Simulate } from 'react-testing-library';
+import { render, fireEvent, cleanup } from 'react-testing-library';
 import defaultViews from '../Comps/Views';
 import Container, { setDefaultWidgets } from '../index';
 
@@ -7,6 +7,7 @@ describe('Visibility', () => {
   beforeAll(() => {
     setDefaultWidgets(defaultViews as any);
   });
+  afterEach(cleanup);
   test('Simple visibility', () => {
     let val: any = 'Hello';
     const container = document.createElement('div');
@@ -23,7 +24,7 @@ describe('Visibility', () => {
         }}
         value={val}
       />,
-      { container },
+      { container, baseElement: container },
     );
     expect(container.firstChild).toMatchSnapshot('Nothing');
     expect(val).toBe('Hello');
@@ -41,7 +42,7 @@ describe('Visibility', () => {
         }}
         value={val}
       />,
-      { container },
+      { container, baseElement: container },
     );
     expect(container.firstChild).toMatchSnapshot('Input visible');
     expect(val).toBe('World');
@@ -71,12 +72,12 @@ describe('Visibility', () => {
       />,
     );
     const cbx = container.querySelector('input')!;
-    Simulate.change(cbx);
+    fireEvent.change(cbx);
     expect(container.firstChild).toMatchSnapshot('Hello input invisible');
     expect(val).toEqual({ val: 'Hello', visible: false });
     // Toggle visibility
     cbx.checked = true;
-    Simulate.change(cbx);
+    fireEvent.change(cbx);
     expect(container.firstChild).toMatchSnapshot('Hello input visible');
     expect(val).toEqual({ val: 'Hello', visible: true });
   });
@@ -129,7 +130,7 @@ describe('Errored', () => {
     // there is no error message
     expect(() => getByText(errorMessage)).toThrow();
     // throw a change event
-    Simulate.change(container.querySelector('input'));
+    fireEvent.change(container.querySelector('input'));
     // Error is shown
     expect(() => getByText(errorMessage)).not.toThrow();
   });
@@ -148,10 +149,10 @@ describe('Errored', () => {
     const input = container.querySelector('input');
     expect(() => getByText(errorMessage)).toThrow();
     input.value = 'Something';
-    Simulate.change(input);
+    fireEvent.change(input);
     expect(() => getByText(errorMessage)).not.toThrow();
     input.value = '';
-    Simulate.change(input);
+    fireEvent.change(input);
     expect(() => getByText(errorMessage)).toThrow();
   });
 });

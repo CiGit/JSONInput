@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render } from 'react-testing-library';
+import { render, cleanup } from 'react-testing-library';
 import defaultViews from '../Comps/Views';
 import Container, { setDefaultWidgets } from '../index';
 
@@ -7,6 +7,7 @@ describe('Form functions', () => {
   beforeAll(() => {
     setDefaultWidgets(defaultViews as any);
   });
+  afterEach(cleanup);
   test('Get current value', () => {
     const value = { a: 1, b: [{ c: 3 }] };
     let form: Container;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, Simulate } from 'react-testing-library';
+import { render, fireEvent, cleanup } from 'react-testing-library';
 import defaultViews from '../Comps/Views';
 import Container, { setDefaultWidgets } from '../index';
 
@@ -7,7 +7,7 @@ describe('Update values', () => {
   beforeAll(() => {
     setDefaultWidgets(defaultViews as any);
   });
-
+  afterEach(cleanup);
   test('Update simple field', () => {
     let val = undefined;
     const { container } = render(
@@ -22,7 +22,7 @@ describe('Update values', () => {
     const input = container.querySelector('input')!;
     expect(val).toBeUndefined();
     input.value = 'Hello, World';
-    Simulate.change(input);
+    fireEvent.change(input);
     expect(val).toBe('Hello, World');
   });
   test('Update simple checkbox', () => {
@@ -39,7 +39,7 @@ describe('Update values', () => {
     const input = container.querySelector('input')!;
     expect(val).toBeUndefined();
     input.checked = true;
-    Simulate.change(input);
+    fireEvent.change(input);
     expect(val).toBe(true);
   });
   test('Update array field', () => {
@@ -54,26 +54,26 @@ describe('Update values', () => {
       />,
     );
     const addButton = getByText('+');
-    Simulate.click(addButton);
+    fireEvent.click(addButton);
     expect(val).toEqual([undefined]);
-    Simulate.click(addButton);
+    fireEvent.click(addButton);
     expect(val).toEqual([undefined, undefined]);
     const inputs = container.querySelectorAll('input')!;
     // Create 2 elements
     inputs[0].value = 'One';
-    Simulate.change(inputs[0]);
+    fireEvent.change(inputs[0]);
     inputs[1].value = 'Two';
-    Simulate.change(inputs[1]);
+    fireEvent.change(inputs[1]);
     expect(val).toEqual(['One', 'Two']);
     // Remove first element
-    Simulate.click(getByText('-'));
+    fireEvent.click(getByText('-'));
     expect(val).toEqual(['Two']);
     // Update *new* first element
     inputs[0].value = 'Two updated';
-    Simulate.change(inputs[0]);
+    fireEvent.change(inputs[0]);
     expect(val).toEqual(['Two updated']);
     // Remove first element
-    Simulate.click(getByText('-'));
+    fireEvent.click(getByText('-'));
     expect(val).toEqual([]);
   });
 
@@ -91,19 +91,19 @@ describe('Update values', () => {
     const input = container.querySelector('input');
 
     input.value = '';
-    Simulate.change(input);
+    fireEvent.change(input);
     expect(val).toBe(undefined);
 
     input.value = '4.2e1';
-    Simulate.change(input);
+    fireEvent.change(input);
     expect(val).toBe(42);
 
     input.value = 'Hello';
-    Simulate.change(input);
+    fireEvent.change(input);
     expect(val).toBe('Hello');
 
     input.value = '';
-    Simulate.change(input);
+    fireEvent.change(input);
     expect(val).toBe(undefined);
   });
 });
