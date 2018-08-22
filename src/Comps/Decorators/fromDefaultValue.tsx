@@ -31,16 +31,24 @@ function fromDefaultValue<P extends Props>(
 ) {
   class DefaultValue extends React.Component<P, { val?: {} }> {
     static getDerivedStateFromProps(nextProps: P) {
-      if (nextProps.status.$$$state === undefined) {
-        /* 
-        Should avoid side effects, 
-        but in cDU, child is called before parent.
-        */
-        return { val: updateDefault(nextProps) };
+      if (nextProps.status.$$$state !== undefined) {
+        return null;
       }
       return { val: nextProps.value };
     }
-    state = { val: undefined };
+    state = { val: this.props.value };
+    componentDidMount() {
+      const val = updateDefault(this.props);
+      if (val !== this.state.val) {
+        this.setState({ val });
+      }
+    }
+    componentDidUpdate() {
+      const val = updateDefault(this.props);
+      if (val !== this.state.val) {
+        this.setState({ val });
+      }
+    }
     render() {
       return <Comp {...this.props} value={this.state.val} />;
     }
