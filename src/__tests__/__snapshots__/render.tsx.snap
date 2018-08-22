@@ -8,95 +8,95 @@ exports[`Handle the unknown Inference 1`] = `
     <span
       class="title"
     />
-    <div>
-      <div>
-        <label
-          class="numberField "
-        >
-          <span
-            class="title"
-          >
-            number
-          </span>
-          <input
-            type="string"
-            value="1"
-          />
-          <span />
-          <span />
-        </label>
-      </div>
-      <div>
-        <label
-          class="stringField "
-        >
-          <span
-            class="title"
-          >
-            string
-          </span>
-          <input
-            type="string"
-            value=""
-          />
-          <span />
-          <span />
-        </label>
-      </div>
-      <div>
-        <label
-          class="booleanField "
-        >
-          <span
-            class="title"
-          >
-            boolean
-          </span>
-          <input
-            type="checkbox"
-            value="false"
-          />
-          <span />
-          <span />
-        </label>
-      </div>
-      <div>
-        <label
-          class="arrayField "
-        >
-          <span
-            class="title"
-          >
-            array
-          </span>
-          <div>
-            <div />
-            <button>
-              +
-            </button>
-          </div>
-          <span />
-          <span />
-        </label>
-      </div>
-      <div>
-        <label
-          class="objectField "
-        >
-          <span
-            class="title"
-          >
-            object
-          </span>
-          <div />
-          <span />
-          <span />
-        </label>
-      </div>
-    </div>
-    <span />
-    <span />
   </label>
+  <div>
+    <div>
+      <label
+        class="numberField "
+      >
+        <span
+          class="title"
+        >
+          number
+        </span>
+      </label>
+      <input
+        type="string"
+        value="1"
+      />
+      <span />
+      <span />
+    </div>
+    <div>
+      <label
+        class="stringField "
+      >
+        <span
+          class="title"
+        >
+          string
+        </span>
+      </label>
+      <input
+        type="string"
+        value=""
+      />
+      <span />
+      <span />
+    </div>
+    <div>
+      <label
+        class="booleanField "
+      >
+        <span
+          class="title"
+        >
+          boolean
+        </span>
+      </label>
+      <input
+        type="checkbox"
+        value="false"
+      />
+      <span />
+      <span />
+    </div>
+    <div>
+      <label
+        class="arrayField "
+      >
+        <span
+          class="title"
+        >
+          array
+        </span>
+      </label>
+      <div>
+        <div />
+        <button>
+          +
+        </button>
+      </div>
+      <span />
+      <span />
+    </div>
+    <div>
+      <label
+        class="objectField "
+      >
+        <span
+          class="title"
+        >
+          object
+        </span>
+      </label>
+      <div />
+      <span />
+      <span />
+    </div>
+  </div>
+  <span />
+  <span />
 </div>
 `;
 
@@ -114,13 +114,13 @@ exports[`Handle the unknown Render a multiple type 1`] = `
     <span
       class="title"
     />
-    <input
-      type="string"
-      value=""
-    />
-    <span />
-    <span />
   </label>
+  <input
+    type="string"
+    value=""
+  />
+  <span />
+  <span />
 </div>
 `;
 
@@ -138,38 +138,38 @@ exports[`Render fields with default values Default array 1`] = `
     <span
       class="title"
     />
+  </label>
+  <div>
     <div>
       <div>
+        <button>
+          -
+        </button>
         <div>
-          <button>
-            -
-          </button>
-          <div>
-            <label
-              class="stringField "
+          <label
+            class="stringField "
+          >
+            <span
+              class="title"
             >
-              <span
-                class="title"
-              >
-                0
-              </span>
-              <input
-                type="string"
-                value="string"
-              />
-              <span />
-              <span />
-            </label>
-          </div>
+              0
+            </span>
+          </label>
+          <input
+            type="string"
+            value="string"
+          />
+          <span />
+          <span />
         </div>
       </div>
-      <button>
-        +
-      </button>
     </div>
-    <span />
-    <span />
-  </label>
+    <button>
+      +
+    </button>
+  </div>
+  <span />
+  <span />
 </div>
 `;
 
@@ -181,13 +181,13 @@ exports[`Render fields with default values Default boolean 1`] = `
     <span
       class="title"
     />
-    <input
-      type="checkbox"
-      value="false"
-    />
-    <span />
-    <span />
   </label>
+  <input
+    type="checkbox"
+    value="false"
+  />
+  <span />
+  <span />
 </div>
 `;
 
@@ -199,13 +199,13 @@ exports[`Render fields with default values Default number 1`] = `
     <span
       class="title"
     />
-    <input
-      type="string"
-      value="4"
-    />
-    <span />
-    <span />
   </label>
+  <input
+    type="string"
+    value="4"
+  />
+  <span />
+  <span />
 </div>
 `;
 
@@ -217,28 +217,28 @@ exports[`Render fields with default values Default object 1`] = `
     <span
       class="title"
     />
-    <div>
-      <div>
-        <label
-          class="numberField "
-        >
-          <span
-            class="title"
-          >
-            a
-          </span>
-          <input
-            type="string"
-            value="1"
-          />
-          <span />
-          <span />
-        </label>
-      </div>
-    </div>
-    <span />
-    <span />
   </label>
+  <div>
+    <div>
+      <label
+        class="numberField "
+      >
+        <span
+          class="title"
+        >
+          a
+        </span>
+      </label>
+      <input
+        type="string"
+        value="1"
+      />
+      <span />
+      <span />
+    </div>
+  </div>
+  <span />
+  <span />
 </div>
 `;
 
@@ -250,13 +250,13 @@ exports[`Render fields with default values Default string 1`] = `
     <span
       class="title"
     />
-    <input
-      type="string"
-      value="String value"
-    />
-    <span />
-    <span />
   </label>
+  <input
+    type="string"
+    value="String value"
+  />
+  <span />
+  <span />
 </div>
 `;
 

@@ -10,13 +10,13 @@ exports[`Visibility Simple visibility: Input visible 1`] = `
     <span
       class="title"
     />
-    <input
-      type="string"
-      value="World"
-    />
-    <span />
-    <span />
   </label>
+  <input
+    type="string"
+    value="World"
+  />
+  <span />
+  <span />
 </div>
 `;
 
@@ -30,28 +30,28 @@ exports[`Visibility Toggle visibility: Hello input invisible 1`] = `
     <span
       class="title"
     />
-    <div>
-      <div>
-        <label
-          class="booleanField "
-        >
-          <span
-            class="title"
-          >
-            visible
-          </span>
-          <input
-            type="checkbox"
-            value="false"
-          />
-          <span />
-          <span />
-        </label>
-      </div>
-    </div>
-    <span />
-    <span />
   </label>
+  <div>
+    <div>
+      <label
+        class="booleanField "
+      >
+        <span
+          class="title"
+        >
+          visible
+        </span>
+      </label>
+      <input
+        type="checkbox"
+        value="false"
+      />
+      <span />
+      <span />
+    </div>
+  </div>
+  <span />
+  <span />
 </div>
 `;
 
@@ -63,44 +63,44 @@ exports[`Visibility Toggle visibility: Hello input visible 1`] = `
     <span
       class="title"
     />
-    <div>
-      <div>
-        <label
-          class="stringField "
-        >
-          <span
-            class="title"
-          >
-            val
-          </span>
-          <input
-            type="string"
-            value="Hello"
-          />
-          <span />
-          <span />
-        </label>
-      </div>
-      <div>
-        <label
-          class="booleanField "
-        >
-          <span
-            class="title"
-          >
-            visible
-          </span>
-          <input
-            type="checkbox"
-            value="true"
-          />
-          <span />
-          <span />
-        </label>
-      </div>
-    </div>
-    <span />
-    <span />
   </label>
+  <div>
+    <div>
+      <label
+        class="stringField "
+      >
+        <span
+          class="title"
+        >
+          val
+        </span>
+      </label>
+      <input
+        type="string"
+        value="Hello"
+      />
+      <span />
+      <span />
+    </div>
+    <div>
+      <label
+        class="booleanField "
+      >
+        <span
+          class="title"
+        >
+          visible
+        </span>
+      </label>
+      <input
+        type="checkbox"
+        value="true"
+      />
+      <span />
+      <span />
+    </div>
+  </div>
+  <span />
+  <span />
 </div>
 `;
