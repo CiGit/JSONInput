@@ -46,7 +46,6 @@ describe('Render fields with default values', () => {
     return renderDefault(schema).then(v => expect(v).not.toBe(schema.value));
   });
   test('Default tuple', () => {
-    let value;
     const schema: Schema = {
       type: 'array',
       value: [undefined, undefined],
@@ -55,51 +54,44 @@ describe('Render fields with default values', () => {
         { type: 'number', value: 42 },
       ],
     };
-    render(
-      <Container
-        schema={schema}
-        onChange={v => {
-          value = v;
-        }}
-      />,
-    );
-    expect(value).toEqual(['Hello', 42]);
+    return new Promise(resolve =>
+      render(<Container schema={schema} onChange={resolve} />),
+    ).then(value => expect(value).toEqual(['Hello', 42]));
   });
   test('Composite values', () => {
-    let value;
-    render(
-      <Container
-        schema={{
-          type: 'object',
-          properties: {
-            arrayProp: {
-              type: 'array',
-              value: [{}],
-              items: {
-                type: 'object',
-                properties: {
-                  ap: {
-                    type: 'string',
-                    value: 'key string',
+    return new Promise(resolve =>
+      render(
+        <Container
+          schema={{
+            type: 'object',
+            properties: {
+              arrayProp: {
+                type: 'array',
+                value: [{}],
+                items: {
+                  type: 'object',
+                  properties: {
+                    ap: {
+                      type: 'string',
+                      value: 'key string',
+                    },
                   },
                 },
               },
+              numberProps: {
+                value: 1,
+              },
             },
-            numberProps: {
-              value: 1,
-            },
-          },
-        }}
-        onChange={v => {
-          value = v;
-        }}
-      />,
+          }}
+          onChange={resolve}
+        />,
+      ),
+    ).then(value =>
+      expect(value).toEqual({
+        arrayProp: [{ ap: 'key string' }],
+        numberProps: 1,
+      }),
     );
-
-    expect(value).toEqual({
-      arrayProp: [{ ap: 'key string' }],
-      numberProps: 1,
-    });
   });
 });
 

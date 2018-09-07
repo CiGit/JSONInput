@@ -71,8 +71,11 @@ function inference<P extends InferProps>(Comp: React.ComponentType<P>) {
     }
 
     render() {
+      const { type } = this.state.schema;
       return (
         <Comp
+          // Recreate component on type change
+          key={Array.isArray(type) ? undefined : type}
           {...this.props}
           path={this.state.path}
           schema={this.state.schema}

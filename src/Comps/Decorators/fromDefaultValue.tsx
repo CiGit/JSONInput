@@ -29,26 +29,16 @@ function updateDefault({
 function fromDefaultValue<P extends Props>(
   Comp: React.ComponentClass<P> | React.SFC<P>,
 ) {
-  class DefaultValue extends React.Component<P, { val?: {} }> {
-    static getDerivedStateFromProps(nextProps: P) {
-      if (nextProps.status.$$$state !== undefined) {
-        return null;
+  class DefaultValue extends React.Component<P, { val?: {}; init: boolean }> {
+    static getDerivedStateFromProps(nextProps: P, state: { init: boolean }) {
+      if (state.init) {
+        return { init: false };
       }
-      return { val: nextProps.value };
+      return {
+        val: nextProps.value,
+      };
     }
-    state = { val: this.props.value };
-    componentDidMount() {
-      const val = updateDefault(this.props);
-      if (val !== this.state.val) {
-        this.setState({ val });
-      }
-    }
-    componentDidUpdate() {
-      const val = updateDefault(this.props);
-      if (val !== this.state.val) {
-        this.setState({ val });
-      }
-    }
+    state = { val: updateDefault(this.props), init: true };
     render() {
       return <Comp {...this.props} value={this.state.val} />;
     }

@@ -1,6 +1,5 @@
 import * as React from 'react';
-// import { root, branch } from 'baobab-react/higher-order';
-import { /* createTree */ Store } from '../Store/index';
+import { Store } from '../Store/index';
 import SchemaType from './SchemaType';
 import validate from './../Utils/customValidator';
 import { setValidationErrors } from '../Store/actions';
@@ -8,14 +7,6 @@ import { setValidationErrors } from '../Store/actions';
 import { Schema } from '../../typings/types';
 
 const EMPTY_ARRAY: any[] = [];
-// const BranchedSchemaType = branch(
-//     {
-//         // schema: 'schema',
-//         status: 'status',
-//         value: 'value',
-//     },
-//     SchemaType
-// );
 
 export type Props = {
   onChange: (value: {}, errors: {}[]) => void;
@@ -31,6 +22,12 @@ class Container extends React.Component<Props> {
   getValue() {
     return this.store!.state.value;
   }
+  update = (value: {}) => {
+    this.props.onChange(
+      value,
+      validate(value, this.props['schema'], value).errors,
+    );
+  };
   validate() {
     const validationResult = validate(
       this.store!.state.value,
@@ -48,12 +45,7 @@ class Container extends React.Component<Props> {
         }}
         value={this.props.value}
         schema={this.props.schema}
-        onValueChange={(value: {}) =>
-          this.props.onChange(
-            value,
-            validate(value, this.props['schema'], value).errors,
-          )
-        }
+        onValueChange={this.update}
       >
         {({ schema, value, status, dispatch }) => (
           <SchemaType

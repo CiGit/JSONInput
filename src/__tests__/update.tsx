@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, fireEvent, cleanup } from 'react-testing-library';
+import { render, fireEvent, cleanup, debugDOM } from 'react-testing-library';
 import defaultViews from '../Comps/Views';
 import Container, { setDefaultWidgets } from '../index';
 
@@ -21,8 +21,7 @@ describe('Update values', () => {
     );
     const input = container.querySelector('input')!;
     expect(val).toBeUndefined();
-    input.value = 'Hello, World';
-    fireEvent.change(input);
+    fireEvent.change(input, { target: { value: 'Hello, World' } });
     expect(val).toBe('Hello, World');
   });
   test('Update simple checkbox', () => {
@@ -38,8 +37,7 @@ describe('Update values', () => {
     );
     const input = container.querySelector('input')!;
     expect(val).toBeUndefined();
-    input.checked = true;
-    fireEvent.change(input);
+    fireEvent.change(input, { target: { checked: true } });
     expect(val).toBe(true);
   });
   test('Update array field', () => {
@@ -60,10 +58,8 @@ describe('Update values', () => {
     expect(val).toEqual([undefined, undefined]);
     const inputs = container.querySelectorAll('input')!;
     // Create 2 elements
-    inputs[0].value = 'One';
-    fireEvent.change(inputs[0]);
-    inputs[1].value = 'Two';
-    fireEvent.change(inputs[1]);
+    fireEvent.change(inputs[0], { target: { value: 'One' } });
+    fireEvent.change(inputs[1], { target: { value: 'Two' } });
     expect(val).toEqual(['One', 'Two']);
     // Remove first element
     fireEvent.click(getByText('-'));
@@ -90,20 +86,16 @@ describe('Update values', () => {
     );
     const input = container.querySelector('input');
 
-    input.value = '';
-    fireEvent.change(input);
+    fireEvent.change(input, { target: { value: '' } });
     expect(val).toBe(undefined);
 
-    input.value = '4.2e1';
-    fireEvent.change(input);
+    fireEvent.change(input, { target: { value: '4.2e1' } });
     expect(val).toBe(42);
 
-    input.value = 'Hello';
-    fireEvent.change(input);
+    fireEvent.change(input, { target: { value: 'Hello' } });
     expect(val).toBe('Hello');
 
-    input.value = '';
-    fireEvent.change(input);
+    fireEvent.change(input, { target: { value: '' } });
     expect(val).toBe(undefined);
   });
 });
