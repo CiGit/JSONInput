@@ -1,5 +1,5 @@
 import { ValidationError } from 'jsonschema/lib';
-import { set, get, unset } from 'lodash-es';
+import { set, get, unset, setWith } from 'lodash-es';
 
 const VALUE = 'value';
 const STATUS = 'status';
@@ -9,7 +9,7 @@ const NO_ERRORS: string[] = [];
 
 function setErrors(state: any, path: string[] = [], errors: string[]) {
   const errorPath = [STATUS].concat(path).concat([ERRORS]);
-  set(state, errorPath, errors);
+  setWith(state, errorPath, errors, Object);
 }
 export function setValidationErrors(
   state: any,
@@ -54,13 +54,13 @@ export function update(
 ) {
   const statusPath = [STATUS].concat(path);
   set(state, [VALUE].concat(path), value);
-  set(state, statusPath.concat([STATE]), 'dirty');
+  setWith(state, statusPath.concat([STATE]), 'dirty', Object);
   setValidationErrors(state, path, errors);
 }
 
 export function setDefaultValue(state: any, path: string[] = [], value: {}) {
   update(state, path, value, []);
-  set(state, [STATUS].concat(path).concat([STATE]), 'pristine');
+  setWith(state, [STATUS].concat(path).concat([STATE]), 'pristine', Object);
 }
 
 /**

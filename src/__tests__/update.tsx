@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, fireEvent, cleanup, debugDOM } from 'react-testing-library';
+import { render, fireEvent, cleanup } from 'react-testing-library';
 import defaultViews from '../Comps/Views';
 import Container, { setDefaultWidgets } from '../index';
 
@@ -54,8 +54,10 @@ describe('Update values', () => {
     const addButton = getByText('+');
     fireEvent.click(addButton);
     expect(val).toEqual([undefined]);
+    const input = container.querySelector('input')!;
+    fireEvent.change(input, { target: { value: 'Hello' } });
     fireEvent.click(addButton);
-    expect(val).toEqual([undefined, undefined]);
+    expect(val).toEqual(['Hello', undefined]);
     const inputs = container.querySelectorAll('input')!;
     // Create 2 elements
     fireEvent.change(inputs[0], { target: { value: 'One' } });
@@ -84,7 +86,7 @@ describe('Update values', () => {
         value={val}
       />,
     );
-    const input = container.querySelector('input');
+    const input = container.querySelector('input')!;
 
     fireEvent.change(input, { target: { value: '' } });
     expect(val).toBe(undefined);

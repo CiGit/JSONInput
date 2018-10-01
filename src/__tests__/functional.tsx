@@ -101,7 +101,7 @@ describe('Errored', () => {
     setDefaultWidgets(defaultViews as any);
   });
   test('"errored" is not a function', () => {
-    const conError = spyOn(console, 'error'); // Hide error messages.
+    spyOn(console, 'error'); // Hide error messages.
     expect(() =>
       render(
         <Container
@@ -130,7 +130,7 @@ describe('Errored', () => {
     // there is no error message
     expect(() => getByText(errorMessage)).toThrow();
     // throw a change event
-    fireEvent.change(container.querySelector('input'));
+    fireEvent.change(container.querySelector('input')!);
     // Error is shown
     expect(() => getByText(errorMessage)).not.toThrow();
   });
@@ -146,7 +146,7 @@ describe('Errored', () => {
         onChange={() => {}}
       />,
     );
-    const input = container.querySelector('input');
+    const input = container.querySelector('input')!;
     expect(() => getByText(errorMessage)).toThrow();
     input.value = 'Something';
     fireEvent.change(input);

@@ -28,9 +28,10 @@ const FormContext = React.createContext<{
 });
 export const FormConsumer = FormContext.Consumer;
 export class Store extends React.Component<StoreProps> {
-  state = {
+  readonly state = {
     schema: {},
     value: {},
+    extValue: {},
     status: {},
     oldProps: {},
   };
@@ -41,16 +42,18 @@ export class Store extends React.Component<StoreProps> {
       value: {};
       status: {};
       oldProps: StoreProps;
+      extValue: {} | undefined;
     },
   ) {
     if (state.oldProps !== nextProps) {
-      let ret: Partial<typeof Store.prototype.state> = {
+      const ret: Partial<typeof Store.prototype.state> = {
         value: nextProps.value,
         schema: nextProps.schema,
         oldProps: nextProps,
       };
-      if (nextProps.value !== state.value) {
+      if (nextProps.value !== state.extValue) {
         ret.status = {};
+        ret.extValue = nextProps.value;
       }
       return ret;
     }
@@ -76,7 +79,8 @@ export class Store extends React.Component<StoreProps> {
       // This is not an update due to a props change.
       this.props.value === prevProps.value
     ) {
-      this.props.onValueChange(this.state.value);
+      const extValue = this.state.value;
+      this.setState({ extValue }, () => this.props.onValueChange(extValue));
     }
   }
   render() {

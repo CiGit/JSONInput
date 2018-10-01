@@ -9,7 +9,7 @@ import { Schema } from '../../typings/types';
 const EMPTY_ARRAY: any[] = [];
 
 export type Props = {
-  onChange: (value: {}, errors: {}[]) => void;
+  onChange: (value: {} | undefined, errors: {}[]) => void;
   schema: Schema;
   value?: {};
 };
@@ -22,7 +22,7 @@ class Container extends React.Component<Props> {
   getValue() {
     return this.store!.state.value;
   }
-  update = (value: {}) => {
+  update = (value: {} | undefined) => {
     this.props.onChange(
       value,
       validate(value, this.props['schema'], value).errors,
