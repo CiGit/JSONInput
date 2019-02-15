@@ -27,7 +27,7 @@ function updateDefault({
 }
 
 function fromDefaultValue<P extends Props>(
-  Comp: React.ComponentClass<P> | React.SFC<P>,
+  Comp: React.ComponentType<P>,
 ) {
   class DefaultValue extends React.Component<P, { val?: {}; init: boolean }> {
     static getDerivedStateFromProps(nextProps: P, state: { init: boolean }) {

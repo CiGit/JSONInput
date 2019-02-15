@@ -1,24 +1,34 @@
 {
-    "presets": [
-        [
-            "es2015",
-            {
-                "modules": false,
-                "loose": true
-            }
-        ],
-        "react"
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "loose": true
+      }
     ],
-    "plugins": ["transform-object-rest-spread"],
-    "env": {
-        "test": {
-            "presets": [["es2015"], "react"]
-        },
-        "production": {
-            "plugins": [
-                "external-helpers",
-                ["transform-react-remove-prop-types", { "removeImport": true }]
-            ]
-        }
+    "@babel/preset-typescript",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread"
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        ["@babel/preset-env", { "targets": { "node": "current" } }],
+      ]
+    },
+    "production": {
+      "plugins": [
+        [
+          "transform-react-remove-prop-types",
+          {
+            "removeImport": true
+          }
+        ]
+      ]
     }
+  }
 }

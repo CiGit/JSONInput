@@ -9,8 +9,8 @@ type Props = {
   dispatch: (action: Action, ...args: {}[]) => any;
 };
 function visibility<P extends Props>(
-  Comp: React.ComponentClass<P> | React.SFC<P>,
-): React.SFC<P> {
+  Comp: React.ComponentType<P>
+): React.FunctionComponent<P> {
   return function Visible(props: P) {
     const {
       schema: { visible },

@@ -6,7 +6,7 @@ function TextWidget(props) {
     return (
         <Input
             {...props}
-            type="string"
+            type="text"
         />
     );
 }

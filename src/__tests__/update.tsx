@@ -2,10 +2,11 @@ import * as React from 'react';
 import { render, fireEvent, cleanup } from 'react-testing-library';
 import defaultViews from '../Comps/Views';
 import Container, { setDefaultWidgets } from '../index';
+import Input from '../Comps/Views/Input';
 
 describe('Update values', () => {
   beforeAll(() => {
-    setDefaultWidgets(defaultViews as any);
+    setDefaultWidgets(defaultViews);
   });
   afterEach(cleanup);
   test('Update simple field', () => {
@@ -37,7 +38,7 @@ describe('Update values', () => {
     );
     const input = container.querySelector('input')!;
     expect(val).toBeUndefined();
-    fireEvent.change(input, { target: { checked: true } });
+    fireEvent.click(input);
     expect(val).toBe(true);
   });
   test('Update array field', () => {
@@ -67,8 +68,7 @@ describe('Update values', () => {
     fireEvent.click(getByText('-'));
     expect(val).toEqual(['Two']);
     // Update *new* first element
-    inputs[0].value = 'Two updated';
-    fireEvent.change(inputs[0]);
+    fireEvent.change(inputs[0], { target: { value: 'Two updated' } });
     expect(val).toEqual(['Two updated']);
     // Remove first element
     fireEvent.click(getByText('-'));

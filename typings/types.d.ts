@@ -76,7 +76,7 @@ declare namespace WidgetProps {
   interface ObjectProps<ViewBag = {}> extends BaseProps<ViewBag> {
     value?: object;
     schema: Schema.Object<ViewBag>;
-    children?: (React.ComponentClass<WidgetProps> | React.SFC<WidgetProps>)[];
+    children: (React.ReactElement<WidgetProps>)[];
     addKey: (key: string, value?: {}) => void;
     removeKey: (key: string) => void;
     alterKey: (key: string, newKey: string) => void;
@@ -87,7 +87,7 @@ declare namespace WidgetProps {
   interface ArrayProps<ViewBag = {}> extends BaseProps<ViewBag> {
     value?: {}[];
     schema: Schema.Array<ViewBag>;
-    children?: (React.ComponentClass<WidgetProps> | React.SFC<WidgetProps>)[];
+    children: (React.ReactElement<WidgetProps>)[];
     onChildAdd: (value?: {}) => void;
     onChildRemove: (index: number) => void;
   }

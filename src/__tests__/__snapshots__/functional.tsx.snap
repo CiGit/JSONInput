@@ -12,7 +12,7 @@ exports[`Visibility Simple visibility: Input visible 1`] = `
     />
   </label>
   <input
-    type="string"
+    type="text"
     value="World"
   />
   <span />
@@ -76,7 +76,7 @@ exports[`Visibility Toggle visibility: Hello input visible 1`] = `
         </span>
       </label>
       <input
-        type="string"
+        type="text"
         value="Hello"
       />
       <span />

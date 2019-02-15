@@ -21,7 +21,7 @@ exports[`Handle the unknown Inference 1`] = `
         </span>
       </label>
       <input
-        type="string"
+        type="text"
         value="1"
       />
       <span />
@@ -38,7 +38,7 @@ exports[`Handle the unknown Inference 1`] = `
         </span>
       </label>
       <input
-        type="string"
+        type="text"
         value=""
       />
       <span />
@@ -116,7 +116,7 @@ exports[`Handle the unknown Render a multiple type 1`] = `
     />
   </label>
   <input
-    type="string"
+    type="text"
     value=""
   />
   <span />
@@ -156,7 +156,7 @@ exports[`Render fields with default values Default array 1`] = `
             </span>
           </label>
           <input
-            type="string"
+            type="text"
             value="string"
           />
           <span />
@@ -201,7 +201,7 @@ exports[`Render fields with default values Default number 1`] = `
     />
   </label>
   <input
-    type="string"
+    type="text"
     value="4"
   />
   <span />
@@ -230,7 +230,7 @@ exports[`Render fields with default values Default object 1`] = `
         </span>
       </label>
       <input
-        type="string"
+        type="text"
         value="1"
       />
       <span />
@@ -252,7 +252,7 @@ exports[`Render fields with default values Default string 1`] = `
     />
   </label>
   <input
-    type="string"
+    type="text"
     value="String value"
   />
   <span />

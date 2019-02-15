@@ -8,7 +8,7 @@ import { Schema, Action } from '../../../typings/types';
 type Props = {
   schema: Schema.Object;
   status: { [key: string]: {} };
-  dispatch: (action: Action, ...args: {}[]) => any;
+  dispatch: (action: Action, ...args: ({} | undefined)[]) => any;
   editKey: string;
   value: {
     [key: string]: {};

@@ -10,7 +10,7 @@ type Props = {
   onChange: (value: any) => void;
   errorMessage?: string[];
   path: string[];
-  children?: (React.ComponentClass<WidgetProps> | React.SFC<WidgetProps>)[];
+  children?: React.ComponentType<WidgetProps>[];
   addKey?: (key: string, value: {}) => void;
   removeKey?: (key: string) => void;
   alterKey?: (key: string, newKey: string) => void;

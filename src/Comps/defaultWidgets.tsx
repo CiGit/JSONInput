@@ -2,7 +2,7 @@ import * as React from 'react';
 import { WidgetProps } from '../../typings/types';
 
 export type WidgetMap = {
-  [key: string]: React.ComponentClass<WidgetProps> | React.SFC<WidgetProps>;
+  [key: string]: React.ComponentType<WidgetProps>;
 };
 
 function undefinedWidgetFactory(type: string) {

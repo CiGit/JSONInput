@@ -43,7 +43,7 @@ class SchemaType<P extends SchemaProps> extends React.Component<P> {
     const renderType = Array.isArray(type)
       ? (type as TYPESTRING[]).find(t => t !== 'null')
       : type;
-    let Type: React.ComponentClass<any> | React.SFC<any>;
+    let Type: React.ComponentType<any>;
     if (renderType === undefined || renderType === 'null') {
       Type = UndefinedField;
     } else {

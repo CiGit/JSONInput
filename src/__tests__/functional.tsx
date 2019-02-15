@@ -72,12 +72,11 @@ describe('Visibility', () => {
       />,
     );
     const cbx = container.querySelector('input')!;
-    fireEvent.change(cbx);
+    // fireEvent.click(cbx);
     expect(container.firstChild).toMatchSnapshot('Hello input invisible');
     expect(val).toEqual({ val: 'Hello', visible: false });
     // Toggle visibility
-    cbx.checked = true;
-    fireEvent.change(cbx);
+    fireEvent.click(cbx);
     expect(container.firstChild).toMatchSnapshot('Hello input visible');
     expect(val).toEqual({ val: 'Hello', visible: true });
   });
@@ -130,7 +129,9 @@ describe('Errored', () => {
     // there is no error message
     expect(() => getByText(errorMessage)).toThrow();
     // throw a change event
-    fireEvent.change(container.querySelector('input')!);
+    fireEvent.change(container.querySelector('input')!, {
+      target: { value: 'v' },
+    });
     // Error is shown
     expect(() => getByText(errorMessage)).not.toThrow();
   });
@@ -148,11 +149,9 @@ describe('Errored', () => {
     );
     const input = container.querySelector('input')!;
     expect(() => getByText(errorMessage)).toThrow();
-    input.value = 'Something';
-    fireEvent.change(input);
+    fireEvent.change(input, { target: { value: 'Something' } });
     expect(() => getByText(errorMessage)).not.toThrow();
-    input.value = '';
-    fireEvent.change(input);
+    fireEvent.change(input, { target: { value: '' } });
     expect(() => getByText(errorMessage)).toThrow();
   });
 });

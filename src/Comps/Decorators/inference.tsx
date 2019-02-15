@@ -17,31 +17,43 @@ interface InferProps {
   path: string[];
   editKey?: string;
   value?: {};
-  schema?: Schema;
-  [p: string]: any;
+  schema: Schema;
 }
 interface InferState {
   schema: Schema;
   path: string[];
-  oldPath: string[] | null;
-  oldEditKey: string | null;
+  oldPath?: string[];
+  oldEditKey?: string;
   oldValue?: {};
 }
+/**
+ * Remove specified keys.
+ */
+type Omit<Type, Keys extends keyof Type> = Pick<
+  Type,
+  Exclude<keyof Type, Keys>
+>;
+
+/**
+ * Make specified key optional. Others don't change.
+ */
+type PartialKey<Type, Keys extends keyof Type> = Omit<Type, Keys> &
+  Partial<Pick<Type, Keys>>;
+
 /**
  * HOC, compute schema value from inferred type if schema is missing
  * @param Comp component to decorate.
  * @return the decorated component.
  */
 function inference<P extends InferProps>(Comp: React.ComponentType<P>) {
-  class Infer extends React.Component<InferProps, InferState> {
+  type PartialSchemaProps = PartialKey<P, 'schema'>;
+  class Infer extends React.Component<PartialSchemaProps, InferState> {
     state: InferState = {
       path: [],
       schema: {},
-      oldPath: null,
-      oldEditKey: null,
     };
     static getDerivedStateFromProps(
-      nextProps: P,
+      nextProps: PartialSchemaProps,
       curState: InferState,
     ): Partial<InferState> {
       let nextState: Partial<InferState> = {};
@@ -73,6 +85,7 @@ function inference<P extends InferProps>(Comp: React.ComponentType<P>) {
     render() {
       const { type } = this.state.schema;
       return (
+        // @ts-ignore https://github.com/Microsoft/TypeScript/issues/28748
         <Comp
           // Recreate component on type change
           key={Array.isArray(type) ? undefined : type}

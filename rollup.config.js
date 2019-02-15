@@ -2,10 +2,8 @@ import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
 import nodeResolve from 'rollup-plugin-node-resolve';
-import { uglify } from 'rollup-plugin-uglify';
-import { minify } from 'uglify-es';
+import { terser } from 'rollup-plugin-terser';
 import filesize from 'rollup-plugin-filesize';
-import typescript from 'rollup-plugin-typescript2';
 
 import * as pkg from './package.json';
 
@@ -17,16 +15,16 @@ const external = Object.keys(pkg.peerDependencies).concat(
 export default {
   input: 'src/index.ts',
   plugins: [
-    nodeResolve({}),
-    replace({ 'process.env.NODE_ENV': JSON.stringify(env) }),
-    typescript({
-      typescript: require('typescript'),
+    nodeResolve({
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
     }),
+    replace({ 'process.env.NODE_ENV': JSON.stringify(env) }),
     babel({
       exclude: 'node_modules/**',
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
     }),
     commonjs(),
-    env === 'production' && uglify({ mangle: { toplevel: true } }, minify),
+    env === 'production' && terser({ mangle: { toplevel: true } }),
     filesize(),
   ],
   external: function ext(module) {
