@@ -16,14 +16,17 @@ describe('Render fields with default values', () => {
     setDefaultWidgets(defaultViews as any);
   });
   afterEach(cleanup);
-  function renderDefault(schema: Schema) {
+  function r(schema: Schema) {
     return new Promise(resolve => {
       const { container, unmount } = render(
         <Container schema={schema} onChange={resolve} />,
       );
       expect(container.firstChild).toMatchSnapshot();
       unmount();
-    }).then(v => {
+    });
+  }
+  function renderDefault(schema: Schema) {
+    return r(schema).then(v => {
       expect(v).toEqual(schema.value);
       return v;
     });
@@ -57,6 +60,14 @@ describe('Render fields with default values', () => {
     return new Promise(resolve =>
       render(<Container schema={schema} onChange={resolve} />),
     ).then(value => expect(value).toEqual(['Hello', 42]));
+  });
+  test('Default Object with numeric keys', () => {
+    return r({
+      type: 'object',
+      properties: {
+        '0': { type: 'number', value: 1 },
+      },
+    }).then(v => expect(v).toEqual({ 0: 1 }));
   });
   test('Composite values', () => {
     return new Promise(resolve =>

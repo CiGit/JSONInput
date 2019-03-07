@@ -1,5 +1,5 @@
 import { ValidationError } from 'jsonschema/lib';
-import { set, get, unset, setWith } from 'lodash-es';
+import { get, unset, setWith } from 'lodash-es';
 
 const VALUE = 'value';
 const STATUS = 'status';
@@ -53,7 +53,7 @@ export function update(
   errors: ValidationError[],
 ) {
   const statusPath = [STATUS].concat(path);
-  set(state, [VALUE].concat(path), value);
+  setWith(state, [VALUE].concat(path), value, Object);
   setWith(state, statusPath.concat([STATE]), 'dirty', Object);
   setValidationErrors(state, path, errors);
 }

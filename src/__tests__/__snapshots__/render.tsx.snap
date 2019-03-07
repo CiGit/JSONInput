@@ -130,6 +130,39 @@ exports[`Handle the unknown Unknown: Undefined view unknow 1`] = `
 </div>
 `;
 
+exports[`Render fields with default values Default Object with numeric keys 1`] = `
+<div>
+  <label
+    class="objectField "
+  >
+    <span
+      class="title"
+    />
+  </label>
+  <div>
+    <div>
+      <label
+        class="numberField "
+      >
+        <span
+          class="title"
+        >
+          0
+        </span>
+      </label>
+      <input
+        type="text"
+        value="1"
+      />
+      <span />
+      <span />
+    </div>
+  </div>
+  <span />
+  <span />
+</div>
+`;
+
 exports[`Render fields with default values Default array 1`] = `
 <div>
   <label
