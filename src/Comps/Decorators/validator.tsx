@@ -17,12 +17,13 @@ type Props = {
 function validated<P extends Props>(
   Comp: React.ComponentType<P & { errorMessage?: string[] }>,
 ) {
-  class Validator extends React.Component<P & { __tree: any }> {
+  class Validator extends React.Component<P & { __tree: any, path: string[] }> {
     onChange = (val?: {}) => {
       const validation = validate(
         val,
         this.props.schema,
         this.props.__tree.value,
+        this.props.path,
       );
       this.props.onChange(val, validation.errors);
     };

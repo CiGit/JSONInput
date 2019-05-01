@@ -19,6 +19,15 @@ const formSchema = {
                 title: 'This is a string',
             },
         },
+        testErroredWithPath: {
+            type: 'string',
+            value: 'something',
+            required: true,
+            errored: (val, formVal, path) => path.join('.'),
+            view: {
+                title: 'Display property path: ',
+            },
+        },
         showNum: {
             type: 'boolean',
             value: false,

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-type ErrorFn = (value: any, formValue: any) => string;
+type ErrorFn = (value: any, formValue: any, path: string[]) => string;
 
 type TYPESTRING = 'string' | 'number' | 'boolean' | 'object' | 'array' | 'null';
 
