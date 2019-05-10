@@ -17,7 +17,7 @@ type Props = {
 function validated<P extends Props>(
   Comp: React.ComponentType<P & { errorMessage?: string[] }>,
 ) {
-  class Validator extends React.Component<P & { __tree: any, path: string[] }> {
+  class Validator extends React.Component<P & { __tree: any; path: string[] }> {
     onChange = (val?: {}) => {
       const validation = validate(
         val,

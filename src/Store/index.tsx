@@ -5,17 +5,15 @@ interface StoreProps {
   value?: {};
   schema: {};
   onValueChange: (value: {}) => void;
-  children: (
-    props: {
-      dispatch: (
-        action: (state: any, ...extraArgs: any[]) => void,
-        ...args: any[]
-      ) => void;
-      schema: {};
-      value: {};
-      status: {};
-    },
-  ) => JSX.Element;
+  children: (props: {
+    dispatch: (
+      action: (state: any, ...extraArgs: any[]) => void,
+      ...args: any[]
+    ) => void;
+    schema: {};
+    value: {};
+    status: {};
+  }) => JSX.Element;
 }
 const FormContext = React.createContext<{
   value?: {};

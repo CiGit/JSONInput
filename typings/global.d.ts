@@ -1,27 +1,27 @@
 declare module 'baobab-react/higher-order' {
-    export const root: any;
-    export const branch: any;
+  export const root: any;
+  export const branch: any;
 }
 declare class Baobab {
-    constructor(...args: {}[]);
+  constructor(...args: {}[]);
 }
 declare module 'baobab' {
-    export default Baobab;
+  export default Baobab;
 }
 
 declare module 'react-pure-render/function' {
-    export default function(args: {}[]): boolean;
+  export default function(args: {}[]): boolean;
 }
 declare module 'jsonschema' {
-    export class Validator {
-        public attributes: { [key: string]: (...args: any[]) => any };
-        public validate: (
-            value: {} | void,
-            schema: {},
-            options: { [option: string]: {} }
-        ) => any;
-    }
-    export class SchemaError {
-        constructor(message: string);
-    }
+  export class Validator {
+    public attributes: { [key: string]: (...args: any[]) => any };
+    public validate: (
+      value: {} | void,
+      schema: {},
+      options: { [option: string]: {} },
+    ) => any;
+  }
+  export class SchemaError {
+    constructor(message: string);
+  }
 }

@@ -9,7 +9,7 @@ type Props = {
   dispatch: (action: Action, ...args: {}[]) => any;
 };
 function visibility<P extends Props>(
-  Comp: React.ComponentType<P>
+  Comp: React.ComponentType<P>,
 ): React.FunctionComponent<P> {
   return function Visible(props: P) {
     const {

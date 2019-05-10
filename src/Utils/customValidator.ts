@@ -6,19 +6,16 @@ const customValidator = new jsonschema.Validator();
 customValidator.attributes.errored = function validateErrored(
   instance: {},
   schema: { errored?: ErrorFn },
-  options: { formValue: {}, ctx: {basePath?: string[]} },
-  ctx : { propertyPath : String},
+  options: { formValue: {}; ctx: { basePath?: string[] } },
+  ctx: { propertyPath: String },
 ) {
   if (typeof schema.errored !== 'function') {
     throw new jsonschema.SchemaError('"errored" expects a function');
   }
-    const path = (options.ctx.basePath || [])
-      .concat(ctx.propertyPath.split('.').slice(1));
-    const msg = schema.errored(
-      instance,
-      options.formValue,
-      path,
-    );
+  const path = (options.ctx.basePath || []).concat(
+    ctx.propertyPath.split('.').slice(1),
+  );
+  const msg = schema.errored(instance, options.formValue, path);
   if (msg) {
     return msg;
   }
@@ -33,8 +30,8 @@ function validate(
   return customValidator.validate(value, schema, {
     formValue: formValue || {},
     ctx: {
-        basePath,
-    }
+      basePath,
+    },
   });
 }
 

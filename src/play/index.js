@@ -4,14 +4,11 @@ import React from 'react';
 import App from './App';
 
 function mount() {
-    render(
-        <App />,
-        document.getElementById('container')
-    );
+  render(<App />, document.getElementById('container'));
 }
 
 mount();
 
 if (module.hot) {
-    module.hot.accept('./App', () => mount());
+  module.hot.accept('./App', () => mount());
 }
