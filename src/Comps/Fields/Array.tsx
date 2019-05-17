@@ -4,16 +4,14 @@ import Widget from './Widget';
 import validator from '../Decorators/validator';
 
 import { Schema, Action } from '../../../typings/types';
+import { FormContext } from '../../Store';
 
 type Props = {
   onChange: (val: {}[]) => void;
-  schema: Schema & {
-    type: 'array';
-    items?: Schema[] | Schema;
-    value?: {}[];
-  };
+  schema: Schema.Array;
   dispatch: (action: Action, ...args: ({} | undefined)[]) => any;
   value?: {}[];
+  __tree: FormContext;
   editKey: string;
   status: { [key: string]: {} };
   path: string[];
@@ -65,7 +63,7 @@ function renderChildren(props: Props) {
 function ArrayField(props: Props) {
   return (
     <Widget
-      {...props as any}
+      {...props}
       onChildAdd={onChildAdd(props)}
       onChildRemove={onChildRemove(props)}
     >

@@ -2,12 +2,14 @@ import * as React from 'react';
 import validator from '../Decorators/validator';
 import { SimpleStringField } from './String';
 import { Schema, Action } from '../../../typings/types';
+import { FormContext } from '../../Store';
 
 interface Props {
   schema: Schema & { type: 'number' | 'string' };
   value?: number;
   editKey: string;
   path: string[];
+  __tree: FormContext;
   dispatch: (action: Action, ...args: {}[]) => any;
   onChange: (value: string | void | number) => void;
 }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import immer from 'immer';
+import immer, { Immutable } from 'immer';
 
 interface StoreProps {
   value?: {};
@@ -15,11 +15,12 @@ interface StoreProps {
     status: {};
   }) => JSX.Element;
 }
-const FormContext = React.createContext<{
-  value?: {};
+export interface FormContext {
+  value: Immutable<{}> | undefined | null;
   schema: {};
   status: {};
-}>({
+}
+const FormContext = React.createContext<FormContext>({
   value: undefined,
   schema: {},
   status: {},

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Immutable } from 'immer';
 
 type ErrorFn = (value: any, formValue: any, path: string[]) => string;
 
@@ -62,19 +63,23 @@ declare namespace WidgetProps {
    * Use for string / number / boolean widgets
    */
   interface BaseProps<ViewBag = {}> {
-    value?: {};
+    value: {} | undefined | null;
     onChange: (value?: {}) => void;
     schema: Schema<ViewBag>;
     view: ViewBag;
     errorMessage?: string[];
     editKey: string;
     path: string[];
+    /**
+     * Entire's container value.
+     */
+    formValue: () => {} | undefined | null;
   }
   /**
    * Use for Object widget
    */
   interface ObjectProps<ViewBag = {}> extends BaseProps<ViewBag> {
-    value?: object;
+    value: object | undefined | null;
     schema: Schema.Object<ViewBag>;
     children: (React.ReactElement<WidgetProps>)[];
     addKey: (key: string, value?: {}) => void;
@@ -85,7 +90,7 @@ declare namespace WidgetProps {
    * Use for Array widget
    */
   interface ArrayProps<ViewBag = {}> extends BaseProps<ViewBag> {
-    value?: {}[];
+    value: {}[] | undefined | null;
     schema: Schema.Array<ViewBag>;
     children: (React.ReactElement<WidgetProps>)[];
     onChildAdd: (value?: {}) => void;
@@ -96,8 +101,8 @@ declare namespace WidgetProps {
  * Props passed in widgets.
  */
 type WidgetProps =
-  | WidgetProps.ArrayProps
   | WidgetProps.BaseProps
+  | WidgetProps.ArrayProps
   | WidgetProps.ObjectProps;
 
 type Action = (tree: any, path?: string[], ...args: any[]) => {} | void;

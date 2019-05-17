@@ -1,16 +1,17 @@
 import * as React from 'react';
+import { Schema, TYPESTRING } from '../../../typings/types';
+import { FormContext } from '../../Store';
 import { defaultWidget } from '../defaultWidgets';
-
-import { WidgetProps, TYPESTRING, Schema } from '../../../typings/types';
 
 type Props = {
   value?: {};
-  schema: Schema & { type: TYPESTRING };
+  schema: Schema;
   editKey: string;
+  __tree: FormContext;
   onChange: (value: any) => void;
   errorMessage?: string[];
   path: string[];
-  children?: React.ComponentType<WidgetProps>[];
+  children?: JSX.Element[];
   addKey?: (key: string, value: {}) => void;
   removeKey?: (key: string) => void;
   alterKey?: (key: string, newKey: string) => void;
@@ -24,6 +25,7 @@ function Widget<P extends Props>(props: P) {
     value,
     schema,
     schema: { view },
+    __tree: { value: formVal },
     children,
     editKey,
     path,
@@ -49,15 +51,19 @@ function Widget<P extends Props>(props: P) {
     alterKey,
     errorMessage,
   };
+  function getFormVal() {
+    // Clone it to avoid side effects
+    return JSON.parse(JSON.stringify(formVal));
+  }
   if (view) {
     const { type } = view;
     if (typeof type === 'string') {
       const Wdgt = defaultWidget(type);
-      return <Wdgt {...forwardProps} view={view} />;
+      return <Wdgt {...forwardProps} formValue={getFormVal} view={view} />;
     }
     if (typeof type === 'function') {
       const Type = type;
-      return <Type {...forwardProps} view={view} />;
+      return <Type {...forwardProps} formValue={getFormVal} view={view} />;
     }
   }
   let renderType = Array.isArray(schema.type)
@@ -69,7 +75,13 @@ function Widget<P extends Props>(props: P) {
   } else {
     Wdgt = defaultWidget(renderType);
   }
-  return <Wdgt {...forwardProps} view={view || EMPTYOBJECT} />;
+  return (
+    <Wdgt
+      {...forwardProps}
+      formValue={getFormVal}
+      view={view || EMPTYOBJECT}
+    />
+  );
 }
 
 export default Widget;

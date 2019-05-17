@@ -4,12 +4,14 @@ import Widget from './Widget';
 import validator from '../Decorators/validator';
 
 import { Schema, Action } from '../../../typings/types';
+import { FormContext } from '../../Store';
 
 type Props = {
   schema: Schema.Object;
   status: { [key: string]: {} };
   dispatch: (action: Action, ...args: ({} | undefined)[]) => any;
   editKey: string;
+  __tree: FormContext;
   value: {
     [key: string]: {};
   };
@@ -54,7 +56,7 @@ function schemaForProp(schema: Schema.Object, prop: string) {
 }
 const EMPTY_OBJECT = {};
 
-function renderChildren(props: Props): JSX.Element[] {
+function renderChildren(props: Props) {
   const children = [];
   const properties = props.schema.properties || {};
   const value: { [key: string]: {} } = props.value || {};
@@ -136,7 +138,7 @@ function ObjectField(props: Props) {
   }
   return (
     <Widget
-      {...props as any}
+      {...props}
       addKey={addKey}
       removeKey={removeKey}
       alterKey={alterKey}
