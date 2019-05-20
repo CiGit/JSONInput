@@ -16,7 +16,7 @@ declare module 'jsonschema' {
   export class Validator {
     public attributes: { [key: string]: (...args: any[]) => any };
     public validate: (
-      value: {} | void,
+      value: {} | undefined | null,
       schema: {},
       options: { [option: string]: {} },
     ) => any;

@@ -1,5 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Visibility Change form value side effect: side effect from visible 1`] = `
+<div>
+  <label
+    class="objectField "
+  >
+    <span
+      class="title"
+    />
+  </label>
+  <div>
+    <div>
+      <label
+        class="numberField "
+      >
+        <span
+          class="title"
+        >
+          something
+        </span>
+      </label>
+      <input
+        type="text"
+        value="1"
+      />
+      <span />
+      <span />
+    </div>
+    <div>
+      <label
+        class="stringField "
+      >
+        <span
+          class="title"
+        >
+          text
+        </span>
+      </label>
+      <input
+        type="text"
+        value="asdwe"
+      />
+      <span />
+      <span />
+    </div>
+  </div>
+  <span />
+  <span />
+</div>
+`;
+
 exports[`Visibility Hides throwing visibility function: Nothing 1`] = `null`;
 
 exports[`Visibility Simple visibility: Input visible 1`] = `

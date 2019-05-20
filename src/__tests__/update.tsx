@@ -43,7 +43,7 @@ describe('Update values', () => {
   });
   test('Update array field', () => {
     let val = undefined;
-    const { container, getByText } = render(
+    const { container, getAllByText } = render(
       <Container
         schema={{ type: 'array', items: { type: 'string' } }}
         onChange={v => {
@@ -52,7 +52,7 @@ describe('Update values', () => {
         value={undefined}
       />,
     );
-    const addButton = getByText('+');
+    const addButton = getAllByText('+')[0];
     fireEvent.click(addButton);
     expect(val).toEqual([undefined]);
     const input = container.querySelector('input')!;
@@ -65,13 +65,13 @@ describe('Update values', () => {
     fireEvent.change(inputs[1], { target: { value: 'Two' } });
     expect(val).toEqual(['One', 'Two']);
     // Remove first element
-    fireEvent.click(getByText('-'));
+    fireEvent.click(getAllByText('-')[0]);
     expect(val).toEqual(['Two']);
     // Update *new* first element
     fireEvent.change(inputs[0], { target: { value: 'Two updated' } });
     expect(val).toEqual(['Two updated']);
     // Remove first element
-    fireEvent.click(getByText('-'));
+    fireEvent.click(getAllByText('-')[0]);
     expect(val).toEqual([]);
   });
 

@@ -73,7 +73,7 @@ declare namespace WidgetProps {
     /**
      * Entire's container value.
      */
-    formValue: () => {} | undefined | null;
+    formValue: {} | undefined | null;
   }
   /**
    * Use for Object widget
@@ -100,9 +100,9 @@ declare namespace WidgetProps {
 /**
  * Props passed in widgets.
  */
-type WidgetProps =
-  | WidgetProps.BaseProps
-  | WidgetProps.ArrayProps
-  | WidgetProps.ObjectProps;
+type WidgetProps<ViewBag = {}> =
+  | WidgetProps.BaseProps<ViewBag>
+  | WidgetProps.ArrayProps<ViewBag>
+  | WidgetProps.ObjectProps<ViewBag>;
 
 type Action = (tree: any, path?: string[], ...args: any[]) => {} | void;

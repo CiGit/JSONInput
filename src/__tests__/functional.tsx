@@ -2,6 +2,7 @@ import * as React from 'react';
 import { render, fireEvent, cleanup } from 'react-testing-library';
 import defaultViews from '../Comps/Views';
 import Container, { setDefaultWidgets } from '../index';
+import { WidgetProps } from '../../typings/types';
 
 describe('Visibility', () => {
   beforeAll(() => {
@@ -94,7 +95,34 @@ describe('Visibility', () => {
     );
     expect(container.firstChild).toMatchSnapshot('Nothing');
   });
+  test('Change form value side effect', () => {
+    const { container } = render(
+      <Container
+        schema={{
+          type: 'object',
+          properties: {
+            something: {
+              type: 'number',
+            },
+            text: {
+              type: 'string',
+              visible: (val, formVal) => {
+                formVal.something = 42;
+                return true;
+              },
+            },
+          },
+        }}
+        value={{ something: 1, text: 'anything' }}
+        onChange={() => {}}
+      />,
+    );
+    const input = container.querySelectorAll('input')[1];
+    fireEvent.change(input, { target: { value: 'asdwe' } });
+    expect(container.firstChild).toMatchSnapshot('side effect from visible');
+  });
 });
+
 describe('Errored', () => {
   beforeAll(() => {
     setDefaultWidgets(defaultViews as any);
@@ -153,5 +181,40 @@ describe('Errored', () => {
     expect(() => getByText(errorMessage)).not.toThrow();
     fireEvent.change(input, { target: { value: '' } });
     expect(() => getByText(errorMessage)).toThrow();
+  });
+});
+describe('View type as a function', () => {
+  test('View function', () => {
+    const val = { something: 1, str: 'Hello' };
+    render(
+      <Container
+        schema={{
+          type: 'object',
+          properties: {
+            str: {
+              type: 'string',
+              view: {
+                type: function(props: WidgetProps.BaseProps<{}>) {
+                  const updateVal = 'Hello, World';
+                  expect(props.path).toEqual(['str']);
+                  if (props.value === val.str) {
+                    expect(props.formValue).toEqual(val);
+                    props.onChange(updateVal);
+                  } else {
+                    expect(props.formValue).toEqual({
+                      something: 1,
+                      str: updateVal,
+                    });
+                  }
+                  return <span>{String(props.value)}</span>;
+                },
+              },
+            },
+          },
+        }}
+        value={val}
+        onChange={() => {}}
+      />,
+    );
   });
 });

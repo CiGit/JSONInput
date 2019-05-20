@@ -51,19 +51,15 @@ function Widget<P extends Props>(props: P) {
     alterKey,
     errorMessage,
   };
-  function getFormVal() {
-    // Clone it to avoid side effects
-    return JSON.parse(JSON.stringify(formVal));
-  }
   if (view) {
     const { type } = view;
     if (typeof type === 'string') {
       const Wdgt = defaultWidget(type);
-      return <Wdgt {...forwardProps} formValue={getFormVal} view={view} />;
+      return <Wdgt {...forwardProps} formValue={formVal} view={view} />;
     }
     if (typeof type === 'function') {
       const Type = type;
-      return <Type {...forwardProps} formValue={getFormVal} view={view} />;
+      return <Type {...forwardProps} formValue={formVal} view={view} />;
     }
   }
   let renderType = Array.isArray(schema.type)
@@ -78,7 +74,7 @@ function Widget<P extends Props>(props: P) {
   return (
     <Wdgt
       {...forwardProps}
-      formValue={getFormVal}
+      formValue={formVal}
       view={view || EMPTYOBJECT}
     />
   );

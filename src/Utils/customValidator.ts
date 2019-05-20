@@ -22,9 +22,9 @@ customValidator.attributes.errored = function validateErrored(
   return undefined;
 };
 function validate(
-  value: {} | undefined,
+  value: {} | undefined | null,
   schema: Schema,
-  formValue?: {},
+  formValue?: {} | undefined | null,
   basePath?: string[],
 ): ValidatorResult {
   return customValidator.validate(value, schema, {

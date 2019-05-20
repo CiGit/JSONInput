@@ -1,4 +1,4 @@
-export default function infer(value?: {}) {
+export default function infer(value?: {} | undefined | null) {
   switch (typeof value) {
     case 'number':
       return 'number';

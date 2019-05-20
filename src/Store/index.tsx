@@ -84,11 +84,19 @@ export class Store extends React.Component<StoreProps> {
   }
   render() {
     const { schema, value, status } = this.state;
+    const cloneValue =
+      value != null ? JSON.parse(JSON.stringify(value)) : value;
     return (
-      <FormContext.Provider value={this.state}>
+      <FormContext.Provider
+        value={{
+          schema,
+          value: cloneValue,
+          status,
+        }}
+      >
         {this.props.children({
           schema,
-          value,
+          value: cloneValue,
           status,
           dispatch: this.dispatch,
         })}
