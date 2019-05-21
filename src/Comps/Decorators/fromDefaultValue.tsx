@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep, isEqual } from 'lodash-es';
 import { setDefaultValue } from '../../Store/actions';
 import { Action, Schema } from '../../../typings/types';
 
@@ -29,6 +29,12 @@ function updateDefault({
 function fromDefaultValue<P extends Props>(Comp: React.ComponentType<P>) {
   class DefaultValue extends React.Component<P, { val?: {}; init: boolean }> {
     static getDerivedStateFromProps(nextProps: P, state: { init: boolean }) {
+      const {schema, value, dispatch, path} = nextProps
+      if("const" in schema && !isEqual(schema.const, value)){
+        const val = cloneDeep(schema.const);
+        dispatch(setDefaultValue, path, val);
+        return {val};
+      }
       if (state.init) {
         return { init: false };
       }

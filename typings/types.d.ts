@@ -13,6 +13,7 @@ declare namespace Schema {
   interface BASE<ViewBag extends BaseView = BaseView> {
     type?: TYPESTRING | TYPESTRING[];
     value?: {};
+    const?: {};
     visible?: (value: any, formValue: any, path: string[]) => boolean;
     errored?: ErrorFn;
     index?: number;

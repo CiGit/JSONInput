@@ -100,4 +100,20 @@ describe('Update values', () => {
     fireEvent.change(input, { target: { value: '' } });
     expect(val).toBe(undefined);
   });
+  test('Update a const', () => {
+    let val = 33;
+    const { container } = render(
+      <Container
+        schema={{ type: 'number', const: 42 }}
+        onChange={(v: number) => {
+          val = v;
+        }}
+        value={val}
+      />,
+    );
+    const input = container.querySelector('input')!;
+    expect(val).toBe(42);
+    fireEvent.change(input, { target: { value: 11 } });
+    expect(val).toBe(42);
+  });
 });
