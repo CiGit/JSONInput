@@ -64,7 +64,7 @@ declare namespace WidgetProps {
    * Use for string / number / boolean widgets
    */
   interface BaseProps<ViewBag = {}> {
-    value: {} | undefined | null;
+    value?: {} | null;
     onChange: (value?: {}) => void;
     schema: Schema<ViewBag>;
     view: ViewBag;
@@ -80,7 +80,7 @@ declare namespace WidgetProps {
    * Use for Object widget
    */
   interface ObjectProps<ViewBag = {}> extends BaseProps<ViewBag> {
-    value: object | undefined | null;
+    value?: object | null;
     schema: Schema.Object<ViewBag>;
     children: (React.ReactElement<WidgetProps>)[];
     addKey: (key: string, value?: {}) => void;
@@ -91,7 +91,7 @@ declare namespace WidgetProps {
    * Use for Array widget
    */
   interface ArrayProps<ViewBag = {}> extends BaseProps<ViewBag> {
-    value: {}[] | undefined | null;
+    value?: {}[] | null;
     schema: Schema.Array<ViewBag>;
     children: (React.ReactElement<WidgetProps>)[];
     onChildAdd: (value?: {}) => void;
