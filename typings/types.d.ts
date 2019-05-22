@@ -35,14 +35,14 @@ declare namespace Schema {
   }
   interface Object<ViewBag extends BaseView = BaseView> extends BASE<ViewBag> {
     type?: 'object' | ['object', 'null'];
-    properties?: { [property: string]: Schema };
-    patternProperties?: { [pattern: string]: Schema };
-    additionalProperties?: Schema;
+    properties?: { [property: string]: Schema<ViewBag> };
+    patternProperties?: { [pattern: string]: Schema<ViewBag> };
+    additionalProperties?: Schema<ViewBag>;
   }
   interface Array<ViewBag extends BaseView = BaseView> extends BASE<ViewBag> {
     type?: 'array' | ['array', 'null'];
-    items?: Schema | Schema[];
-    additionalItems?: Schema;
+    items?: Schema<ViewBag> | Schema<ViewBag>[];
+    additionalItems?: Schema<ViewBag>;
     maxItems?: number;
     minItems?: number;
   }
