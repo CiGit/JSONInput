@@ -12,7 +12,7 @@ type Props = {
   errorMessage?: string[];
   path: string[];
   children?: JSX.Element[];
-  addKey?: (key: string, value: {}) => void;
+  addKey?: (key: string, value?: unknown) => void;
   removeKey?: (key: string) => void;
   alterKey?: (key: string, newKey: string) => void;
   onChildAdd?: () => void;
