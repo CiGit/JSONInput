@@ -20,8 +20,7 @@ jobs:
     - name: npm install, build, and test
       run: |
         yarn
-        yarn run build --if-present
-        yarn test
+        yarn run build
     - name: check built correctly
       run: |
         git add .
