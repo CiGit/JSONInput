@@ -32,7 +32,7 @@
     }
   },
   "dependencies": {
-    "immer": "^3.2.0",
+    "immer": "^9.0.6",
     "jsonschema": "^1.2.4",
     "lodash-es": "^4.17.15"
   },
