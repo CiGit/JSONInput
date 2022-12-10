@@ -57,7 +57,7 @@
     "cross-env": "^5.2.0",
     "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-import": "^2.18.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "jest": "^24.8.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
